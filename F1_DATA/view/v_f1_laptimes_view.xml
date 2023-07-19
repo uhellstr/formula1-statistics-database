@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="b9495c6fa9ba3d0dff25c9822eb21a96faadd36d" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_LAPTIMES" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>F1_DATA</SCHEMA>
+   <NAME>V_F1_LAPTIMES</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>SEASON</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>ROUND</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>INFO</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACENAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CIRCUITID</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>URL</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CIRCUITNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACE_DATE</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACE_TIME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>LAP_NUMBER</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>DRIVERID</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POSITION</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>LAPTIME</NAME>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <SUBQUERY>select to_number(f1.season) as season,
+       to_number(f1.round) as round,
+       f1.info,
+       f1.racename,
+       f1.circuitid,
+       f1.url,
+       f1.circuitname,
+       to_date(f1.race_date,'RRRR-MM-DD') as race_date,
+       f1.race_time,
+       to_number(f1.lap_number) as lap_number,
+       f1.driverid,
+       to_number(f1.position) as position,
+       f1.laptime
+from f1_staging.v_f1_json_docs ftab,
+     json_table(ftab.f1_document,'$.MRData.RaceTable.Races[*]'
+                COLUMNS ( season PATH '$.season',
+                          round PATH '$.round',
+                          info PATH '$.url',
+                          raceName PATH '$.raceName',
+                          nested path '$.Circuit[*]'
+                          COLUMNS(
+                             circuitid PATH '$.circuitId',
+                             url PATH '$.url',
+                             circuitName PATH '$.circuitName'),
+                         race_date PATH '$.date',
+                         race_time PATH '$.time',
+                         nested path '$.Laps[*]'
+                         COLUMNS(
+                            lap_number PATH '$.number',
+                            nested PATH '$.Timings[*]'
+                            COLUMNS(
+                               driverId PATH '$.driverId',
+                               position PATH '$.position',
+                               laptime PATH '$.time')))   
+               ) f1
+where ftab.doc_type = 'LAPTIMES'                
+order by to_number(f1.season),to_number(f1.round),to_number(f1.lap_number),to_number(f1.position)</SUBQUERY>
+</VIEW>]]></n0:source>
+		</n0:createSxmlObject>
+	</changeSet>
+</databaseChangeLog>

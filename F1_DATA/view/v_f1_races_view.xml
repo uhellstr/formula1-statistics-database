@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="a490805e2e97f501f9e6e8cc689d88354996850b" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_RACES" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>F1_DATA</SCHEMA>
+   <NAME>V_F1_RACES</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>SEASON</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>ROUND</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>INFO</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACENAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CIRCUITID</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>URL</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CIRCUITNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>LAT</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>LONGITUDE</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>LOCALITY</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>COUNTRY</NAME>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <SUBQUERY>select to_number(f1.season) as season
+       ,to_number(f1.round) as round
+       ,f1.info
+       ,f1.racename
+       ,f1.circuitid
+       ,f1.url
+       ,f1.circuitname
+       ,f1.lat
+       ,f1.lon as longitude
+       ,f1.locality
+       ,f1.country
+from f1_staging.v_f1_json_docs ftab,
+     json_table(ftab.f1_document,'$.MRData.RaceTable.Races[*]'
+                COLUMNS ( season PATH '$.season',
+                          round PATH '$.round',
+                          info PATH '$.url',
+                          raceName PATH '$.raceName',
+                          circuitId PATH '$.Circuit.circuitId',
+                          url PATH '$.Circuit.url',
+                          circuitName PATH '$.Circuit.circuitName',
+                          lat PATH '$.Circuit.Location.lat',
+                          lon PATH '$.Circuit.Location.long',
+                          locality PATH '$.Circuit.Location.locality',
+                          country PATH '$.Circuit.Location.country'
+                        )
+               ) f1
+where ftab.doc_type = 'RACES'
+order by to_number(f1.season),to_number(f1.round)</SUBQUERY>
+</VIEW>]]></n0:source>
+		</n0:createSxmlObject>
+	</changeSet>
+</databaseChangeLog>

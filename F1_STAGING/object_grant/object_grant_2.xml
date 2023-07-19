@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="6c29b1acb59da68eb3df0ee17ab1413b2a6f78f9" author="(F1_STAGING)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleGrant objectName="object_grant2" objectType="OBJECT_GRANT" ownerName="F1_STAGING"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  GRANT SELECT ON "F1_STAGING"."F1_JSON_RACETYPE" TO "F1_DATA"]]></n0:source>
+		</n0:createOracleGrant>
+	</changeSet>
+</databaseChangeLog>

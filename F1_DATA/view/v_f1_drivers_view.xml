@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="4f0d4e6400a151792604bae474a6df4cb4b67685" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_DRIVERS" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>F1_DATA</SCHEMA>
+   <NAME>V_F1_DRIVERS</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>DRIVERID</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>PERMANENTNUMBER</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CODE</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>INFO</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>GIVENNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>FAMILYNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>DATEOFBIRTH</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NATIONALITY</NAME>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <SUBQUERY>select f1.driverid
+       ,f1.permanentNumber
+       ,f1.code
+       ,f1.info
+       ,f1.givenname
+       ,f1.familyname
+       ,f1.dateofbirth
+       ,f1.nationality
+from f1_staging.v_f1_json_docs ftab,
+     json_table(ftab.f1_document,'$.MRData.DriverTable.Drivers[*]'
+                COLUMNS ( driverid PATH '$.driverId',
+                          permanentNumber PATH '$.permanentNumber',
+                          code PATH '$.code',
+                          info PATH '$.url',
+                          givenName PATH '$.givenName',
+                          familyName PATH '$.familyName',
+                          dateOfBirth PATH '$.dateOfBirth',
+                          nationality PATH '$.nationality')
+               ) f1
+where ftab.doc_type = 'DRIVERS'</SUBQUERY>
+</VIEW>]]></n0:source>
+		</n0:createSxmlObject>
+	</changeSet>
+</databaseChangeLog>

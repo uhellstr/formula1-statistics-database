@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+############ ddl.parms  ########################################
+BODY                           : ON
+COLLATION_CLAUSE               : NEVER
+CONSTRAINTS                    : ON
+CONSTRAINTS_AS_ALTER           : ON
+EMIT_SCHEMA                    : ON
+FORCE                          : ON
+INHERIT                        : ON
+INSERT                         : ON
+OID                            : ON
+PARTITIONING                   : ON
+PRETTY                         : ON
+REF_CONSTRAINTS                : ON
+SEGMENT_ATTRIBUTES             : ON
+SIZE_BYTE_KEYWORD              : ON
+SPECIFICATION                  : ON
+SQLTERMINATOR                  : ON
+STORAGE                        : ON
+TABLESPACE                     : ON
+
+############ lb.parameters ########################################
+basecommand                    : lb
+command                        : generate-schema
+database-changelog-table-name  : DATABASECHANGELOG
+fail-on-error                  : false
+grants                         : true
+log                            : false
+replace                        : true
+runalways                      : false
+runonchange                    : true
+split                          : true
+sqlclversion                   : 23.2.0.0
+synonyms                       : true
+############ End Parameters #######################################
+-->
+<databaseChangeLog 
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <include file="table/f1_drivers_table.xml"/> 
+  <include file="table/f1_tracks_table.xml"/> 
+  <include file="table/f1_official_timedata_table.xml"/> 
+  <include file="table/f1_constructors_table.xml"/> 
+  <include file="table/f1_official_weather_table.xml"/> 
+  <include file="table/f1_season_table.xml"/> 
+  <include file="object_grant/object_grant_0.xml"/> 
+  <include file="object_grant/object_grant_1.xml"/> 
+  <include file="object_grant/object_grant_2.xml"/> 
+  <include file="object_grant/object_grant_3.xml"/> 
+  <include file="object_grant/object_grant_4.xml"/> 
+  <include file="object_grant/object_grant_5.xml"/> 
+  <include file="object_grant/object_grant_6.xml"/> 
+  <include file="object_grant/object_grant_7.xml"/> 
+  <include file="object_grant/object_grant_8.xml"/> 
+  <include file="object_grant/object_grant_9.xml"/> 
+  <include file="object_grant/object_grant_10.xml"/> 
+  <include file="object_grant/object_grant_11.xml"/> 
+  <include file="object_grant/object_grant_12.xml"/> 
+  <include file="table/f1_races_table.xml"/> 
+  <include file="table/f1_results_table.xml"/> 
+  <include file="table/f1_qualificationtimes_table.xml"/> 
+  <include file="table/f1_constructorstandings_table.xml"/> 
+  <include file="table/f1_laptimes_table.xml"/> 
+  <include file="table/f1_driverstandings_table.xml"/> 
+  <include file="view/v_f1_seasons_race_dates_view.xml"/> 
+  <include file="view/v_f1_constructors_view.xml"/> 
+  <include file="view/v_f1_constructorstandings_view.xml"/> 
+  <include file="view/v_f1_drivers_view.xml"/> 
+  <include file="view/v_f1_driverstandings_view.xml"/> 
+  <include file="view/v_f1_laptimes_view.xml"/> 
+  <include file="view/v_f1_qualificationtimes_view.xml"/> 
+  <include file="view/v_f1_races_view.xml"/> 
+  <include file="view/v_f1_results_view.xml"/> 
+  <include file="view/v_f1_last_race_results_view.xml"/> 
+  <include file="view/v_f1_upcoming_races_view.xml"/> 
+  <include file="view/v_f1_season_view.xml"/> 
+  <include file="view/v_f1_tracks_view.xml"/> 
+  <include file="index/f1_laptimes_idx1_index.xml"/> 
+  <include file="index/f1_driverstandings_idx1_index.xml"/> 
+  <include file="index/f1_constructorstandings_idx1_index.xml"/> 
+  <include file="index/f1_races_idx1_index.xml"/> 
+  <include file="index/in_f1_official_weather_index.xml"/> 
+  <include file="index/f1_qualificationtimes_idx1_index.xml"/> 
+  <include file="index/f1_results_idx1_index.xml"/> 
+  <include file="index/ind1_official_timedata_index.xml"/> 
+  <include file="comment/f1_constructorstandings_comments.xml"/> 
+  <include file="comment/f1_constructors_comments.xml"/> 
+</databaseChangeLog> 
