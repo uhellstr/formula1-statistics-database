@@ -46,4 +46,7 @@ synonyms                       : true
   <include file="function/get_check_season_function.xml"/> 
   <include file="function/get_cur_f1_season_function.xml"/> 
   <include file="package_body/f1_init_pkg_package_body.xml"/> 
+  <include file="job/auto_load_new_f1_data_job.xml"/> 
+  <include file="job/auto_ergast_load_job_job.xml"/> 
+  <include file="job/auto_load_json_schedule_job.xml"/> 
 </databaseChangeLog> 

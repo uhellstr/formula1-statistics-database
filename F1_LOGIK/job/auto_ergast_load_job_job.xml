@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="0a1d37388b265cd6a95fe9dd6fefe77a194c7656" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleJob objectName="AUTO_ERGAST_LOAD_JOB" objectType="JOB" ownerName="F1_LOGIK"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  
+BEGIN 
+dbms_scheduler.create_job('AUTO_ERGAST_LOAD_JOB',
+program_name=>'AUTO_LOAD_NEW_F1_DATA',
+schedule_name=>'AUTO_LOAD_JSON_SCHEDULE',
+job_class=>'DEFAULT_JOB_CLASS', enabled=>FALSE, auto_drop=>TRUE,comments=>
+'Job to automagicly load new data from ERGAST F1'
+);
+sys.dbms_scheduler.set_attribute('AUTO_ERGAST_LOAD_JOB','NLS_ENV','NLS_LANGUAGE=''AMERICAN'' NLS_TERRITORY=''SWEDEN'' NLS_CURRENCY=''Kr'' NLS_ISO_CURRENCY=''SWEDEN'' NLS_NUMERIC_CHARACTERS='',.'' NLS_CALENDAR=''GREGORIAN'' NLS_DATE_FORMAT=''RRRR-MM-DD'' NLS_DATE_LANGUAGE=''AMERICAN'' NLS_SORT=''BINARY'' NLS_TIME_FORMAT=''HH24:MI:SSXFF'' NLS_TIMESTAMP_FORMAT=''RRRR-MM-DD HH24:MI:SSXFF'' NLS_TIME_TZ_FORMAT=''HH24:MI:SSXFF TZR'' NLS_TIMESTAMP_TZ_FORMAT=''RRRR-MM-DD HH24:MI:SSXFF TZR'' NLS_DUAL_CURRENCY=''€'' NLS_COMP=''BINARY'' NLS_LENGTH_SEMANTICS=''BYTE'' NLS_NCHAR_CONV_EXCP=''FALSE''');
+dbms_scheduler.enable('AUTO_ERGAST_LOAD_JOB');
+COMMIT; 
+END; 
+]]></n0:source>
+		</n0:createOracleJob>
+	</changeSet>
+</databaseChangeLog>

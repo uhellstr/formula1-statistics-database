@@ -285,9 +285,8 @@ as
 
     cursor cur_get_f1_races is
     select season as season
-           ,race as race
-    from f1_staging.f1_json_docs
-    where doc_type = 8;
+           ,round as race
+    from f1_data.v_f1_seasons_race_dates;
 
     -- inline
     procedure insert_results
@@ -568,8 +567,7 @@ as
 
     cursor cur_get_f1_seasons is
     select season 
-    from f1_staging.f1_json_docs
-    where doc_type = 10;
+    from f1_data.v_f1_season;
 
     -- inline
     procedure insert_results
@@ -644,9 +642,9 @@ as
     lv_next_round_nr number;
 
     cursor cur_get_season_year is
-    select to_number(season) as season
+    select season 
     from f1_data.v_f1_season
-    where to_number(season) > 1993;
+    where season > 1993;
 
     -- inline
     procedure get_qualitimes
@@ -708,7 +706,7 @@ as
 
       -- Special handling for current season since not all races are done yeat
 
-     select max(to_number(round)) into lv_number_of_races
+     select max(round) into lv_number_of_races
      from f1_data.v_f1_races
      where season = rec.season;
 
@@ -792,7 +790,7 @@ as
         ) values
         ( 
           f1_staging.f1_staging_seq.nextval
-          ,6
+          ,5
           ,systimestamp
           ,p_in_year
           ,p_in_round

@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="478cfdf0b3a72e69618dca11d195e6168bf2ab2b" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="93957f013a04699ffe4c016f3cd8be6c949030a9" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createOraclePackageBody objectName="F1_INIT_PKG" objectType="PACKAGE_BODY" ownerName="F1_LOGIK"  replaceIfExists="true" >
 			<n0:source><![CDATA[
   CREATE OR REPLACE EDITIONABLE PACKAGE BODY "F1_LOGIK"."F1_INIT_PKG" 
@@ -294,9 +294,8 @@ as
 
     cursor cur_get_f1_races is
     select season as season
-           ,race as race
-    from f1_staging.f1_json_docs
-    where doc_type = 8;
+           ,round as race
+    from f1_data.v_f1_seasons_race_dates;
 
     -- inline
     procedure insert_results
@@ -577,8 +576,7 @@ as
 
     cursor cur_get_f1_seasons is
     select season 
-    from f1_staging.f1_json_docs
-    where doc_type = 10;
+    from f1_data.v_f1_season;
 
     -- inline
     procedure insert_results
@@ -653,9 +651,9 @@ as
     lv_next_round_nr number;
 
     cursor cur_get_season_year is
-    select to_number(season) as season
+    select season 
     from f1_data.v_f1_season
-    where to_number(season) > 1993;
+    where season > 1993;
 
     -- inline
     procedure get_qualitimes
@@ -717,7 +715,7 @@ as
 
       -- Special handling for current season since not all races are done yeat
 
-     select max(to_number(round)) into lv_number_of_races
+     select max(round) into lv_number_of_races
      from f1_data.v_f1_races
      where season = rec.season;
 
@@ -801,7 +799,7 @@ as
         ) values
         ( 
           f1_staging.f1_staging_seq.nextval
-          ,6
+          ,5
           ,systimestamp
           ,p_in_year
           ,p_in_round

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="564c3f8af821de6c9c2a7c9d1060aa2af63b8bc7" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleJob objectName="AUTO_LOAD_JSON_SCHEDULE" objectType="JOB" ownerName="F1_LOGIK"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  
+BEGIN 
+dbms_scheduler.disable1_calendar_check();
+dbms_scheduler.create_schedule('AUTO_LOAD_JSON_SCHEDULE',TO_TIMESTAMP_TZ('21-JUL-2023 02.44.10,000000000 PM EUROPE/STOCKHOLM','DD-MON-RRRR HH.MI.SSXFF AM TZR','NLS_DATE_LANGUAGE=english'),
+'FREQ=DAILY;BYHOUR=20;BYMINUTE=0;BYSECOND=0;',
+NULL,
+'Autoload any new ergast data'
+);
+COMMIT; 
+END; 
+]]></n0:source>
+		</n0:createOracleJob>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="e7d1810f14e97758c8be711ae4be88bb1608923a" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleJob objectName="AUTO_LOAD_NEW_F1_DATA" objectType="JOB" ownerName="F1_LOGIK"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  
+
+  
+BEGIN 
+dbms_scheduler.create_program('AUTO_LOAD_NEW_F1_DATA','STORED_PROCEDURE',
+'f1_init_pkg.load_json'
+,0, TRUE,
+'Call stored packaged procedure'
+);
+COMMIT; 
+END; 
+ 
+dbms_scheduler.create_program('AUTO_LOAD_NEW_F1_DATA','STORED_PROCEDURE',
+'f1_init_pkg.load_json'
+,0, TRUE,
+'Call stored packaged procedure'
+);
+COMMIT; 
+END; 
+]]></n0:source>
+		</n0:createOracleJob>
+	</changeSet>
+</databaseChangeLog>
