@@ -5,10 +5,10 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="019d98210ac612d4254ffbcdf289670e11a25484" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="5981f147b23562eff40116a863ca306f79be25bb" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createOracleGrant objectName="object_grant59" objectType="OBJECT_GRANT" ownerName="F1_DATA"  replaceIfExists="true" >
 			<n0:source><![CDATA[
-  GRANT FLASHBACK ON "F1_DATA"."F1_TRACKS" TO "F1_LOGIK"]]></n0:source>
+  GRANT READ ON "F1_DATA"."F1_TRACKS" TO "F1_LOGIK"]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>

@@ -1,0 +1,70 @@
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."TO_MILLIS" 
+(
+    p_in_laptime in varchar2
+) return number 
+is
+
+  lv_retval number;
+  lv_hour varchar2(2);      
+  lv_minutes varchar2(10);  
+  lv_seconds varchar2(10);  
+  lv_millis  varchar2(10);      
+
+begin
+
+    --dbms_output.put_line('-- before official f1 telemetry ---');
+    if length(p_in_laptime) = 15 then  -- official f1 telemetry
+      --dbms_output.put_line('F1 official full length timestamp');
+      lv_hour := substr(p_in_laptime,1,2);
+      lv_minutes := substr(p_in_laptime,4,2);
+      lv_seconds := substr(p_in_laptime,7,2);
+      lv_millis  := replace(substr(p_in_laptime,10,15),'000',''); 
+      --dbms_output.put_line('Hour: '||lv_hour); 
+      --dbms_output.put_line('Minutes: '||lv_minutes);
+      --dbms_output.put_line('Seconds: '||lv_seconds);
+      --dbms_output.put_line('Millisec: '||lv_millis);
+      lv_retval := (to_number(lv_minutes) * 60000) + (to_number(lv_seconds) * 1000) + nvl(to_number(lv_millis),0);
+    end if;
+    --dbms_output.put_line('-- before official f1 telemetry missing millis ---');
+    if (length(p_in_laptime) = 8 and instr(p_in_laptime,'.') = 0) then -- official f1 telemetry without millisecs
+      --dbms_output.put_line('F1 official missing millisecs.'); 
+      lv_hour := substr(p_in_laptime,1,2);
+      lv_minutes := substr(p_in_laptime,4,2);
+      lv_seconds := substr(p_in_laptime,7,2);
+      --dbms_output.put_line('Hour: '||lv_hour); 
+      --dbms_output.put_line('Minutes: '||lv_minutes);
+      --dbms_output.put_line('Seconds: '||lv_seconds);
+      --dbms_output.put_line('Millisec: '||lv_millis);      
+      lv_retval := (to_number(lv_minutes) * 60000) + (to_number(lv_seconds) * 1000);
+    end if;  
+    -- else calculate using ergast format
+    --dbms_output.put_line('-- before ergast ---');
+    if (length(p_in_laptime) < 15 and regexp_count(p_in_laptime, ':') = 2 and instr(p_in_laptime,'.') > 0)  then -- We have hours in the string too
+      --dbms_output.put_line('Ergast with hours');
+      lv_hour := substr(p_in_laptime,1,instr(p_in_laptime,':',1)-1);
+      lv_minutes := substr(p_in_laptime,instr(p_in_laptime,':',1)+1,instr(p_in_laptime,':',2));
+      lv_seconds := substr(p_in_laptime,instr(p_in_laptime,':',1,2)+1,(length(p_in_laptime) - instr(p_in_laptime,'.',1)-1));
+      lv_millis := substr(p_in_laptime,instr(p_in_laptime,'.',-1)+1);
+      --dbms_output.put_line('Hour: '||lv_hour); 
+      --dbms_output.put_line('Minutes: '||lv_minutes);
+      --dbms_output.put_line('Seconds: '||lv_seconds);
+      --dbms_output.put_line('Millisec: '||lv_millis);      
+      lv_retval := ((to_number(lv_hour) * 60) * 60000) + (to_number(lv_minutes) * 60000) + (to_number(lv_seconds) * 1000) + to_number(lv_millis);
+    end if; 
+    -- ergast mi.ss.mi
+    if (length(p_in_laptime) = 8 and regexp_count(p_in_laptime, ':') = 1 and instr(p_in_laptime,'.') > 0) then
+      --dbms_output.put_line('Ergast mi.ss.mi');
+      lv_minutes := substr(p_in_laptime,1,instr(p_in_laptime,':',1)-1);
+      lv_seconds := substr(p_in_laptime,instr(p_in_laptime,':',1)+1,(length(p_in_laptime) - instr(p_in_laptime,'.',1)-1));
+      lv_millis  := substr(p_in_laptime,instr(p_in_laptime,'.',-1)+1);
+      --dbms_output.put_line('Minutes: '||lv_minutes);
+      --dbms_output.put_line('Seconds: '||lv_seconds);
+      --dbms_output.put_line('Millisec: '||lv_millis);      
+      lv_retval := (to_number(lv_minutes) * 60000) + (to_number(lv_seconds) * 1000) + to_number(lv_millis);
+    end if;
+
+    return  lv_retval;
+
+end to_millis;
+

@@ -5,10 +5,10 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="df65e651c7dbcca0a49386d5870a0cd3ec342362" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="75f85ec42eb3c2385b71b649ecc386481a0e4a8a" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createOracleGrant objectName="object_grant99" objectType="OBJECT_GRANT" ownerName="F1_DATA"  replaceIfExists="true" >
 			<n0:source><![CDATA[
-  GRANT INSERT ON "F1_DATA"."F1_QUALIFICATIONTIMES" TO "F1_LOGIK"]]></n0:source>
+  GRANT ON COMMIT REFRESH ON "F1_DATA"."F1_RESULTS" TO "F1_LOGIK"]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>

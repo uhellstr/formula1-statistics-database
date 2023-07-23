@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="b06b304dd3fc348b3c857c59832e1e0cb86e103f" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createOracleGrant objectName="object_grant145" objectType="OBJECT_GRANT" ownerName="F1_DATA"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  GRANT SELECT ON "F1_DATA"."V_F1_TRACKS" TO "F1_LOGIK"]]></n0:source>
+		</n0:createOracleGrant>
+	</changeSet>
+</databaseChangeLog>

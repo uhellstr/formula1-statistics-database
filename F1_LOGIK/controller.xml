@@ -41,7 +41,16 @@ synonyms                       : true
         xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <include file="function/to_millis_function.xml"/> 
   <include file="package_spec/f1_init_pkg_package_spec.xml"/> 
+  <include file="object_grant/object_grant_0.xml"/> 
+  <include file="object_grant/object_grant_1.xml"/> 
+  <include file="object_grant/object_grant_2.xml"/> 
+  <include file="object_grant/object_grant_3.xml"/> 
+  <include file="object_grant/object_grant_4.xml"/> 
+  <include file="object_grant/object_grant_5.xml"/> 
+  <include file="object_grant/object_grant_6.xml"/> 
+  <include file="object_grant/object_grant_7.xml"/> 
   <include file="function/get_last_race_function.xml"/> 
   <include file="function/get_check_season_function.xml"/> 
   <include file="function/get_cur_f1_season_function.xml"/> 

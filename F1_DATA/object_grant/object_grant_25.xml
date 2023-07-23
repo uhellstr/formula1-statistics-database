@@ -5,10 +5,10 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="c0317adaa4572f3c2bbf0ccbba7e9e7b660cd73e" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="31c1871da2b57d40ac90dde4fd1ce977ae00e681" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createOracleGrant objectName="object_grant25" objectType="OBJECT_GRANT" ownerName="F1_DATA"  replaceIfExists="true" >
 			<n0:source><![CDATA[
-  GRANT DELETE ON "F1_DATA"."F1_DRIVERS" TO "F1_LOGIK"]]></n0:source>
+  GRANT SELECT ON "F1_DATA"."F1_CONSTRUCTORSTANDINGS" TO "F1_ACCESS"]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>
