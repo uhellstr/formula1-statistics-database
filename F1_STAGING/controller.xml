@@ -44,8 +44,10 @@ synonyms                       : true
   <include file="sequence/f1_staging_seq_sequence.xml"/> 
   <include file="table/f1_json_doctype_table.xml"/> 
   <include file="table/f1_json_racetype_table.xml"/> 
-  <include file="db_link/droplet_db_link.xml"/> 
-  <include file="db_link/oel8_db_link.xml"/> 
+  <include file="table/f1_json_docs_table.xml"/> 
+  <include file="view/v_f1_json_docs_view.xml"/> 
+  <include file="index/f1_json_docs_doctype_idx1_index.xml"/> 
+  <include file="comment/f1_json_doctype_comments.xml"/> 
   <include file="object_grant/object_grant_0.xml"/> 
   <include file="object_grant/object_grant_1.xml"/> 
   <include file="object_grant/object_grant_2.xml"/> 
@@ -63,8 +65,4 @@ synonyms                       : true
   <include file="object_grant/object_grant_14.xml"/> 
   <include file="object_grant/object_grant_15.xml"/> 
   <include file="object_grant/object_grant_16.xml"/> 
-  <include file="table/f1_json_docs_table.xml"/> 
-  <include file="view/v_f1_json_docs_view.xml"/> 
-  <include file="index/f1_json_docs_doctype_idx1_index.xml"/> 
-  <include file="comment/f1_json_doctype_comments.xml"/> 
 </databaseChangeLog> 
