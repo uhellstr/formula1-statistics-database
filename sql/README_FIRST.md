@@ -10,10 +10,10 @@ To setup your personal non commersial (You are not allowed to use this data in a
   
 ## Pre-requirements.
   
-  -- Oracle Application express.
-  -- A USERS tablespace on around 500M-1G in size (Make it autoextendable) 
-  -- A instant client version 21.0 or higher with a working SQlcmdline (sqlcl) since we install most of the objects with help of liquibase.
-  -- SQlcmdLine version 23.2 or higher. 
+  - Oracle Application express.
+  - A USERS tablespace on around 500M-1G in size (Make it autoextendable) 
+  - A instant client version 21.0 or higher with a working SQlcmdline (sqlcl) since we install most of the objects with help of liquibase.
+  - SQlcmdLine version 23.2 or higher. 
 
 ## Prepare to install the necessary schemas.
 
@@ -21,11 +21,11 @@ Note: You should run all script using SQLcmdLine instead of using sqlplus.
 
 The following schemas will be installed
 
- F1_STAGING - Staging schema storing ERGAST data in JSON format.
- F1_DATA    - Tranformed schema transforming JSON data from F1_STAGING into relational views and tables.
- F1_LOGIK   - Schema with PL/SQL code and SCHEDULED job to maintaine and keep your database upto date with the lateset raceresults.
- F1_ACCESS  - Schema to be used by end-users to be able to do statistical and analyze the data 
- F1_REST_ACCESS - If you use Oracle ORDS (Rest data Services) you can use this to publish rest services for external utilities like Jupyter Notebooks etc for graphing.
+ - F1_STAGING - Staging schema storing ERGAST data in JSON format.
+ - F1_DATA    - Tranformed schema transforming JSON data from F1_STAGING into relational views and tables.
+ - F1_LOGIK   - Schema with PL/SQL code and SCHEDULED job to maintaine and keep your database upto date with the lateset raceresults.
+ - F1_ACCESS  - Schema to be used by end-users to be able to do statistical and analyze the data 
+ - F1_REST_ACCESS - If you use Oracle ORDS (Rest data Services) you can use this to publish rest services for external utilities like Jupyter Notebooks etc for graphing.
  
  First of all. Make sure you have a USERS tablespace in target database and that APEX is installed. The F1_LOGIK schema uses APEX API packages heavily.
  
@@ -40,17 +40,17 @@ The following schemas will be installed
  After sucesfull installation of the schemas you should have f1_staging,f1_data,f1_logik and an extra schema for eventual future REST calls f1_rest_access.
  All schemas are setup with a default password "oracle". You should immediate change this password for each schema to something more secure.
 
-'''
+``` 
 $ sql 
 SQL> conn sys@<TNS-ALIAS> as sysdba
 SQL> @install.sql
-'''
+```
 
 ## Setup schema objects.
 
 To setup all database objects we will use the built in liquibase in SQlcmdLine run the following scripts in the order below
 
-'''
+``` 
 $ sql /nolog
 SQL> conn f1_staging@<TNS-ALIAS>
 SQL> @lb_install_f1_staging
@@ -66,14 +66,14 @@ SQL> @lb_install_f1_logik
 $ sql /nolog
 SQL> conn f1_access@<TNS-ALIAS>
 SQL> @lb_install_f1_access
-'''
+``` 
 
 Finally , due to some obscure bug with JOBS in liquibase we have to setup a scheduled job in the F1_LOGIK schema.
 
-'''
+``` 
 sql /nolog
 SQL> conn sys@<TNS-ALIAS> as sysdba
 SQL> @F1_LOGIK_SCHEDULER.sql
-'''
+``` 
  
 Finished!
