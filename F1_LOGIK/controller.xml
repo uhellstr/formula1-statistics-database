@@ -43,6 +43,10 @@ synonyms                       : true
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <include file="function/to_millis_function.xml"/> 
   <include file="package_spec/f1_init_pkg_package_spec.xml"/> 
+  <include file="function/get_last_race_function.xml"/> 
+  <include file="function/get_check_season_function.xml"/> 
+  <include file="function/get_cur_f1_season_function.xml"/> 
+  <include file="package_body/f1_init_pkg_package_body.xml"/> 
   <include file="object_grant/object_grant_0.xml"/> 
   <include file="object_grant/object_grant_1.xml"/> 
   <include file="object_grant/object_grant_2.xml"/> 
@@ -51,11 +55,5 @@ synonyms                       : true
   <include file="object_grant/object_grant_5.xml"/> 
   <include file="object_grant/object_grant_6.xml"/> 
   <include file="object_grant/object_grant_7.xml"/> 
-  <include file="function/get_last_race_function.xml"/> 
-  <include file="function/get_check_season_function.xml"/> 
-  <include file="function/get_cur_f1_season_function.xml"/> 
-  <include file="package_body/f1_init_pkg_package_body.xml"/> 
-  <include file="job/auto_load_new_f1_data_job.xml"/> 
-  <include file="job/auto_ergast_load_job_job.xml"/> 
-  <include file="job/auto_load_json_schedule_job.xml"/> 
+
 </databaseChangeLog> 
