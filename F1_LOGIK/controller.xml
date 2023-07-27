@@ -55,5 +55,4 @@ synonyms                       : true
   <include file="object_grant/object_grant_5.xml"/> 
   <include file="object_grant/object_grant_6.xml"/> 
   <include file="object_grant/object_grant_7.xml"/> 
-
 </databaseChangeLog> 

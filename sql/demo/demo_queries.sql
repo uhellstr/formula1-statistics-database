@@ -8,7 +8,11 @@
 
 --alter session set statistics_level=ALL;
 
--- Tracks and races in order by season and race
+REM
+REM Info on current season or last season if we are between seasons
+REM
+
+-- Tracks and races for current season
 
 select vr.season
        ,vr.round
@@ -22,6 +26,7 @@ select vr.season
 from f1_access.v_f1_tracks vt
 inner join f1_access.v_f1_races vr
 on vt.circuitid = vr.circuitid
+where vr.season = f1_logik.get_cur_f1_season  -- result cache function used here to calculate current season to speed up things.
 order by to_number(vr.season) desc, to_number(vr.round) asc;
 
 -- Give us the current driver standings in the current season or if between seasons the last season
@@ -163,3 +168,90 @@ on f1d.driverid = vfd.driverid
 where f1l.season = f1_logik.get_cur_f1_season
 group by f1l.season,vfd.givenname,vfd.familyname,vfd.nationality,f1l.position
 ) order by  position asc,laps_hold_position desc;
+
+--
+-- Number of times drivers been on podium and there current points in the current or last season.
+--
+
+select season
+       ,givenname
+       ,familyname
+       ,number_of_podiums
+       ,points
+from
+(
+select vfs.season
+       ,vfd.givenname
+       ,vfd.familyname
+       ,vfs.points
+       ,count(vfr.position) as number_of_podiums
+from f1_access.v_f1_results vfr
+inner join f1_access.v_f1_drivers vfd
+on vfr.driverid = vfd.driverid
+inner join f1_access.v_f1_driverstandings vfs
+on vfr.driverid = vfs.driverid
+where vfr.season = f1_logik.get_cur_f1_season
+ and vfr.position < 4
+ and vfs.race = (select max(race) from f1_access.v_f1_driverstandings where season = f1_logik.get_cur_f1_season)
+group by vfs.season,vfd.givenname,vfd.familyname,vfs.points
+) order by number_of_podiums desc,points desc;
+
+--
+-- Get number of times a driver scored points and current points in the current or last season.
+--
+
+select season
+       ,givenname
+       ,familyname
+       ,number_of_getting_in_points
+       ,points
+from
+(
+select vfs.season
+       ,vfd.givenname
+       ,vfd.familyname
+       ,vfs.points
+       ,count(vfr.position) as number_of_getting_in_points
+from f1_access.v_f1_results vfr
+inner join f1_access.v_f1_drivers vfd
+on vfr.driverid = vfd.driverid
+inner join f1_access.v_f1_driverstandings vfs
+on vfr.driverid = vfs.driverid
+where vfr.season = f1_logik.get_cur_f1_season
+ and vfr.position < 11
+ and vfs.race = (select max(race) from f1_access.v_f1_driverstandings where season = f1_logik.get_cur_f1_season)
+group by vfs.season,vfd.givenname,vfd.familyname,vfs.points
+) order by number_of_getting_in_points desc,points desc;
+
+REM
+REM Other interesting queries
+REM
+
+--
+-- Get the dominating driver for each season (e.g driver with most wins.)
+--
+
+select
+  season,
+  wins,
+  givenname,
+  familyname,
+  nationality,
+  constructorname
+from
+(
+select
+  vfr.season,
+  count(vfr.position) as wins,
+  vfd.givenname,
+  vfd.familyname,
+  vfd.nationality,
+  vfc.name as constructorname
+from f1_access.v_f1_results vfr
+inner join f1_access.v_f1_constructors vfc
+on vfr.constructorid = vfc.constructorid
+inner join f1_access.v_f1_drivers vfd
+on vfr.driverid = vfd.driverid
+where vfr.position  = 1
+group by vfr.season,vfd.givenname,vfd.familyname,vfd.nationality,vfc.name
+) order by season desc, wins desc;

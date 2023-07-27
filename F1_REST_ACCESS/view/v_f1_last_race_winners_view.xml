@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="224385e939739b783853f8972b6ec582e64e2d67" author="(F1_REST_ACCESS)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_LAST_RACE_WINNERS" objectType="VIEW" ownerName="F1_REST_ACCESS"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>F1_REST_ACCESS</SCHEMA>
+   <NAME>V_F1_LAST_RACE_WINNERS</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>SEASON</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACE</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACENAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CIRCUITNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACEDATE</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>PILOTNR</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POSITION</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POINTS</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>GIVENNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>FAMILYNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NATIONALITY</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTOR</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>GRID</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>LAPS</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>STATUS</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RANKING</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>FASTESTLAP</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>MILLIS</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACETIME</NAME>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <SUBQUERY>select
+  vfr.season
+  ,vfr.race
+  ,vfr.racename
+  ,vft.circuitname
+  ,vfr.racedate
+  ,vfr.pilotnr
+  ,vfr.position
+  ,vfr.points
+  ,vfd.givenname
+  ,vfd.familyname
+  ,vfd.nationality
+  ,vfc.name as constructor
+  ,vfr.grid
+  ,vfr.laps
+  ,vfr.status
+  ,vfr.ranking
+  ,vfr.fastestlap
+  ,vfr.millis
+  ,vfr.racetime
+from
+  f1_rest_access.v_f1_results vfr
+inner join f1_rest_access.v_f1_drivers vfd
+on vfr.driverid = vfd.driverid
+inner join f1_rest_access.v_f1_constructors vfc
+on vfr.constructorid = vfc.constructorid
+inner join f1_rest_access.v_f1_tracks vft
+on vfr.circuitid = vft.circuitid
+where vfr.season = f1_logik.get_cur_f1_season
+  and position is not null
+  and vfr.race = f1_logik.get_last_race(f1_logik.get_cur_f1_season)
+order by to_number(vfr.position) asc
+fetch first 10 rows only</SUBQUERY>
+</VIEW>]]></n0:source>
+		</n0:createSxmlObject>
+	</changeSet>
+</databaseChangeLog>
