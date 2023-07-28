@@ -4,6 +4,7 @@ REM
 cd ../F1_STAGING
 pwd
 lb update --changelog-file controller.xml
+lb tag -tag version_1.0
 cd ../sql
 pwd
 @insert_f1_json_doctype.sql
