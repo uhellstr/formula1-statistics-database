@@ -4,3 +4,4 @@ REM
 cd ../F1_LOGIK
 pwd
 lb update --changelog-file controller.xml
+lb tag -tag version_1.0
