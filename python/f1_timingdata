@@ -9,6 +9,7 @@ r"""
 
 
 Require: cx_oracle and fastf1 (>= 3.0.7)
+
 This python script will use the official F1 api that gives lots of
 additional information to complement the ergast API used in the F1 database
 
@@ -31,7 +32,7 @@ Depend on oraclepackage.py
 Note: You cannot use this data for commercial usage and apps.
 You can use it for your own personal analysis!!
 
-Ulf Hellstrom oraminute@gmail.com 2022-
+Ulf Hellstrom oraminute@gmail.com 2022-2023
 
 Before running this package:
 ----------------------------
@@ -361,7 +362,7 @@ def get_csv_files():
 
     for file in os.listdir(path):
         if file.endswith(".csv"):
-            if file not in ["data.csv", "temp.csv", "middlefile.csv"]:
+            if file not in ["data.csv", "temp.csv"]:
                 csv_list.append(file)
 
     return csv_list
@@ -398,36 +399,42 @@ def insert_data_row(connection, line, row):
     """
     sql_stmt = """
 insert into f1_data.f1_official_timedata
-values(:season
-    ,:race
-    ,:racetype
-    ,:datapoint
-    ,:time
-    ,:drivernumber
-    ,:laptime
-    ,:lapnumber
-    ,:stint
-    ,:pitouttime
-    ,:pitintime
-    ,:sector1time
-    ,:sector2time
-    ,:sector3time
-    ,:sector1sessiontime
-    ,:sector2sessiontime
-    ,:sector3sessiontime
-    ,:speedi1
-    ,:speedi2
-    ,:speedfl
-    ,:speedst
-    ,:ispersonalbest
-    ,:compound
-    ,:tyrelife
-    ,:freshtyre
-    ,:lapstarttime
-    ,:team
-    ,:driver
-    ,:trackstatus
-    ,:isaccurate)
+values(:season,
+       :race,
+       :racetype,
+       :datapoint,
+       :time,
+       :driver,
+       :drivernumber,
+       :laptime,
+       :lapnumber,
+       :stint,
+       :pitouttime,
+       :pitintime,
+       :sector1time,
+       :sector2time,
+       :sector3time,
+       :sector1sessiontime,
+       :sector2sessiontime,
+       :sector3sessiontime,
+       :speedi1,
+       :speedi2,
+       :speedfl,
+       :speedst,
+       :ispersonalbest,
+       :compound,
+       :tyrelife,
+       :freshtyre,
+       :team,
+       :lapstarttime,
+       :lapstartdate,
+       :trackstatus,
+       :position,
+       :deleted,
+       :deletedreason,
+       :fastf1generated,
+       :isaccurate
+ )
 """
 
     print("Trying to load row:" + str(row))
@@ -466,7 +473,7 @@ values(:season
     _lapstarttime = chunks[27]
     _lapstartdate = chunks[28]
     _trackstatus = int(empty_to_int(chunks[29]))
-    _position = int(empty_to_int(chunks[30]))
+    _position = float(empty_to_int(chunks[30]))
     _deleted = chunks[31]
     _deletedreason = chunks[32]
     _fastf1generated = chunks[33]
@@ -479,40 +486,40 @@ values(:season
 
         # A very few rows might have very corrupt data.. We try to pass those few lines.
         # That's why the very stupid except pass until I figure out something better.
-        try:
-            print("ROWDATA::::::::::::::")
-            print("=====================")
-            print("season:" + str(_season))
-            print("race:" + str(_race))
-            print("racetype:" + _racetype)
-            print("datapoint:" + str(_datapoint))
-            print("time:" + _time)
-            print("drivernumber:" + str(_drivernumber))
-            print("laptime:" + _laptime)
-            print("lapnumber:" + str(_lapnumber))
-            print("stint:" + str(_stint))
-            print("pitouttime:" + _pitouttime)
-            print("pitintime:" + _pitintime)
-            print("sector1time" + _sector1time)
-            print("sector2time:" + _sector2time)
-            print("sector3time:" + _sector3time)
-            print("sector1sessiontime:" + _sector1sessiontime)
-            print("sector2sessiontime:" + _sector2sessiontime)
-            print("sector3sessiontime:" + _sector3sessiontime)
-            print("speedi1:" + str(_speedi1))
-            print("speedi2:" + str(_speedi2))
-            print("speedfl:" + str(_speedfl))
-            print("speedst:" + str(_speedst))
-            print("ispersonalbest:" + _ispersonalbest)
-            print("compuond:" + _compound)
-            print("tyrelife:" + str(_tyrelife))
-            print("freshtyre:" + _freshtyre)
-            print("lapstarttime:" + _lapstarttime)
-            print("team:" + _team)
-            print("driver:" + _driver)
-            print("trackstatus:" + str(_trackstatus))
-            print("isaccurate:" + _isaccurate)
+        print("ROWDATA::::::::::::::")
+        print("=====================")
+        print("season:" + str(_season))
+        print("race:" + str(_race))
+        print("racetype:" + _racetype)
+        print("datapoint:" + str(_datapoint))
+        print("time:" + _time)
+        print("drivernumber:" + str(_drivernumber))
+        print("laptime:" + _laptime)
+        print("lapnumber:" + str(_lapnumber))
+        print("stint:" + str(_stint))
+        print("pitouttime:" + _pitouttime)
+        print("pitintime:" + _pitintime)
+        print("sector1time" + _sector1time)
+        print("sector2time:" + _sector2time)
+        print("sector3time:" + _sector3time)
+        print("sector1sessiontime:" + _sector1sessiontime)
+        print("sector2sessiontime:" + _sector2sessiontime)
+        print("sector3sessiontime:" + _sector3sessiontime)
+        print("speedi1:" + str(_speedi1))
+        print("speedi2:" + str(_speedi2))
+        print("speedfl:" + str(_speedfl))
+        print("speedst:" + str(_speedst))
+        print("ispersonalbest:" + _ispersonalbest)
+        print("compuond:" + _compound)
+        print("tyrelife:" + str(_tyrelife))
+        print("freshtyre:" + _freshtyre)
+        print("lapstarttime:" + _lapstarttime)
+        print("team:" + _team)
+        print("driver:" + _driver)
+        print("trackstatus:" + str(_trackstatus))
+        print("isaccurate:" + _isaccurate)
 
+        try:
             cur1 = connection.cursor()
             cur1.execute(
                 sql_stmt,
@@ -557,8 +564,11 @@ values(:season
             connection.commit()
             cur1.close()
 
-        except:
-            pass
+        except AssertionError as error:
+            print(error)
+
+    #        except:
+    #            pass
     else:
         print(
             "INFO::: Season:"
