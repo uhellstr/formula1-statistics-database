@@ -989,6 +989,7 @@ def main():
                 print(
                     f"Fetching F1 official telemetry data for: {year},{race},{racetype}"
                 )
+                # telemetry
                 if (
                     check_if_race_exists(connection, int(year), int(race), racetype)
                     is False
@@ -1006,16 +1007,17 @@ def main():
                 else:
                     print(f"Data for {year} race {race} already exists skipping...")
 
-    #                if (
-    #                    check_if_weather_exists(connection, int(year), int(race), racetype)
-    #                    is False
-    #                ):
-    #                    counter += 1
-    #                    gen_f1_weather_data_file(year, race, racetype)
-    #                else:
-    #                    print(
-    #                        f"Weather data for {year} race {race} already exists skipping..."
-    #                    )
+                # weather
+                if (
+                    check_if_weather_exists(connection, int(year), int(race), racetype)
+                    is False
+                ):
+                    gen_f1_weather_data_file(year, race, racetype)
+                else:
+                    print(
+                        f"Weather data for {year} race {race} already exists skipping..."
+                    )
+
     file_list = get_csv_files()
     print("Loading data into the F1_DATA schema..")
     for filename in file_list:
