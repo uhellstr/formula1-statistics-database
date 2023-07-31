@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="928ff8703013f035c9fef765d2b0a1d7e295c446" author="(F1_REST_ACCESS)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="2082f24a07ade071346032a70637906b4f870699" author="(F1_REST_ACCESS)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createSxmlObject objectName="V_F1_OFFICIAL_TIMEDATA" objectType="VIEW" ownerName="F1_REST_ACCESS"  replaceIfExists="true" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
@@ -27,6 +27,9 @@
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>TIME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>DRIVER</NAME>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>DRIVERNUMBER</NAME>
@@ -89,22 +92,34 @@
          <NAME>FRESHTYRE</NAME>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
-         <NAME>LAPSTARTTIME</NAME>
-      </COL_LIST_ITEM>
-      <COL_LIST_ITEM>
          <NAME>TEAM</NAME>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
-         <NAME>DRIVER</NAME>
+         <NAME>LAPSTARTTIME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>LAPSTARTDATE</NAME>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>TRACKSTATUS</NAME>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
+         <NAME>POSITION</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>DELETED</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>DELETEDREASON</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>FATF1GENERATED</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
          <NAME>ISACCURATE</NAME>
       </COL_LIST_ITEM>
    </COL_LIST>
-   <SUBQUERY>select "SEASON","RACE","RACETYPE","DATAPOINT","TIME","DRIVERNUMBER","LAPTIME","LAPNUMBER","STINT","PITOUTTIME","PITINTIME","SECTOR1TIME","SECTOR2TIME","SECTOR3TIME","SECTOR1SESSIONTIME","SECTOR2SESSIONTIME","SECTOR3SESSIONTIME","SPEEDI1","SPEEDI2","SPEEDFL","SPEEDST","ISPERSONALBEST","COMPOUND","TYRELIFE","FRESHTYRE","LAPSTARTTIME","TEAM","DRIVER","TRACKSTATUS","ISACCURATE" from F1_DATA.F1_OFFICIAL_TIMEDATA</SUBQUERY>
+   <SUBQUERY>select "SEASON","RACE","RACETYPE","DATAPOINT","TIME","DRIVER","DRIVERNUMBER","LAPTIME","LAPNUMBER","STINT","PITOUTTIME","PITINTIME","SECTOR1TIME","SECTOR2TIME","SECTOR3TIME","SECTOR1SESSIONTIME","SECTOR2SESSIONTIME","SECTOR3SESSIONTIME","SPEEDI1","SPEEDI2","SPEEDFL","SPEEDST","ISPERSONALBEST","COMPOUND","TYRELIFE","FRESHTYRE","TEAM","LAPSTARTTIME","LAPSTARTDATE","TRACKSTATUS","POSITION","DELETED","DELETEDREASON","FATF1GENERATED","ISACCURATE" from f1_data.f1_official_timedata</SUBQUERY>
 </VIEW>]]></n0:source>
 		</n0:createSxmlObject>
 	</changeSet>

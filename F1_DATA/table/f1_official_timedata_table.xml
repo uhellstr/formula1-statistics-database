@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="a996492d97d8f6210ad3679509395f27d651187e" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="c52220b0fd04d5ab9333f5c78a75960fc42c69b4" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createSxmlObject objectName="F1_OFFICIAL_TIMEDATA" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
@@ -41,6 +41,12 @@
             <NAME>TIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>DRIVER</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>3</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
@@ -164,33 +170,57 @@
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
-            <NAME>LAPSTARTTIME</NAME>
-            <DATATYPE>VARCHAR2</DATATYPE>
-            <LENGTH>20</LENGTH>
-            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
-         </COL_LIST_ITEM>
-         <COL_LIST_ITEM>
             <NAME>TEAM</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
-            <NAME>DRIVER</NAME>
+            <NAME>LAPSTARTTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
-            <LENGTH>5</LENGTH>
+            <LENGTH>25</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>LAPSTARTDATE</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>25</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>TRACKSTATUS</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <PRECISION>4</PRECISION>
+            <SCALE>0</SCALE>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>POSITION</NAME>
+            <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>0</SCALE>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
+            <NAME>DELETED</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>20</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>DELETEDREASON</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>50</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
+            <NAME>FATF1GENERATED</NAME>
+            <DATATYPE>VARCHAR2</DATATYPE>
+            <LENGTH>10</LENGTH>
+            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+         </COL_LIST_ITEM>
+         <COL_LIST_ITEM>
             <NAME>ISACCURATE</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
-            <LENGTH>5</LENGTH>
+            <LENGTH>10</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
          </COL_LIST_ITEM>
       </COL_LIST>

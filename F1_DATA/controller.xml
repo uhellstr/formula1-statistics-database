@@ -42,8 +42,8 @@ synonyms                       : true
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <include file="table/f1_drivers_table.xml"/> 
-  <include file="table/f1_tracks_table.xml"/> 
   <include file="table/f1_official_timedata_table.xml"/> 
+  <include file="table/f1_tracks_table.xml"/> 
   <include file="table/f1_constructors_table.xml"/> 
   <include file="table/f1_official_weather_table.xml"/> 
   <include file="table/f1_season_table.xml"/> 
@@ -237,4 +237,6 @@ synonyms                       : true
   <include file="object_grant/object_grant_158.xml"/> 
   <include file="object_grant/object_grant_159.xml"/> 
   <include file="object_grant/object_grant_160.xml"/> 
+  <include file="object_grant/object_grant_161.xml"/> 
+  <include file="object_grant/object_grant_162.xml"/> 
 </databaseChangeLog> 
