@@ -257,6 +257,12 @@ group by vfr.season,vfd.givenname,vfd.familyname,vfd.nationality,vfc.name
 ) order by season desc, wins desc;
 
 
+REM
+REM With data in f1_data.f1_official_timedata we can do some additional analysis
+REM
+REM This requires that you load data using provided f1_timingdata python program
+REM
+
 -- Try to calculate possible race speed using FP2 and stint 4 for Hamilton
 -- for race 11 in season 2023
 -- We use function for converting a laptime string hh:mm:ss:ms to numeric millisends
@@ -264,7 +270,7 @@ group by vfr.season,vfd.givenname,vfd.familyname,vfd.nationality,vfc.name
 -- a laptime value of hh:mm:ss:ms
 
 select count(*) as number_of_laps_in_stint_4
-      ,f1_logik.millis_to_laptime(median(f1_logik.to_millis(laptime))) as median_laptime
+      ,f1_logik.millis_to_laptime(round(median(f1_logik.to_millis(laptime)))) as median_laptime
 from  v_f1_official_timedata
 where season = 2023
   and racetype = 'FP2'
@@ -273,3 +279,49 @@ where season = 2023
   and stint = 4
   and laptime is not null
 order by lapnumber ; --> 00:01:24.232
+
+-- 
+-- Get the race simulations median laptimes for *ALL* drivers 
+-- race 11 FP2 in season 2023 (requires data in f1_data.f1_official_timedata
+--
+select driver
+       ,stint
+       ,number_of_laps_in_stint
+       ,median_laptime
+       ,compound
+from
+(
+with stints as
+(
+select count(lapnumber) as laps
+      ,driver
+      ,stint
+from v_f1_official_timedata
+where season = 2023
+  and racetype = 'FP2'
+  and race = 11
+  and laptime is not null
+group by driver,stint
+)
+, race_simulation as
+(select a.stint
+       ,a.driver
+       ,a.laps
+from stints a
+where a.laps = (select max(b.laps) from stints b where a.driver = b.driver)
+)
+select count(vfo.laptime) as number_of_laps_in_stint
+      ,f1_logik.millis_to_laptime(round(median(f1_logik.to_millis(vfo.laptime)))) as median_laptime
+      ,vfo.driver
+      ,vfo.stint
+      ,vfo.compound
+from  v_f1_official_timedata vfo
+inner join race_simulation rs
+on vfo.driver = rs.driver
+where vfo.stint = rs.stint
+  and vfo.season = 2023
+  and vfo.racetype = 'FP2'
+  and vfo.race = 11
+  and laptime is not null
+group by vfo.driver,vfo.stint,vfo.compound
+) order by f1_logik.to_millis(median_laptime) asc;
