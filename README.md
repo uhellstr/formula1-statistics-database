@@ -60,3 +60,6 @@ starting with season 2018. However if you break or loose network connection it w
 to download alredy downloaded data. It also take some diskspace. Downloading all data can take 30-50GB of diskspace to keep the cache intact.
 As long as you have already installed datapoints into the oracle database you can clear the cache directory. Anytime you run the code it will
 check if the datapoint already is loaded in the database. If then it will not try to download any data at all.
+
+When running f1_timingdata you will be asked for servicename from you tnsnames.ora (Oracle Instant Client), hostname, listener port (1521 normallY), username
+and password. Connect as F1_DATA schema.
