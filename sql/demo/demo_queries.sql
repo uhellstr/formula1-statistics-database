@@ -255,3 +255,21 @@ on vfr.driverid = vfd.driverid
 where vfr.position  = 1
 group by vfr.season,vfd.givenname,vfd.familyname,vfd.nationality,vfc.name
 ) order by season desc, wins desc;
+
+
+-- Try to calculate possible race speed using FP2 and stint 4 for Hamilton
+-- for race 11 in season 2023
+-- We use function for converting a laptime string hh:mm:ss:ms to numeric millisends
+-- and find the median value and then we convert the millisecond value back to
+-- a laptime value of hh:mm:ss:ms
+
+select count(*) as number_of_laps_in_stint_4
+      ,f1_logik.millis_to_laptime(median(f1_logik.to_millis(laptime))) as laptime
+from  v_f1_official_timedata
+where season = 2023
+  and racetype = 'FP2'
+  and driver = 'HAM'
+  and race = 11
+  and stint = 4
+  and laptime is not null
+order by lapnumber ; --> 00:01:24.232

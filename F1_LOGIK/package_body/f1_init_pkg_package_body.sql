@@ -253,7 +253,7 @@ as
          );
         commit;
       end if;
-      
+
     end get_races;
 
   begin
@@ -365,9 +365,9 @@ as
   -- Author: Ulf Hellstrom, oraminute@gmail.com
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   begin
-  
+
     delete from f1_staging.f1_json_docs where doc_type = 1;
-    
+
     insert into f1_staging.f1_json_docs(
       doc_id
       ,doc_type
@@ -882,7 +882,7 @@ as
   procedure load_f1_data
   is
   begin
-  
+
     delete from f1_data.f1_laptimes;
     delete from f1_data.f1_qualificationtimes;
     delete from f1_data.f1_results;
@@ -898,7 +898,7 @@ as
     select *
     from f1_data.v_f1_season;
     commit;
-    
+
     insert into f1_data.f1_constructors select * from f1_data.V_F1_CONSTRUCTORS;
     commit;
 
@@ -1000,9 +1000,9 @@ as
            laptime
     from f1_data.v_f1_laptimes;
     commit;
-  
+
   end load_f1_data;
-  
+
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   -- main published API starts here.
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1035,7 +1035,7 @@ as
                p_in_season => p_in_season
                ,p_in_race => p_in_race
              );
-           
+
  end load_race;
 
 end f1_init_pkg;

@@ -67,4 +67,3 @@ begin
     return  lv_retval;
 
 end to_millis;
-

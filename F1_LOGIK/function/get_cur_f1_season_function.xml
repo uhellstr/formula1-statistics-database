@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="9592d913eaddefc5f65be6bb1fc45cc488a0e68c" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="85f349bb000f37b22573c187b9e196a8e3650c2b" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createOracleFunction objectName="GET_CUR_F1_SEASON" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="true" >
 			<n0:source><![CDATA[
   CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."GET_CUR_F1_SEASON" 
@@ -66,8 +66,7 @@ begin
 
   return lv_season;
 
-end get_cur_f1_season;
-]]></n0:source>
+end get_cur_f1_season;]]></n0:source>
 		</n0:createOracleFunction>
 	</changeSet>
 </databaseChangeLog>
