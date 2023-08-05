@@ -66,6 +66,10 @@ SQL> @lb_install_f1_logik
 $ sql /nolog
 SQL> conn f1_access@<TNS-ALIAS>
 SQL> @lb_install_f1_access
+
+$ sql /nolog
+SQL> conn f1_rest_access@<TNS-ALIAS>
+SQL> @lb_install_f1_rest_access
 ``` 
 
 Finally , due to some obscure bug with JOBS in liquibase we have to setup a scheduled job in the F1_LOGIK schema.
