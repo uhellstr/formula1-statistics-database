@@ -264,7 +264,7 @@ group by vfr.season,vfd.givenname,vfd.familyname,vfd.nationality,vfc.name
 -- a laptime value of hh:mm:ss:ms
 
 select count(*) as number_of_laps_in_stint_4
-      ,f1_logik.millis_to_laptime(median(f1_logik.to_millis(laptime))) as laptime
+      ,f1_logik.millis_to_laptime(median(f1_logik.to_millis(laptime))) as median_laptime
 from  v_f1_official_timedata
 where season = 2023
   and racetype = 'FP2'
