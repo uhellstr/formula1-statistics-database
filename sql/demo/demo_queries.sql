@@ -197,6 +197,14 @@ group by vfs.season,vfd.givenname,vfd.familyname,vfs.points
 ) order by number_of_podiums desc,points desc;
 
 --
+-- World champions thru history
+--
+
+--
+-- Constructor championships thru history.
+--
+
+--
 -- Get number of times a driver scored points and current points in the current or last season.
 --
 
