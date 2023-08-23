@@ -35,7 +35,7 @@ It is safe to restart since it will continue to load from where it failed.
 
 See the demo_queries.sql file in the sql/demo subdirectory.
 
-# Extra data from Official Formula 1 using pythong and fastf1.
+# Extra data from Official Formula 1 using python and fastf1.
 
 In the directory python you can use the f1_timingdata to load official timing and weather data from Formula 1.
 Before attempting to use this python program you need to install python 3, have an instant client 21c installed that work
