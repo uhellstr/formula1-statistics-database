@@ -37,12 +37,14 @@ select vfd.season
        ,vfd.wins
        ,vfd1.givenname
        ,vfd1.familyname
-       ,vfd.constructorid
+       ,vfc.name as constructorname
 from f1_access.v_f1_driverstandings vfd
 inner join f1_access.v_f1_drivers vfd1
 on vfd1.driverid = vfd.driverid
+inner join f1_access.v_f1_constructors vfc
+on vfd.constructorid = vfc.constructorid
 where vfd.season = f1_logik.get_cur_f1_season  -- result cache function used here to calculate current season to speed up things.
-order by to_number(points) desc;
+order by vfd.points desc;
 
 -- Give us the current constructor standings in the current season or if between seasons the last season
 
@@ -50,7 +52,6 @@ select
     vfc.season
     ,vfc.race
     ,vfc.position
-    ,vfc.positiontext
     ,vfc.points
     ,vfc.wins
     ,vfc1.name as constructorname
