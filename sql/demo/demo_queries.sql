@@ -12,8 +12,12 @@ REM
 REM Info on current season or last season if we are between seasons
 REM
 
--- Tracks and races for current season
+-- VSCodium need this else you get american date format
+alter session set nls_date_format = 'RRRR-MM-DD HH24:MI:SS';
+select sysdate from dual;
 
+-- Tracks and races for current season
+-- result cache function used here to calculate current season to speed up things.
 select vr.season
        ,vr.round
        ,vt.circuitid
@@ -26,8 +30,8 @@ select vr.season
 from f1_access.v_f1_tracks vt
 inner join f1_access.v_f1_races vr
 on vt.circuitid = vr.circuitid
-where vr.season = f1_logik.get_cur_f1_season  -- result cache function used here to calculate current season to speed up things.
-order by to_number(vr.season) desc, to_number(vr.round) asc;
+where vr.season = f1_logik.get_cur_f1_season  
+order by vr.season desc, to_number(vr.round) asc;
 
 -- Give us the current driver standings in the current season or if between seasons the last season
 
