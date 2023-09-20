@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+############ ddl.parms  ########################################
+BODY                           : ON
+COLLATION_CLAUSE               : NEVER
+CONSTRAINTS                    : ON
+CONSTRAINTS_AS_ALTER           : ON
+EMIT_SCHEMA                    : ON
+FORCE                          : ON
+INHERIT                        : ON
+INSERT                         : ON
+OID                            : ON
+PARTITIONING                   : ON
+PRETTY                         : ON
+REF_CONSTRAINTS                : ON
+SEGMENT_ATTRIBUTES             : ON
+SIZE_BYTE_KEYWORD              : ON
+SPECIFICATION                  : ON
+SQLTERMINATOR                  : ON
+STORAGE                        : ON
+TABLESPACE                     : ON
+
+############ lb.parameters ########################################
+basecommand                    : lb
+command                        : generate-schema
+database-changelog-table-name  : DATABASECHANGELOG
+fail-on-error                  : false
+grants                         : true
+log                            : false
+replace                        : true
+runalways                      : false
+runonchange                    : true
+split                          : true
+sqlclversion                   : 23.2.0.0
+synonyms                       : true
+############ End Parameters #######################################
+-->
+<databaseChangeLog 
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <include file="view/v_f1_drivers_view.xml"/> 
+  <include file="view/v_f1_official_timedata_view.xml"/> 
+  <include file="view/v_f1_tracks_view.xml"/> 
+  <include file="view/v_f1_constructors_view.xml"/> 
+  <include file="view/v_f1_official_weather_view.xml"/> 
+  <include file="view/v_f1_season_view.xml"/> 
+  <include file="view/v_f1_races_view.xml"/> 
+  <include file="view/v_f1_results_view.xml"/> 
+  <include file="view/v_f1_qualifications_view.xml"/> 
+  <include file="view/v_f1_constructorstandings_view.xml"/> 
+  <include file="view/v_f1_laptimes_view.xml"/> 
+  <include file="view/v_f1_driverstandings_view.xml"/> 
+  <include file="view/v_f1_cur_season_races_view.xml"/> 
+  <include file="view/v_f1_cur_season_driver_standings_view.xml"/> 
+  <include file="view/v_f1_cur_season_constructor_standings_view.xml"/> 
+  <include file="view/v_f1_cur_season_driver_podium_view.xml"/> 
+  <include file="view/v_f1_seasons_race_dates_view.xml"/> 
+  <include file="view/v_f1_cur_season_qualifications_view.xml"/> 
+</databaseChangeLog> 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="5ef1c3ed31260262fbc4f18a4bf1a03948e2149a" author="(APEX_F1)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_CUR_SEASON_DRIVER_PODIUM" objectType="VIEW" ownerName="APEX_F1"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>APEX_F1</SCHEMA>
+   <NAME>V_F1_CUR_SEASON_DRIVER_PODIUM</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>SEASON</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>GIVENNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>FAMILYNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NUMBER_OF_PODIUMS</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POINTS</NAME>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <SUBQUERY>select season
+       ,givenname
+       ,familyname
+       ,number_of_podiums
+       ,points
+from
+(
+select vfs.season
+       ,vfd.givenname
+       ,vfd.familyname
+       ,vfs.points
+       ,count(vfr.position) as number_of_podiums
+from v_f1_results vfr
+inner join v_f1_drivers vfd
+on vfr.driverid = vfd.driverid
+inner join v_f1_driverstandings vfs
+on vfr.driverid = vfs.driverid
+where vfr.season = f1_logik.get_cur_f1_season
+ and vfr.position &#60; 4
+ and vfs.race = (select max(race) from v_f1_driverstandings where season = f1_logik.get_cur_f1_season)
+group by vfs.season,vfd.givenname,vfd.familyname,vfs.points
+) order by number_of_podiums desc,points desc</SUBQUERY>
+</VIEW>]]></n0:source>
+		</n0:createSxmlObject>
+	</changeSet>
+</databaseChangeLog>

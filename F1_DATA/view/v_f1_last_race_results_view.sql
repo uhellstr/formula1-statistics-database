@@ -8,7 +8,7 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "F1_DATA"."V_F1_LAST_RACE_RESULTS"
        r.points,
        r.givenname,
        r.familyname
-from f1_data.v_f1_results r
+from v_f1_results r
 where r.season = to_char(trunc(sysdate),'RRRR')
   and r.race = (select max(to_number(race))
                 from v_f1_results

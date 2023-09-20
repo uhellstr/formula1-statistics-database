@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="3ff0b1d24df8280891b22831cbc435e05a51fb19" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="157cdac58d3d130b5f4194ed91055be04d0af067" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createSxmlObject objectName="V_F1_LAST_RACE_RESULTS" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="true" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
@@ -42,7 +42,7 @@
        r.points,
        r.givenname,
        r.familyname
-from f1_data.v_f1_results r
+from v_f1_results r
 where r.season = to_char(trunc(sysdate),'RRRR')
   and r.race = (select max(to_number(race))
                 from v_f1_results

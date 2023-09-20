@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="a97b30b4027b2c61c03635e7ab2ed075f3e16fb9" author="(APEX_F1)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_CUR_SEASON_QUALIFICATIONS" objectType="VIEW" ownerName="APEX_F1"  replaceIfExists="true" >
+			<n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>APEX_F1</SCHEMA>
+   <NAME>V_F1_CUR_SEASON_QUALIFICATIONS</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>RACE</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>GIVENNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>FAMILYNAME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTOR</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>QUALIFICATION</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>QUALIFICATION_TIME</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>MILLIS</NAME>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POSITION</NAME>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <SUBQUERY>select
+  race
+  , givenname
+  ,familyname
+  ,constructor
+  ,qualification
+  ,qualification_time
+  ,millis
+  ,position  
+from
+(
+select
+  race
+  ,givenname
+  ,familyname
+  ,constructor
+  ,qualification
+  ,qualification_time
+  ,f1_logik.to_millis(qualification_time) as millis
+  ,starting_grid as position
+from
+(
+select
+  vfq.round as race
+  ,vfd.givenname
+  ,vfd.familyname 
+  ,vfc.name as constructor
+  ,case 
+  when vfq.q3 is not null and vfq.q2 is not null and vfq.q1 is not null then
+    'Q3'
+  when vfq.q3 is null and vfq.q2 is not null and vfq.q1 is not null then 
+    'Q2'
+  when vfq.q3 is null and vfq.q2 is null and vfq.q1 is not null then
+    'Q1'
+  else
+    null
+  end as qualification
+  ,case 
+  when vfq.q3 is not null and vfq.q2 is not null and vfq.q1 is not null then
+    q3
+  when vfq.q3 is null and vfq.q2 is not null and vfq.q1 is not null then 
+    q2
+  when vfq.q3 is null and vfq.q2 is null and vfq.q1 is not null then
+    q1
+  else
+    null
+  end as qualification_time
+  ,vfq.position as starting_grid
+from
+  v_f1_qualifications vfq
+inner join v_f1_drivers vfd
+on vfq.driverid = vfd.driverid
+inner join v_f1_constructors vfc
+on vfq.constructorid = vfc.constructorid
+inner join v_f1_races vfr
+on vfq.round = vfr.round and vfq.season = vfr.season
+where vfq.season = f1_logik.get_cur_f1_season
+  and vfq.position is not null
+)) order by race,position</SUBQUERY>
+</VIEW>]]></n0:source>
+		</n0:createSxmlObject>
+	</changeSet>
+</databaseChangeLog>
