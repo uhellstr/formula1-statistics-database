@@ -26,6 +26,7 @@ The following schemas will be installed
  - F1_LOGIK   - Schema with PL/SQL code and SCHEDULED job to maintaine and keep your database upto date with the lateset raceresults.
  - F1_ACCESS  - Schema to be used by end-users to be able to do statistical and analyze the data 
  - F1_REST_ACCESS - If you use Oracle ORDS (Rest data Services) you can use this to publish rest services for external utilities like Jupyter Notebooks etc for graphing.
+ - APEX_F1 for future app's with oracle low-code tool Oracle Application Express.
  
  First of all. Make sure you have a USERS tablespace in target database and that APEX is installed. The F1_LOGIK schema uses APEX API packages heavily.
  
@@ -70,6 +71,10 @@ SQL> @lb_install_f1_access
 $ sql /nolog
 SQL> conn f1_rest_access@<TNS-ALIAS>
 SQL> @lb_install_f1_rest_access
+
+$ sql /nolog
+SQL> conn apex_f1@<TNS-ALIAS>
+SQL> $lb_install_apex_f1
 ``` 
 
 Finally , due to some obscure bug with JOBS in liquibase we have to setup a scheduled job in the F1_LOGIK schema.
