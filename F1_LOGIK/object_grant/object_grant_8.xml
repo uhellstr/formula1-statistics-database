@@ -5,10 +5,10 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="54aeb5232085607ef0f4ae703c6869ae1d93d97f" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="22975bc60ee1e25f56aba4e4bdd2852c9fd6654d" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createOracleGrant objectName="object_grant8" objectType="OBJECT_GRANT" ownerName="F1_LOGIK"  replaceIfExists="true" >
 			<n0:source><![CDATA[
-  GRANT EXECUTE ON "F1_LOGIK"."MILLIS_TO_LAPTIME" TO "F1_ACCESS"]]></n0:source>
+  GRANT EXECUTE ON "F1_LOGIK"."GET_LAST_RACE" TO "APEX_F1"]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>

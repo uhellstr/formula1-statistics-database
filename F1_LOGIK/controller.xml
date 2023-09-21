@@ -58,4 +58,10 @@ synonyms                       : true
   <include file="object_grant/object_grant_7.xml"/> 
   <include file="object_grant/object_grant_8.xml"/> 
   <include file="object_grant/object_grant_9.xml"/> 
+  <include file="object_grant/object_grant_10.xml"/> 
+  <include file="object_grant/object_grant_11.xml"/> 
+  <include file="object_grant/object_grant_12.xml"/> 
+  <include file="object_grant/object_grant_13.xml"/> 
+  <include file="object_grant/object_grant_14.xml"/> 
+
 </databaseChangeLog> 

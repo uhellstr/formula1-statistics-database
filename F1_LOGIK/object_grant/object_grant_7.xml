@@ -5,10 +5,10 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="ab8672c6f8bbd7a901d346ea0410e63f3e16eb15" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
+	<changeSet id="6dee0da2793ea61274b156808caa29a308e5e9c4" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
 		<n0:createOracleGrant objectName="object_grant7" objectType="OBJECT_GRANT" ownerName="F1_LOGIK"  replaceIfExists="true" >
 			<n0:source><![CDATA[
-  GRANT EXECUTE ON "F1_LOGIK"."GET_CUR_F1_SEASON" TO "F1_REST_ACCESS"]]></n0:source>
+  GRANT EXECUTE ON "F1_LOGIK"."GET_LAST_RACE" TO "F1_REST_ACCESS"]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>
