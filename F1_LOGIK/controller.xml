@@ -43,6 +43,7 @@ synonyms                       : true
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <include file="function/to_millis_function.xml"/> 
   <include file="function/millis_to_laptime_function.xml"/> 
+  <include file="function/convert_time_to_numeric_function.xml"/> 
   <include file="package_spec/f1_init_pkg_package_spec.xml"/> 
   <include file="function/get_last_race_function.xml"/> 
   <include file="function/get_check_season_function.xml"/> 
@@ -63,5 +64,8 @@ synonyms                       : true
   <include file="object_grant/object_grant_12.xml"/> 
   <include file="object_grant/object_grant_13.xml"/> 
   <include file="object_grant/object_grant_14.xml"/> 
+  <include file="object_grant/object_grant_15.xml"/> 
+  <include file="object_grant/object_grant_16.xml"/> 
+  <include file="object_grant/object_grant_17.xml"/> 
 
 </databaseChangeLog> 
