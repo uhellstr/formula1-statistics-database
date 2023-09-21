@@ -16,6 +16,12 @@ wwv_flow_imp_shared.create_menu(
 ,p_name=>'Breadcrumb'
 );
 wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(3134779987160901)
+,p_short_name=>'Race Statistics'
+,p_link=>'f?p=&APP_ID.:3:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>3
+);
+wwv_flow_imp_shared.create_menu_option(
  p_id=>wwv_flow_imp.id(3210495652634085)
 ,p_short_name=>'Home'
 ,p_link=>'f?p=&APP_ID.:1:&APP_SESSION.::&DEBUG.:::'

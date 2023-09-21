@@ -11,7 +11,9 @@ wwv_flow_imp.component_begin (
 ,p_default_id_offset=>0
 ,p_default_owner=>'APEX_F1'
 );
-null;
+wwv_flow_imp_shared.create_install(
+ p_id=>wwv_flow_imp.id(2933447360849874)
+);
 wwv_flow_imp.component_end;
 end;
 /

@@ -21,7 +21,7 @@ wwv_flow_imp_page.create_page(
 ,p_protection_level=>'C'
 ,p_page_component_map=>'23'
 ,p_last_updated_by=>'UHELLSTR'
-,p_last_upd_yyyymmddhh24miss=>'20230913160204'
+,p_last_upd_yyyymmddhh24miss=>'20230921145309'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(4159768203183722)
@@ -75,6 +75,18 @@ wwv_flow_imp_page.create_card(
 ,p_second_body_adv_formatting=>false
 ,p_badge_column_name=>'RACE_DATE'
 ,p_media_adv_formatting=>false
+);
+wwv_flow_imp_page.create_card_action(
+ p_id=>wwv_flow_imp.id(3128772256151102)
+,p_card_id=>wwv_flow_imp.id(4160813325183725)
+,p_action_type=>'BUTTON'
+,p_position=>'PRIMARY'
+,p_display_sequence=>10
+,p_label=>'Race Details'
+,p_link_target_type=>'REDIRECT_PAGE'
+,p_link_target=>'f?p=&APP_ID.:3:&SESSION.::&DEBUG.:::'
+,p_button_display_type=>'TEXT'
+,p_is_hot=>false
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(4161379858183728)

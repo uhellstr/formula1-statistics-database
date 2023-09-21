@@ -35,6 +35,7 @@ wwv_imp_workspace.create_flow(
 ,p_logo_type=>'I'
 ,p_logo=>'#APP_FILES#app-100-logo.png'
 ,p_logo_text=>'Home'
+,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
 ,p_flow_version=>'Release 1.0'
@@ -44,14 +45,14 @@ wwv_imp_workspace.create_flow(
 ,p_browser_cache=>'N'
 ,p_browser_frame=>'D'
 ,p_runtime_api_usage=>'T'
-,p_security_scheme=>wwv_flow_imp.id(3499821284634209)
+,p_security_scheme=>'MUST_NOT_BE_PUBLIC_USER'
 ,p_rejoin_existing_sessions=>'N'
 ,p_csv_encoding=>'Y'
 ,p_auto_time_zone=>'Y'
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'F1_STATS'
 ,p_last_updated_by=>'UHELLSTR'
-,p_last_upd_yyyymmddhh24miss=>'20230913170115'
+,p_last_upd_yyyymmddhh24miss=>'20230921153310'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>12
 ,p_print_server_type=>'NATIVE'
