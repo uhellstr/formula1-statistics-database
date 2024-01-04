@@ -28,7 +28,7 @@ Don't forget to change password for F1_STAGING,F1_DATA,F1_LOGIK,F1_ACCESS and F1
 Loading Ergast data into the database is done thru DBMS_SCHEDULER. 
 The F1_LOGIK.AUTO_ERGAST_LOAD_JOB runs workdays at 20:00, you can change this to suite your need.
 After installation it is recommended to start the job manually to start load data into the database.
-This will take some tim ~1-2 hours , check the status some times if fails due to networking issues
+This will take some time ~1-2 hours , check the status some times if fails due to networking issues
 It is safe to restart since it will continue to load from where it failed.
 
 # Getting started with analysing formula 1 data.
