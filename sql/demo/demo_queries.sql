@@ -199,7 +199,9 @@ where vfr.season = f1_logik.get_cur_f1_season
  and vfr.position < 4
  and vfs.race = (select max(race) from f1_access.v_f1_driverstandings where season = f1_logik.get_cur_f1_season)
 group by vfs.season,vfd.givenname,vfd.familyname,vfs.points
-) order by number_of_podiums desc,points desc;
+) 
+where season = f1_logik.get_cur_f1_season
+order by number_of_podiums desc,points desc;
 
 --
 -- World champions thru history
@@ -234,7 +236,9 @@ where vfr.season = f1_logik.get_cur_f1_season
  and vfr.position < 11
  and vfs.race = (select max(race) from f1_access.v_f1_driverstandings where season = f1_logik.get_cur_f1_season)
 group by vfs.season,vfd.givenname,vfd.familyname,vfs.points
-) order by number_of_getting_in_points desc,points desc;
+) 
+where season = f1_logik.get_cur_f1_season
+order by number_of_getting_in_points desc,points desc;
 
 REM
 REM Other interesting queries
