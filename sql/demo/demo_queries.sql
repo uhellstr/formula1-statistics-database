@@ -339,7 +339,7 @@ select count(*) as number_of_laps_in_stint_4,
 
 -- 
 -- Get the race simulations median laptimes for *ALL* drivers 
--- race 1 FP2 in season 2024 (requires data in f1_data.f1_official_timedata)
+-- race x and FP2 for the latest (requires data in f1_data.f1_official_timedata)
 -- That is loaded thru python (f1_timingdata)
 --
 select driver,
@@ -353,9 +353,9 @@ select driver,
 		       driver,
 		       stint
 		  from v_f1_official_timedata
-		 where season = 2024
+		 where season = f1_logik.get_cur_f1_season
 		   and racetype = 'FP2'
-		   and race = 1
+		   and race = &race
 		   and laptime is not null
 		 group by driver,
 		          stint
@@ -385,9 +385,9 @@ select driver,
 	 inner join race_simulation rs
 	on vfo.driver = rs.driver
 	 where vfo.stint = rs.stint
-	   and vfo.season = 2024
+	   and vfo.season = f1_logik.get_cur_f1_season
 	   and vfo.racetype = 'FP2'
-	   and vfo.race = 1
+	   and vfo.race = &race
 	   and laptime is not null
 	 group by vfo.driver,
 	          vfo.stint,
