@@ -1,0 +1,16 @@
+create role f1_access_role;
+grant select on f1_data.DATABASECHANGELOG to f1_access_role;
+grant select on f1_data.F1_OFFICIAL_TIMEDATA to f1_access_role;
+grant select on f1_data.F1_RESULTS to f1_access_role;
+grant select on f1_data.F1_QUALIFICATIONTIMES to f1_access_role;
+grant select on f1_data.F1_TRACKS to f1_access_role;
+grant select on f1_data.F1_DRIVERSTANDINGS to f1_access_role;
+grant select on f1_data.F1_SEASON to f1_access_role;
+grant select on f1_data.F1_LAPTIMES to f1_access_role;
+grant select on f1_data.F1_DRIVERS to f1_access_role;
+grant select on f1_data.DATABASECHANGELOGLOCK to f1_access_role;
+grant select on f1_data.F1_CONSTRUCTORS to f1_access_role;
+grant select on f1_data.F1_OFFICIAL_WEATHER to f1_access_role;
+grant select on f1_data.F1_RACES to f1_access_role;
+grant select on f1_data.F1_CONSTRUCTORSTANDINGS to f1_access_role;
+grant select on f1_data.DATABASECHANGELOG_ACTIONS to f1_access_role;
