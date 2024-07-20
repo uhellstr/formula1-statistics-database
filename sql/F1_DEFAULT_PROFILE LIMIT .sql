@@ -1,0 +1,7 @@
+create profile F1_DEFAULT_PROFILE LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+alter user F1_ACCESS profile F1_DEFAULT_PROFILE;
+alter user F1_LOGIK profile F1_DEFAULT_PROFILE;
+alter user F1_DATA profile F1_DEFAULT_PROFILE;
+alter user F1_REST_ACCESS profile F1_DEFAULT_PROFILE;
+alter user F1_STAGING profile F1_DEFAULT_PROFILE;
+alter user APEX_F1 profile F1_DEFAULT_PROFILE;

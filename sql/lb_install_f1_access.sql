@@ -5,3 +5,5 @@ cd ../F1_ACCESS
 pwd
 lb update --changelog-file controller.xml
 lb tag -tag version_1.0
+cd ../sql
+pwd
