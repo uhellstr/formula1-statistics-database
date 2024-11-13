@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="ef083ca80af2be8ac35aa682cb3292fdc7469657" author="(F1_STAGING)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleGrant objectName="10" objectType="OBJECT_GRANT" ownerName="F1_STAGING"  replaceIfExists="false" >
+			<n0:source><![CDATA[GRANT INSERT ON "%USER_NAME%"."F1_JSON_DOCS" TO "F1_LOGIK";]]></n0:source>
+		</n0:createOracleGrant>
+	</changeSet>
+</databaseChangeLog>

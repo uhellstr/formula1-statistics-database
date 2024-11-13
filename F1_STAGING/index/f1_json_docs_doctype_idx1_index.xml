@@ -5,15 +5,15 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="17a1b80bb5ff0f58274f1616b6b34ddbb7e470aa" author="(F1_STAGING)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_JSON_DOCS_DOCTYPE_IDX1" objectType="INDEX" ownerName="F1_STAGING"  replaceIfExists="true" >
+	<changeSet id="432d830a1c56877d03ae807cb84dd259f12c453c" author="(F1_STAGING)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_JSON_DOCS_DOCTYPE_IDX1" objectType="INDEX" ownerName="F1_STAGING"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <INDEX xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_STAGING</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_JSON_DOCS_DOCTYPE_IDX1</NAME>
    <TABLE_INDEX>
       <ON_TABLE>
-         <SCHEMA>F1_STAGING</SCHEMA>
+         <SCHEMA>%USER_NAME%</SCHEMA>
          <NAME>F1_JSON_DOCS</NAME>
       </ON_TABLE>
       <COL_LIST>
@@ -21,6 +21,7 @@
             <NAME>DOC_TYPE</NAME>
          </COL_LIST_ITEM>
       </COL_LIST>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
       <INDEX_ATTRIBUTES>
          <PCTFREE>10</PCTFREE>
          <INITRANS>2</INITRANS>

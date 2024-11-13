@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="6150e9eda550e5688283ea606691db1e08ce2b15" author="(F1_STAGING)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_JSON_DOCS" objectType="TABLE" ownerName="F1_STAGING"  replaceIfExists="true" >
+	<changeSet id="82955a9195cf977cc23fc51cd16ae50044604ef5" author="(F1_STAGING)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_JSON_DOCS" objectType="TABLE" ownerName="F1_STAGING"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_STAGING</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_JSON_DOCS</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
@@ -17,38 +17,46 @@
             <NAME>DOC_ID</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DOC_TYPE</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DATE_LOADED</NAME>
             <DATATYPE>TIMESTAMP</DATATYPE>
             <SCALE>6</SCALE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SEASON</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACE</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAPNUMBER</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACETYPE</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>F1_DOCUMENT</NAME>
             <DATATYPE>JSON</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
       <PRIMARY_KEY_CONSTRAINT_LIST>
@@ -82,42 +90,6 @@
             </USING_INDEX>
          </PRIMARY_KEY_CONSTRAINT_LIST_ITEM>
       </PRIMARY_KEY_CONSTRAINT_LIST>
-      <FOREIGN_KEY_CONSTRAINT_LIST>
-         <FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-            <NAME>F1_JSON_DOCS_FK1</NAME>
-            <COL_LIST>
-               <COL_LIST_ITEM>
-                  <NAME>RACETYPE</NAME>
-               </COL_LIST_ITEM>
-            </COL_LIST>
-            <REFERENCES>
-               <SCHEMA>F1_STAGING</SCHEMA>
-               <NAME>F1_JSON_RACETYPE</NAME>
-               <COL_LIST>
-                  <COL_LIST_ITEM>
-                     <NAME>ID</NAME>
-                  </COL_LIST_ITEM>
-               </COL_LIST>
-            </REFERENCES>
-         </FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-         <FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-            <NAME>F1_JSON_DOCS_FK2</NAME>
-            <COL_LIST>
-               <COL_LIST_ITEM>
-                  <NAME>DOC_TYPE</NAME>
-               </COL_LIST_ITEM>
-            </COL_LIST>
-            <REFERENCES>
-               <SCHEMA>F1_STAGING</SCHEMA>
-               <NAME>F1_JSON_DOCTYPE</NAME>
-               <COL_LIST>
-                  <COL_LIST_ITEM>
-                     <NAME>ID</NAME>
-                  </COL_LIST_ITEM>
-               </COL_LIST>
-            </REFERENCES>
-         </FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-      </FOREIGN_KEY_CONSTRAINT_LIST>
       <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
       <PHYSICAL_PROPERTIES>
          <HEAP_TABLE>
@@ -165,12 +137,15 @@
                            <CELL_FLASH_CACHE>DEFAULT</CELL_FLASH_CACHE>
                         </STORAGE>
                         <CHUNK>8192</CHUNK>
+                        <RETENTION>MIN </RETENTION>
+                        <MINTIME>1800</MINTIME>
                      </STORAGE_TABLE>
                   </JSON_PROPERTIES>
                </COL_LIST_ITEM>
             </COL_LIST>
          </COLUMN_PROPERTIES>
       </TABLE_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="c15f7109fdb1d3026fe0dd2279fb209b8a9a1324" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleComment objectName="F1_CONSTRUCTORS" objectType="COMMENT" ownerName="F1_DATA" sourceType="STRING" replaceIfExists="false" >
+			<n0:source><![CDATA[
+   COMMENT ON COLUMN "F1_CONSTRUCTORS"."CONSTRUCTORID" IS 'Constructorname';
+   COMMENT ON COLUMN "F1_CONSTRUCTORS"."INFO" IS 'Wikipedia link';
+   COMMENT ON COLUMN "F1_CONSTRUCTORS"."NATIONALITY" IS 'Country origin';]]></n0:source>
+		</n0:createOracleComment>
+	</changeSet>
+</databaseChangeLog>

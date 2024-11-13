@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="ef431fb1aa613bbe15e406742139d735dcfea939" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_RACES" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="b67065afb8b0739d76bd1fa67cccafd64e284d45" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_RACES" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_RACES</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
@@ -17,11 +17,13 @@
             <NAME>SEASON</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>ROUND</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>INFO</NAME>
@@ -29,6 +31,7 @@
             <LENGTH>100</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACENAME</NAME>
@@ -36,6 +39,7 @@
             <LENGTH>100</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>CIRCUITID</NAME>
@@ -43,27 +47,9 @@
             <LENGTH>30</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
-      <FOREIGN_KEY_CONSTRAINT_LIST>
-         <FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-            <NAME>F1_RACES_FK1</NAME>
-            <COL_LIST>
-               <COL_LIST_ITEM>
-                  <NAME>CIRCUITID</NAME>
-               </COL_LIST_ITEM>
-            </COL_LIST>
-            <REFERENCES>
-               <SCHEMA>F1_DATA</SCHEMA>
-               <NAME>F1_TRACKS</NAME>
-               <COL_LIST>
-                  <COL_LIST_ITEM>
-                     <NAME>CIRCUITID</NAME>
-                  </COL_LIST_ITEM>
-               </COL_LIST>
-            </REFERENCES>
-         </FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-      </FOREIGN_KEY_CONSTRAINT_LIST>
       <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
       <PHYSICAL_PROPERTIES>
          <HEAP_TABLE>
@@ -91,6 +77,7 @@
             <COMPRESS>N</COMPRESS>
          </HEAP_TABLE>
       </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

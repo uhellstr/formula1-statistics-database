@@ -1,1 +1,1 @@
-lb generate-schema --split --grants --synonyms --sql
+lb generate-schema -split -grants -synonyms -sql -overwrite-files

@@ -5,69 +5,88 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="ca4cad3075383cd33c3efa17907775b9492d8fe1" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="V_F1_DRIVERSTANDINGS" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="98a9300ca3d91b930e1d48328201898e9585ccae" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_DRIVERSTANDINGS" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>V_F1_DRIVERSTANDINGS</NAME>
    <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
    <COL_LIST>
       <COL_LIST_ITEM>
          <NAME>SEASON</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>RACE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>POSITION</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>POSITIONTEXT</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>POINTS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>WINS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>DRIVERID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>PERMANENTNUMBER</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CODE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>INFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>GIVENNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>FAMILYNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>DATEOFBIRTH</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>NATIONALITY</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CONSTRUCTORID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CONSTRUCTORINFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CONSTRUCTORNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CONSTRUCTORNATIONALITY</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
    </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
    <SUBQUERY>select to_number(f1.season) as season,
        to_number(f1.race) as race,
        to_number(f1.position) as position,

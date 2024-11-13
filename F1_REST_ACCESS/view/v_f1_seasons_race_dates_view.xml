@@ -5,39 +5,48 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="0780c56046bdb69ecbdb05cf50997b66cf45c1f3" author="(F1_REST_ACCESS)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="V_F1_SEASONS_RACE_DATES" objectType="VIEW" ownerName="F1_REST_ACCESS"  replaceIfExists="true" >
+	<changeSet id="d5013c37456718eea83f0dbaeb93426f34a0b8ae" author="(F1_REST_ACCESS)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_SEASONS_RACE_DATES" objectType="VIEW" ownerName="F1_REST_ACCESS"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_REST_ACCESS</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>V_F1_SEASONS_RACE_DATES</NAME>
    <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
    <COL_LIST>
       <COL_LIST_ITEM>
          <NAME>SEASON</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>ROUND</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>INFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>RACENAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CIRCUITID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>URL</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CIRCUITNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>RACE_DATE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
    </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
    <SUBQUERY>select "SEASON","ROUND","INFO","RACENAME","CIRCUITID","URL","CIRCUITNAME","RACE_DATE" from F1_DATA.V_F1_SEASONS_RACE_DATES</SUBQUERY>
 </VIEW>]]></n0:source>
 		</n0:createSxmlObject>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="6f74e8c891493ef6f0df5db24ca3b9b73ba0420f" author="(F1_STAGING)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleComment objectName="F1_JSON_DOCTYPE" objectType="COMMENT" ownerName="F1_STAGING" sourceType="STRING" replaceIfExists="false" >
+			<n0:source><![CDATA[
+   COMMENT ON COLUMN "F1_JSON_DOCTYPE"."ID" IS 'JSON_ID_TYPE';
+   COMMENT ON COLUMN "F1_JSON_DOCTYPE"."DOC_TYPE" IS 'Type of JSON Doc';]]></n0:source>
+		</n0:createOracleComment>
+	</changeSet>
+</databaseChangeLog>

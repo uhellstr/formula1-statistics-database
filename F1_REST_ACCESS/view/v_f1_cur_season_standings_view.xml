@@ -5,36 +5,44 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="dfc795c162faacc1cdbc7140e5a39fabed76a664" author="(F1_REST_ACCESS)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="V_F1_CUR_SEASON_STANDINGS" objectType="VIEW" ownerName="F1_REST_ACCESS"  replaceIfExists="true" >
+	<changeSet id="81d7e30254faf8bab291f6f5b526ba39418b06f3" author="(F1_REST_ACCESS)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_CUR_SEASON_STANDINGS" objectType="VIEW" ownerName="F1_REST_ACCESS"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_REST_ACCESS</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>V_F1_CUR_SEASON_STANDINGS</NAME>
    <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
    <COL_LIST>
       <COL_LIST_ITEM>
          <NAME>SEASON</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>POSITION</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>RACE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>POINTS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>GIVENNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>FAMILYNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CONSTRUCTORID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
    </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
    <SUBQUERY>select vfd.season
        ,rownum as position
        ,vfd.race
@@ -42,7 +50,7 @@
        ,vfd.givenname
        ,vfd.familyname
        ,vfd.constructorid
-from f1_rest_access.v_f1_driverstandings vfd
+from v_f1_driverstandings vfd
 where vfd.season = f1_logik.get_cur_f1_season 
 order by to_number(points) desc</SUBQUERY>
 </VIEW>]]></n0:source>

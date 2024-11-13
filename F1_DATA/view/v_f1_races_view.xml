@@ -5,48 +5,60 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="a490805e2e97f501f9e6e8cc689d88354996850b" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="V_F1_RACES" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="5a20ee1494c802a8e8321447ada81f01af038626" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_RACES" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>V_F1_RACES</NAME>
    <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
    <COL_LIST>
       <COL_LIST_ITEM>
          <NAME>SEASON</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>ROUND</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>INFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>RACENAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CIRCUITID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>URL</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>CIRCUITNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>LAT</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>LONGITUDE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>LOCALITY</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>COUNTRY</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
    </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
    <SUBQUERY>select to_number(f1.season) as season
        ,to_number(f1.round) as round
        ,f1.info

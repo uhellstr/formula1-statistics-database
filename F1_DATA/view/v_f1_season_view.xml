@@ -5,21 +5,24 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="125b96bf5e48ab673e82827be0a5854a2511c650" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="V_F1_SEASON" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="ee1559e17d9c6cb8735b36096fa9c481e7bc52d8" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="V_F1_SEASON" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>V_F1_SEASON</NAME>
    <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
    <COL_LIST>
       <COL_LIST_ITEM>
          <NAME>SEASON</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
       <COL_LIST_ITEM>
          <NAME>INFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
       </COL_LIST_ITEM>
    </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
    <SUBQUERY>select to_number(f1.season) as season
        ,f1.info
 from f1_staging.v_f1_json_docs ftab,

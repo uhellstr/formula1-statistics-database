@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="b2aba1171e34d313594c1182f557c10273b9a5d5" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleRefConstraint objectName="F1_DRIVERSTANDINGS_FK1" objectType="REF_CONSTRAINT" ownerName="F1_DATA"  replaceIfExists="false" >
+			<n0:source><![CDATA[ALTER TABLE "%USER_NAME%"."F1_DRIVERSTANDINGS" ADD CONSTRAINT "F1_DRIVERSTANDINGS_FK1" FOREIGN KEY ("DRIVERID")
+	  REFERENCES "%USER_NAME%"."F1_DRIVERS" ("DRIVERID") ENABLE;]]></n0:source>
+		</n0:createOracleRefConstraint>
+	</changeSet>
+</databaseChangeLog>

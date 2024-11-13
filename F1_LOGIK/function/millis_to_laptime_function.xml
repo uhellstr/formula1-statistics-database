@@ -5,10 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="1554711e4c0eed41d7633ce8f591730ba0805808" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createOracleFunction objectName="MILLIS_TO_LAPTIME" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="true" >
-			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."MILLIS_TO_LAPTIME" 
+	<changeSet id="f6925187a1da61d6368ffd8f907d6d3e8d3db883" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleFunction objectName="MILLIS_TO_LAPTIME" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."MILLIS_TO_LAPTIME" 
 (
     p_in_milliseconds in number
 ) return varchar2 is
@@ -47,7 +46,8 @@ begin
 
   return lv_retval;
 
-end;]]></n0:source>
+end;
+/]]></n0:source>
 		</n0:createOracleFunction>
 	</changeSet>
 </databaseChangeLog>

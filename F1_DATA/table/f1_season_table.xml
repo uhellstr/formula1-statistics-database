@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="0a526a1cf5133eeaf400432b8fb5a7e170155ede" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_SEASON" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="dff4736a39195a0f18e4f7f8c960028eea5de36a" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_SEASON" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_SEASON</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
@@ -17,12 +17,14 @@
             <NAME>SEASON</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>INFO</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>4000</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
       <PRIMARY_KEY_CONSTRAINT_LIST>
@@ -83,6 +85,7 @@
             <COMPRESS>N</COMPRESS>
          </HEAP_TABLE>
       </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

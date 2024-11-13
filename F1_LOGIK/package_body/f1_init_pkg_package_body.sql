@@ -1,5 +1,4 @@
-
-  CREATE OR REPLACE EDITIONABLE PACKAGE BODY "F1_LOGIK"."F1_INIT_PKG" 
+CREATE OR REPLACE EDITIONABLE PACKAGE BODY "F1_INIT_PKG" 
 as
 
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1039,3 +1038,4 @@ as
  end load_race;
 
 end f1_init_pkg;
+/

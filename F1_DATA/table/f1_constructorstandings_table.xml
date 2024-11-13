@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="22d72b289404921e5a5299029b094fd70ac3e22b" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_CONSTRUCTORSTANDINGS" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="ace73d71338639c2a5f2b7bad130ab01a39e5b28" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_CONSTRUCTORSTANDINGS" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_CONSTRUCTORSTANDINGS</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
@@ -17,56 +17,44 @@
             <NAME>SEASON</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACE</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>POSITION</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>POSITIONTEXT</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>10</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>POINTS</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>WINS</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>CONSTRUCTORID</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>30</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
-      <FOREIGN_KEY_CONSTRAINT_LIST>
-         <FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-            <NAME>F1_CONSTRUCTORSTANDINGS_FK1</NAME>
-            <COL_LIST>
-               <COL_LIST_ITEM>
-                  <NAME>CONSTRUCTORID</NAME>
-               </COL_LIST_ITEM>
-            </COL_LIST>
-            <REFERENCES>
-               <SCHEMA>F1_DATA</SCHEMA>
-               <NAME>F1_CONSTRUCTORS</NAME>
-               <COL_LIST>
-                  <COL_LIST_ITEM>
-                     <NAME>CONSTRUCTORID</NAME>
-                  </COL_LIST_ITEM>
-               </COL_LIST>
-            </REFERENCES>
-         </FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-      </FOREIGN_KEY_CONSTRAINT_LIST>
       <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
       <PHYSICAL_PROPERTIES>
          <HEAP_TABLE>
@@ -94,6 +82,7 @@
             <COMPRESS>N</COMPRESS>
          </HEAP_TABLE>
       </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

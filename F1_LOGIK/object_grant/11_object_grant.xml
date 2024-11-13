@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="45d5bbca7388d62bc7c80984d01459a0912ba8a4" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleGrant objectName="11" objectType="OBJECT_GRANT" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[GRANT EXECUTE ON "%USER_NAME%"."GET_LAST_RACE" TO "F1_REST_ACCESS";]]></n0:source>
+		</n0:createOracleGrant>
+	</changeSet>
+</databaseChangeLog>

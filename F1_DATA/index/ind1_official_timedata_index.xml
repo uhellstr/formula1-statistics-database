@@ -5,15 +5,15 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="86e31e0564a1018c09c33934c3237b900e82a8c6" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="IND1_OFFICIAL_TIMEDATA" objectType="INDEX" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="180b0e9a9593bdc397a161f3ca9c5652cc4ffe34" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="IND1_OFFICIAL_TIMEDATA" objectType="INDEX" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <INDEX xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>IND1_OFFICIAL_TIMEDATA</NAME>
    <TABLE_INDEX>
       <ON_TABLE>
-         <SCHEMA>F1_DATA</SCHEMA>
+         <SCHEMA>%USER_NAME%</SCHEMA>
          <NAME>F1_OFFICIAL_TIMEDATA</NAME>
       </ON_TABLE>
       <COL_LIST>
@@ -27,6 +27,7 @@
             <NAME>RACETYPE</NAME>
          </COL_LIST_ITEM>
       </COL_LIST>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
       <INDEX_ATTRIBUTES>
          <PCTFREE>10</PCTFREE>
          <INITRANS>2</INITRANS>

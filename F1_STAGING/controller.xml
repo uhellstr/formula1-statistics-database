@@ -1,39 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-############ ddl.parms  ########################################
-BODY                           : ON
-COLLATION_CLAUSE               : NEVER
-CONSTRAINTS                    : ON
-CONSTRAINTS_AS_ALTER           : ON
-EMIT_SCHEMA                    : ON
-FORCE                          : ON
-INHERIT                        : ON
-INSERT                         : ON
-OID                            : ON
-PARTITIONING                   : ON
-PRETTY                         : ON
-REF_CONSTRAINTS                : ON
-SEGMENT_ATTRIBUTES             : ON
-SIZE_BYTE_KEYWORD              : ON
-SPECIFICATION                  : ON
-SQLTERMINATOR                  : ON
-STORAGE                        : ON
-TABLESPACE                     : ON
 
-############ lb.parameters ########################################
-basecommand                    : lb
-command                        : generate-schema
-database-changelog-table-name  : DATABASECHANGELOG
-fail-on-error                  : false
-grants                         : true
-log                            : false
-replace                        : true
-runalways                      : false
-runonchange                    : true
-split                          : true
-sqlclversion                   : 23.2.0.0
-synonyms                       : true
-############ End Parameters #######################################
 -->
 <databaseChangeLog 
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
@@ -42,27 +9,30 @@ synonyms                       : true
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <include file="sequence/f1_staging_seq_sequence.xml"/> 
+  <include file="table/f1_json_docs_table.xml"/> 
   <include file="table/f1_json_doctype_table.xml"/> 
   <include file="table/f1_json_racetype_table.xml"/> 
-  <include file="table/f1_json_docs_table.xml"/> 
   <include file="view/v_f1_json_docs_view.xml"/> 
+  <include file="ref_constraint/f1_json_docs_fk1_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_json_docs_fk2_ref_constraint.xml"/> 
   <include file="index/f1_json_docs_doctype_idx1_index.xml"/> 
-  <include file="comment/f1_json_doctype_comments.xml"/> 
-  <include file="object_grant/object_grant_0.xml"/> 
-  <include file="object_grant/object_grant_1.xml"/> 
-  <include file="object_grant/object_grant_2.xml"/> 
-  <include file="object_grant/object_grant_3.xml"/> 
-  <include file="object_grant/object_grant_4.xml"/> 
-  <include file="object_grant/object_grant_5.xml"/> 
-  <include file="object_grant/object_grant_6.xml"/> 
-  <include file="object_grant/object_grant_7.xml"/> 
-  <include file="object_grant/object_grant_8.xml"/> 
-  <include file="object_grant/object_grant_9.xml"/> 
-  <include file="object_grant/object_grant_10.xml"/> 
-  <include file="object_grant/object_grant_11.xml"/> 
-  <include file="object_grant/object_grant_12.xml"/> 
-  <include file="object_grant/object_grant_13.xml"/> 
-  <include file="object_grant/object_grant_14.xml"/> 
-  <include file="object_grant/object_grant_15.xml"/> 
-  <include file="object_grant/object_grant_16.xml"/> 
+  <include file="index/ind_search_race_f1_json_doctype_index.xml"/> 
+  <include file="object_grant/1_object_grant.xml"/> 
+  <include file="object_grant/10_object_grant.xml"/> 
+  <include file="object_grant/11_object_grant.xml"/> 
+  <include file="object_grant/12_object_grant.xml"/> 
+  <include file="object_grant/13_object_grant.xml"/> 
+  <include file="object_grant/14_object_grant.xml"/> 
+  <include file="object_grant/15_object_grant.xml"/> 
+  <include file="object_grant/16_object_grant.xml"/> 
+  <include file="object_grant/17_object_grant.xml"/> 
+  <include file="object_grant/2_object_grant.xml"/> 
+  <include file="object_grant/3_object_grant.xml"/> 
+  <include file="object_grant/4_object_grant.xml"/> 
+  <include file="object_grant/5_object_grant.xml"/> 
+  <include file="object_grant/6_object_grant.xml"/> 
+  <include file="object_grant/7_object_grant.xml"/> 
+  <include file="object_grant/8_object_grant.xml"/> 
+  <include file="object_grant/9_object_grant.xml"/> 
+  <include file="comment/f1_json_doctype_comment.xml"/> 
 </databaseChangeLog> 

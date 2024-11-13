@@ -5,10 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="758cb2177f8fe65a89507620d81081f942cc56ff" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createOracleFunction objectName="GET_LAST_RACE" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="true" >
-			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."GET_LAST_RACE" 
+	<changeSet id="342c019c3146a0a1157603b30a4abf37e778e740" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleFunction objectName="GET_LAST_RACE" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."GET_LAST_RACE" 
 (
   p_in_cur_year in varchar2 default to_char(current_date,'rrrr') 
 ) return number result_cache 
@@ -34,7 +33,8 @@ begin
 
    return lv_retval;
 
-end get_last_race;]]></n0:source>
+end get_last_race;
+/]]></n0:source>
 		</n0:createOracleFunction>
 	</changeSet>
 </databaseChangeLog>

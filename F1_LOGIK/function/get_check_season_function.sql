@@ -1,5 +1,4 @@
-
-  CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."GET_CHECK_SEASON" 
+CREATE OR REPLACE EDITIONABLE FUNCTION "GET_CHECK_SEASON" 
 (
   p_in_cur_year in varchar2 default to_char(current_date,'rrrr') 
 ) 
@@ -27,3 +26,4 @@ begin
   return lv_retval;
 
 end get_check_season;
+/

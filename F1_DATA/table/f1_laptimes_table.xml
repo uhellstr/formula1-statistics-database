@@ -5,72 +5,61 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="f96f81d5f6e235b9a72618584d40b6117015623b" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_LAPTIMES" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="660e4c8d66e844ba1627d4418cfc3c6ce1dd0fbd" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_LAPTIMES" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_LAPTIMES</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
          <COL_LIST_ITEM>
             <NAME>SEASON</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>ROUND</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACE_DATE</NAME>
             <DATATYPE>DATE</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACE_TIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAP_NUMBER</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DRIVERID</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>30</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>POSITION</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAPTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
-      <FOREIGN_KEY_CONSTRAINT_LIST>
-         <FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-            <NAME>F1_LAPTIMES_FK2</NAME>
-            <COL_LIST>
-               <COL_LIST_ITEM>
-                  <NAME>DRIVERID</NAME>
-               </COL_LIST_ITEM>
-            </COL_LIST>
-            <REFERENCES>
-               <SCHEMA>F1_DATA</SCHEMA>
-               <NAME>F1_DRIVERS</NAME>
-               <COL_LIST>
-                  <COL_LIST_ITEM>
-                     <NAME>DRIVERID</NAME>
-                  </COL_LIST_ITEM>
-               </COL_LIST>
-            </REFERENCES>
-         </FOREIGN_KEY_CONSTRAINT_LIST_ITEM>
-      </FOREIGN_KEY_CONSTRAINT_LIST>
       <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
       <PHYSICAL_PROPERTIES>
          <HEAP_TABLE>
@@ -98,6 +87,7 @@
             <COMPRESS>N</COMPRESS>
          </HEAP_TABLE>
       </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

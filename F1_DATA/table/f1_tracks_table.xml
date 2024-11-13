@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="cfe07405b979e937cd932b8fbbbde2b0f895a846" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_TRACKS" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="ebfea0294e35ae64a35b8086133045d1bc1ef154" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_TRACKS" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_TRACKS</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
@@ -19,39 +19,46 @@
             <LENGTH>30</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>INFO</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>100</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>CIRCUITNAME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>50</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAT</NAME>
             <DATATYPE>NUMBER</DATATYPE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LONGITUD</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <SCALE>6</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LOCALITY</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>50</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>COUNTRY</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>30</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
       <PRIMARY_KEY_CONSTRAINT_LIST>
@@ -112,6 +119,7 @@
             <COMPRESS>N</COMPRESS>
          </HEAP_TABLE>
       </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

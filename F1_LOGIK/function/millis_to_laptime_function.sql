@@ -1,5 +1,4 @@
-
-  CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."MILLIS_TO_LAPTIME" 
+CREATE OR REPLACE EDITIONABLE FUNCTION "MILLIS_TO_LAPTIME" 
 (
     p_in_milliseconds in number
 ) return varchar2 is
@@ -39,3 +38,4 @@ begin
   return lv_retval;
 
 end;
+/

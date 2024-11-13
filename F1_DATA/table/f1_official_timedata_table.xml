@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="c52220b0fd04d5ab9333f5c78a75960fc42c69b4" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_OFFICIAL_TIMEDATA" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="3fb430a479f094ab25efbbea2ff997c449f0bed2" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_OFFICIAL_TIMEDATA" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_OFFICIAL_TIMEDATA</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
@@ -18,210 +18,245 @@
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>4</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACE</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>2</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACETYPE</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>3</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DATAPOINT</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>4</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>TIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DRIVER</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>3</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DRIVERNUMBER</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>2</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAPTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAPNUMBER</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>STINT</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>PITOUTTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>PITINTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SECTOR1TIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SECTOR2TIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SECTOR3TIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SECTOR1SESSIONTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SECTOR2SESSIONTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SECTOR3SESSIONTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SPEEDI1</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>4</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SPEEDI2</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>4</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SPEEDFL</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>4</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>SPEEDST</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>4</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>ISPERSONALBEST</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>5</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>COMPOUND</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>TYRELIFE</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>FRESHTYRE</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>5</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>TEAM</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAPSTARTTIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>25</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>LAPSTARTDATE</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>25</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>TRACKSTATUS</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>4</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>POSITION</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DELETED</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DELETEDREASON</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>50</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>FATF1GENERATED</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>10</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>ISACCURATE</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>10</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
       <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
@@ -251,6 +286,7 @@
             <COMPRESS>N</COMPRESS>
          </HEAP_TABLE>
       </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

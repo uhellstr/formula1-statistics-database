@@ -5,11 +5,11 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="3c9b69e66ad1d39057e25843668479637cfb5a12" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_OFFICIAL_WEATHER" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="06de77207fc452e0043576d32efe60900da37d20" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_OFFICIAL_WEATHER" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_OFFICIAL_WEATHER</NAME>
    <RELATIONAL_TABLE>
       <COL_LIST>
@@ -19,6 +19,7 @@
             <PRECISION>4</PRECISION>
             <SCALE>0</SCALE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACE</NAME>
@@ -26,6 +27,7 @@
             <PRECISION>2</PRECISION>
             <SCALE>0</SCALE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RACETYPE</NAME>
@@ -33,6 +35,7 @@
             <LENGTH>3</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>DATAPOINT</NAME>
@@ -40,54 +43,63 @@
             <PRECISION>5</PRECISION>
             <SCALE>0</SCALE>
             <NOT_NULL></NOT_NULL>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>TIME</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>20</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>AIRTEMP</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>HUMIDITY</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>PRESSURE</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>5</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>RAINFALL</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>5</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>TRACKTEMP</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>WINDDIRECTION</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>0</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>WINDSPEED</NAME>
             <DATATYPE>NUMBER</DATATYPE>
             <PRECISION>3</PRECISION>
             <SCALE>1</SCALE>
+            <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
       </COL_LIST>
       <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
@@ -117,6 +129,7 @@
             <COMPRESS>N</COMPRESS>
          </HEAP_TABLE>
       </PHYSICAL_PROPERTIES>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
    </RELATIONAL_TABLE>
 </TABLE>]]></n0:source>
 		</n0:createSxmlObject>

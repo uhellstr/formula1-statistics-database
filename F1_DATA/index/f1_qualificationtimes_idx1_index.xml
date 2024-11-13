@@ -5,15 +5,15 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="0d2a57fdea62fd4cde8688d9e2234371630f5cdd" author="(F1_DATA)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createSxmlObject objectName="F1_QUALIFICATIONTIMES_IDX1" objectType="INDEX" ownerName="F1_DATA"  replaceIfExists="true" >
+	<changeSet id="8891ee750c08e1b297d4e58bf42a2b61b04321c8" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createSxmlObject objectName="F1_QUALIFICATIONTIMES_IDX1" objectType="INDEX" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <INDEX xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <SCHEMA>F1_DATA</SCHEMA>
+   <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>F1_QUALIFICATIONTIMES_IDX1</NAME>
    <TABLE_INDEX>
       <ON_TABLE>
-         <SCHEMA>F1_DATA</SCHEMA>
+         <SCHEMA>%USER_NAME%</SCHEMA>
          <NAME>F1_QUALIFICATIONTIMES</NAME>
       </ON_TABLE>
       <COL_LIST>
@@ -24,6 +24,7 @@
             <NAME>ROUND</NAME>
          </COL_LIST_ITEM>
       </COL_LIST>
+      <ANNOTATION_LIST></ANNOTATION_LIST>
       <INDEX_ATTRIBUTES>
          <PCTFREE>10</PCTFREE>
          <INITRANS>2</INITRANS>

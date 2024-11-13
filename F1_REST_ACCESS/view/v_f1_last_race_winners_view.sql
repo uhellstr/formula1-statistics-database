@@ -1,4 +1,4 @@
-CREATE OR REPLACE FORCE EDITIONABLE VIEW "F1_REST_ACCESS"."V_F1_LAST_RACE_WINNERS" 
+CREATE OR REPLACE FORCE EDITIONABLE VIEW "V_F1_LAST_RACE_WINNERS" 
  ( "SEASON", "RACE", "RACENAME", "CIRCUITNAME", "RACEDATE", "PILOTNR", "POSITION", "POINTS", "GIVENNAME", "FAMILYNAME", "NATIONALITY", "CONSTRUCTOR", "GRID", "LAPS", "STATUS", "RANKING", "FASTESTLAP", "MILLIS", "RACETIME"
   )  AS 
   select
@@ -22,12 +22,12 @@ CREATE OR REPLACE FORCE EDITIONABLE VIEW "F1_REST_ACCESS"."V_F1_LAST_RACE_WINNER
   ,vfr.millis
   ,vfr.racetime
 from
-  f1_rest_access.v_f1_results vfr
-inner join f1_rest_access.v_f1_drivers vfd
+  v_f1_results vfr
+inner join v_f1_drivers vfd
 on vfr.driverid = vfd.driverid
-inner join f1_rest_access.v_f1_constructors vfc
+inner join v_f1_constructors vfc
 on vfr.constructorid = vfc.constructorid
-inner join f1_rest_access.v_f1_tracks vft
+inner join v_f1_tracks vft
 on vfr.circuitid = vft.circuitid
 where vfr.season = f1_logik.get_cur_f1_season
   and position is not null

@@ -5,9 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="f49a06e24ff410452dd473127ab1a119b23fc934" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createOracleFunction objectName="GET_CUR_F1_SEASON" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="true" >
-			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."GET_CUR_F1_SEASON" 
+	<changeSet id="28b18e2cef52645ea9a1221aaa068cafa5d7c3ec" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleFunction objectName="GET_CUR_F1_SEASON" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."GET_CUR_F1_SEASON" 
 (
   p_in_cur_year in varchar2 default to_char(current_date,'RRRR') 
 ) 
@@ -43,7 +43,7 @@ begin
   if lv_races = 0 then
     lv_season := to_char(to_number(to_char(current_date,'RRRR') - 1));
   else
-  
+
     with future_races as -- We need to handle between seasons where there are no races
       (
         select /*+ MATERIALIZE */ count(vfu.season) as any_races
@@ -68,9 +68,9 @@ begin
          and to_number(r.round) in (select max(to_number(rd.round)) from f1_data.v_f1_seasons_race_dates rd
                                     where rd.season  = r.season)
     );
-    
+
   end if;
-  
+
   return lv_season;
 
 end get_cur_f1_season;

@@ -5,10 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="a025396cc0d522ebf1e3d511defd47e41ece61c2" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createOraclePackageBody objectName="F1_INIT_PKG" objectType="PACKAGE_BODY" ownerName="F1_LOGIK"  replaceIfExists="true" >
-			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE PACKAGE BODY "F1_LOGIK"."F1_INIT_PKG" 
+	<changeSet id="b00692a4f0b362d7f14d520dc2728d38a15021fd" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOraclePackageBody objectName="F1_INIT_PKG" objectType="PACKAGE_BODY" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE BODY "%USER_NAME%"."F1_INIT_PKG" 
 as
 
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1047,7 +1046,8 @@ as
 
  end load_race;
 
-end f1_init_pkg;]]></n0:source>
+end f1_init_pkg;
+/]]></n0:source>
 		</n0:createOraclePackageBody>
 	</changeSet>
 </databaseChangeLog>

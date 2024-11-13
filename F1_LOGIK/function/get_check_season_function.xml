@@ -5,10 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="7917c0f01ad618935f166d7137aecb9ca568d627" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createOracleFunction objectName="GET_CHECK_SEASON" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="true" >
-			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."GET_CHECK_SEASON" 
+	<changeSet id="009d45937c025a33e91d71be6a5cbf43a4e3c03a" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleFunction objectName="GET_CHECK_SEASON" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."GET_CHECK_SEASON" 
 (
   p_in_cur_year in varchar2 default to_char(current_date,'rrrr') 
 ) 
@@ -35,7 +34,8 @@ begin
     );
   return lv_retval;
 
-end get_check_season;]]></n0:source>
+end get_check_season;
+/]]></n0:source>
 		</n0:createOracleFunction>
 	</changeSet>
 </databaseChangeLog>

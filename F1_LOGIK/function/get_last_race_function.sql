@@ -1,5 +1,4 @@
-
-  CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."GET_LAST_RACE" 
+CREATE OR REPLACE EDITIONABLE FUNCTION "GET_LAST_RACE" 
 (
   p_in_cur_year in varchar2 default to_char(current_date,'rrrr') 
 ) return number result_cache 
@@ -26,3 +25,4 @@ begin
    return lv_retval;
 
 end get_last_race;
+/

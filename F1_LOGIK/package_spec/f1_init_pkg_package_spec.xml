@@ -5,10 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="1016dba83d37406dd1e2825652f608e7a368b935" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createOraclePackageSpec objectName="F1_INIT_PKG" objectType="PACKAGE_SPEC" ownerName="F1_LOGIK"  replaceIfExists="true" >
-			<n0:source><![CDATA[
-  CREATE OR REPLACE EDITIONABLE PACKAGE "F1_LOGIK"."F1_INIT_PKG" as
+	<changeSet id="24956948e010f19b7703ad90ce7f8749dabfe305" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOraclePackageSpec objectName="F1_INIT_PKG" objectType="PACKAGE_SPEC" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE "%USER_NAME%"."F1_INIT_PKG" as
 
   procedure load_json;
   procedure load_race
@@ -19,7 +18,8 @@
   procedure reset_all_data;
   function ret_next_race_in_cur_season return number result_cache;
 
-end f1_init_pkg;]]></n0:source>
+end f1_init_pkg;
+/]]></n0:source>
 		</n0:createOraclePackageSpec>
 	</changeSet>
 </databaseChangeLog>

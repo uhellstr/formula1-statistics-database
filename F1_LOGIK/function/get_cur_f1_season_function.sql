@@ -1,4 +1,4 @@
-CREATE OR REPLACE EDITIONABLE FUNCTION "F1_LOGIK"."GET_CUR_F1_SEASON" 
+CREATE OR REPLACE EDITIONABLE FUNCTION "GET_CUR_F1_SEASON" 
 (
   p_in_cur_year in varchar2 default to_char(current_date,'RRRR') 
 ) 
@@ -34,7 +34,7 @@ begin
   if lv_races = 0 then
     lv_season := to_char(to_number(to_char(current_date,'RRRR') - 1));
   else
-  
+
     with future_races as -- We need to handle between seasons where there are no races
       (
         select /*+ MATERIALIZE */ count(vfu.season) as any_races
@@ -59,9 +59,9 @@ begin
          and to_number(r.round) in (select max(to_number(rd.round)) from f1_data.v_f1_seasons_race_dates rd
                                     where rd.season  = r.season)
     );
-    
+
   end if;
-  
+
   return lv_season;
 
 end get_cur_f1_season;

@@ -5,10 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="0a1d37388b265cd6a95fe9dd6fefe77a194c7656" author="(F1_LOGIK)-Generated" failOnError="false"   runOnChange="true" runAlways="false"  >
-		<n0:createOracleJob objectName="AUTO_ERGAST_LOAD_JOB" objectType="JOB" ownerName="F1_LOGIK"  replaceIfExists="true" >
+	<changeSet id="3bc658552edd2cc299c510e9e76f7e6abc5c86de" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleJob objectName="AUTO_ERGAST_LOAD_JOB" objectType="JOB" ownerName="F1_LOGIK"  replaceIfExists="false" >
 			<n0:source><![CDATA[
-  
 BEGIN 
 dbms_scheduler.create_job('AUTO_ERGAST_LOAD_JOB',
 program_name=>'AUTO_LOAD_NEW_F1_DATA',
@@ -20,7 +19,7 @@ sys.dbms_scheduler.set_attribute('AUTO_ERGAST_LOAD_JOB','NLS_ENV','NLS_LANGUAGE=
 dbms_scheduler.enable('AUTO_ERGAST_LOAD_JOB');
 COMMIT; 
 END; 
-]]></n0:source>
+/ ]]></n0:source>
 		</n0:createOracleJob>
 	</changeSet>
 </databaseChangeLog>
