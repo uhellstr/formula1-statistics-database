@@ -64,10 +64,153 @@ as
 
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+  procedure fetch_json_in_chunks
+              (
+                p_i_url in varchar2
+                ,p_i_doc_type in number
+                ,p_i_season in number default null
+                ,p_i_race in number default null
+                ,p_i_lapnumber in number default null
+                ,p_i_racetype in number default null
+              )
+  --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  -- Procedure: fetch_json_in_chunks
+  -- API: Private not published outside body
+  -- Purpose: Helper function fetching json docs in chunckks of max 100 rows
+  -- Author: Ulf Hellstrom, oraminute@gmail.com
+  --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%               
+  is
+
+    l_json_doc        clob;
+    l_limit           pls_integer := 100;
+    l_offset          pls_integer;
+    l_total           pls_integer;
+    b_fetch_more      boolean := true;
+    l_base_url        varchar2(500) := p_i_url||'?limit=';
+    l_url             clob;
+
+  begin
+
+    --dbms_output.put_line('first fetch url: '||l_url);
+
+    --
+    -- First pass we need to get tags for total number of
+    -- rows to fetch. Converting to relation unsing json_table()
+    --
+    l_json_doc := apex_web_service.make_rest_request
+        (
+          p_url => l_base_url||to_char(l_limit),
+          p_http_method => 'GET'
+        );
+
+    select jt.limit
+          , jt.offset
+          , jt.total
+    into l_limit
+          , l_offset
+          , l_total    
+    from 
+    json_table(
+        l_json_doc, 
+        '$.MRData' 
+        columns (
+            limit  VARCHAR2(10) PATH '$.limit',
+            offset VARCHAR2(10) PATH '$.offset',
+            total  VARCHAR2(10) PATH '$.total'
+        )
+    ) jt;
+
+    insert into f1_staging.f1_json_docs(
+        doc_id
+        ,doc_type
+        ,date_loaded
+        ,season
+        ,race
+        ,lapnumber
+        ,racetype
+        ,f1_document
+      ) values
+      (  
+       f1_staging.f1_staging_seq.nextval
+       ,p_i_doc_type
+       ,systimestamp
+       ,p_i_season
+       ,p_i_race
+       ,p_i_lapnumber
+       ,p_i_racetype
+       ,l_json_doc
+    );
+    commit;
+
+    -- calculating the offset for fetcthing more rows.
+    l_offset := (l_offset + l_limit);
+    --dbms_output.put_line(to_char(l_offset)||' after first fetch!');
+
+    -- If less or equal to 100 rows to fetch then we are finished.
+    if l_total <= 100 then
+      b_fetch_more := false;
+    end if;
+
+    -- loop and fetch chunks of document until finished.
+    while (b_fetch_more = true) loop  -- Bug here!
+
+      if ((l_offset < l_total) and ((l_total - l_offset) >= 100)) then
+        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+      else
+        l_limit := (l_total - l_offset);
+        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+        b_fetch_more := false;
+      end if;
+
+      --dbms_output.put_line(l_url);
+      --dbms_output.put_line(l_limit||','||l_offset||','||l_total);
+
+      l_json_doc := apex_web_service.make_rest_request
+        (
+          p_url => l_url,
+          p_http_method => 'GET'
+        );
+
+      insert into f1_staging.f1_json_docs(
+        doc_id
+        ,doc_type
+        ,date_loaded
+        ,season
+        ,race
+        ,lapnumber
+        ,racetype
+        ,f1_document
+      ) values
+      (  
+       f1_staging.f1_staging_seq.nextval
+       ,p_i_doc_type
+       ,systimestamp
+       ,p_i_season
+       ,p_i_race
+       ,p_i_lapnumber
+       ,p_i_racetype
+       ,l_json_doc
+      );
+      commit;
+
+      if l_total - l_offset < 100 then
+        l_limit := l_total - l_offset;
+      end if;
+
+      l_offset := (l_offset + l_limit);
+
+      --dbms_output.put_line('offset,limit and total in loop '||to_char(l_offset)||','||l_limit||','||l_total);
+
+    end loop; -- while true
+
+  end fetch_json_in_chunks;
+
+  --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   procedure load_f1_seasons
   is
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  -- Procedure: Load all years that F1 has done races-
+  -- Procedure: Load all years that F1 has done races
   -- API: Private not published outside body
   -- Purpose: Fetch data about all seasons that F1 has done races.
   -- Author: Ulf Hellstrom, oraminute@gmail.com
@@ -77,6 +220,17 @@ as
     -- Only one JSON document fetched so we reload it every time.
     delete from f1_staging.f1_json_docs where doc_type = 9;
 
+    fetch_json_in_chunks
+              (
+                p_i_url => 'http://ergast.com/api/f1/seasons.json'
+                ,p_i_doc_type => 9
+                ,p_i_season => null
+                ,p_i_race => null
+                ,p_i_lapnumber => null
+                ,p_i_racetype => null
+              );
+
+    /*
     insert into f1_staging.f1_json_docs(
       doc_id
       ,doc_type
@@ -102,6 +256,7 @@ as
       )
     );
     commit;
+    */
 
   end load_f1_seasons;
 
@@ -119,6 +274,16 @@ as
 
     delete from f1_staging.f1_json_docs where doc_type = 3;
 
+    fetch_json_in_chunks
+              (
+                p_i_url => 'http://ergast.com/api/f1/drivers.json'
+                ,p_i_doc_type => 3
+                ,p_i_season => null
+                ,p_i_race => null
+                ,p_i_lapnumber => null
+                ,p_i_racetype => null
+              );    
+/*
     insert into f1_staging.f1_json_docs(
       doc_id
       ,doc_type
@@ -144,6 +309,7 @@ as
         )
     );
     commit;
+*/ 
 
   end load_f1_drivers;
 
@@ -161,6 +327,17 @@ as
 
     delete from f1_staging.f1_json_docs where doc_type = 11;
 
+    fetch_json_in_chunks
+              (
+                p_i_url => 'http://ergast.com/api/f1/circuits.json'
+                ,p_i_doc_type => 11
+                ,p_i_season => null
+                ,p_i_race => null
+                ,p_i_lapnumber => null
+                ,p_i_racetype => null
+              );    
+
+/*
     insert into f1_staging.f1_json_docs(
       doc_id
       ,doc_type
@@ -186,6 +363,7 @@ as
         )
     );
     commit;
+*/
 
   end load_f1_tracks;
 
@@ -200,7 +378,7 @@ as
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
 
-    url clob := 'http://ergast.com/api/f1/{YEAR}.json?limit=1000';
+    url clob := 'http://ergast.com/api/f1/{YEAR}.json';
     calling_url clob;
 
     cursor cur_get_season_year is
@@ -225,6 +403,18 @@ as
         and doc_type = 7;
 
       if lv_count = 0 then
+
+        fetch_json_in_chunks
+            (
+              p_i_url => p_in_url
+              ,p_i_doc_type => 7
+              ,p_i_season => p_in_year
+              ,p_i_race => null
+              ,p_i_lapnumber => null
+              ,p_i_racetype => null
+            );
+
+/*
         insert into f1_staging.f1_json_docs(
           doc_id
          ,doc_type
@@ -251,6 +441,7 @@ as
            )
          );
         commit;
+*/        
       end if;
 
     end get_races;
@@ -307,6 +498,18 @@ as
         and doc_type = 8;
 
       if lv_count = 0 then
+
+        fetch_json_in_chunks
+            (
+              p_i_url => p_in_url
+              ,p_i_doc_type => 8
+              ,p_i_season => p_in_year
+              ,p_i_race => p_in_round
+              ,p_i_lapnumber => null
+              ,p_i_racetype => null
+            );
+
+/*
         insert into f1_staging.f1_json_docs(
           doc_id
          ,doc_type
@@ -332,6 +535,7 @@ as
                )
           );
         commit;
+*/
       end if;
 
     end insert_results;
@@ -367,6 +571,17 @@ as
 
     delete from f1_staging.f1_json_docs where doc_type = 1;
 
+    fetch_json_in_chunks
+              (
+                p_i_url => 'http://ergast.com/api/f1/constructors.json'
+                ,p_i_doc_type => 1
+                ,p_i_season => null
+                ,p_i_race => null
+                ,p_i_lapnumber => null
+                ,p_i_racetype => null
+              );      
+
+/*
     insert into f1_staging.f1_json_docs(
       doc_id
       ,doc_type
@@ -392,6 +607,8 @@ as
         )
     );
     commit;
+*/
+
   end load_f1_constructors;
 
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -436,6 +653,18 @@ as
      end if;
 
      if lv_count = 0 then
+
+        fetch_json_in_chunks
+            (
+              p_i_url => p_in_url
+              ,p_i_doc_type => 4
+              ,p_i_season => p_in_year
+              ,p_i_race => null
+              ,p_i_lapnumber => null
+              ,p_i_racetype => null
+            );
+
+/*
        insert into f1_staging.f1_json_docs(
          doc_id
          ,doc_type
@@ -461,6 +690,7 @@ as
            )
         );
        commit;
+*/       
      end if;
     end insert_results;
 
@@ -482,7 +712,7 @@ as
   -- Author: Ulf Hellstrom, oraminute@gmail.com
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
-    url clob := 'http://ergast.com/api/f1/{YEAR}/constructorStandings.json?limit=100';
+    url clob := 'http://ergast.com/api/f1/{YEAR}/constructorStandings.json';
     calling_url clob;
 
     cursor cur_get_f1_seasons is
@@ -514,6 +744,17 @@ as
      end if;
 
      if lv_count = 0 then
+
+        fetch_json_in_chunks
+            (
+              p_i_url => p_in_url
+              ,p_i_doc_type => 2
+              ,p_i_season => p_in_year
+              ,p_i_race => null
+              ,p_i_lapnumber => null
+              ,p_i_racetype => null
+            );
+/*
        insert into f1_staging.f1_json_docs
        (
          doc_id
@@ -540,6 +781,7 @@ as
              )
        );
        commit;
+*/
      end if;
     end insert_results;
 
@@ -561,7 +803,7 @@ as
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
 
-    url clob := 'http://ergast.com/api/f1/{YEAR}.json?limit=1000';
+    url clob := 'http://ergast.com/api/f1/{YEAR}.json';
     calling_url clob;
 
     cursor cur_get_f1_seasons is
@@ -585,6 +827,18 @@ as
        and season = p_in_year;
 
      if lv_count = 0 then
+
+        fetch_json_in_chunks
+            (
+              p_i_url => p_in_url
+              ,p_i_doc_type => 10
+              ,p_i_season => p_in_year
+              ,p_i_race => null
+              ,p_i_lapnumber => null
+              ,p_i_racetype => null
+            );
+
+/*
        insert into f1_staging.f1_json_docs(
           doc_id
          ,doc_type
@@ -611,6 +865,7 @@ as
            )
        );
        commit;
+*/
      end if;
     end insert_results;
 
@@ -634,7 +889,7 @@ as
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
 
-    url clob := 'http://ergast.com/api/f1/{YEAR}/{ROUND}/qualifying.json?limit=1000';
+    url clob := 'http://ergast.com/api/f1/{YEAR}/{ROUND}/qualifying.json';
     calling_url clob;
     tmp_url clob;
     lv_number_of_races number;
@@ -667,6 +922,17 @@ as
 
      if lv_count = 0 then
 
+        fetch_json_in_chunks
+            (
+              p_i_url => p_in_url
+              ,p_i_doc_type => 6
+              ,p_i_season => p_in_year
+              ,p_i_race => p_in_round
+              ,p_i_lapnumber => null
+              ,p_i_racetype => null
+            );
+
+/*
       insert into f1_staging.f1_json_docs
         (
           doc_id
@@ -694,6 +960,7 @@ as
           )
         );
       commit;
+*/
      end if;
 
     end get_qualitimes;
@@ -741,7 +1008,7 @@ as
   -- Author: Ulf Hellstrom, oraminute@gmail.com
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
-    url clob := 'http://ergast.com/api/f1/{YEAR}/{ROUND}/laps/{LAP}.json?limit=1000';
+    url clob := 'http://ergast.com/api/f1/{YEAR}/{ROUND}/laps/{LAP}.json';
     calling_url clob;
     tmp_url clob;
     tmp1_url clob;
@@ -776,6 +1043,17 @@ as
         and lapnumber = p_in_lap;
 
       if lv_count = 0 then
+
+        fetch_json_in_chunks
+            (
+              p_i_url => p_in_url
+              ,p_i_doc_type => 5
+              ,p_i_season => p_in_year
+              ,p_i_race => p_in_round
+              ,p_i_lapnumber => p_in_lap
+              ,p_i_racetype => 3
+            );
+/*            
         insert into f1_staging.f1_json_docs
         (
           doc_id
@@ -802,6 +1080,7 @@ as
             )
         );
         commit;
+*/
       end if;
      end get_laps;
 

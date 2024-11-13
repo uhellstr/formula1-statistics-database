@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+	<changeSet id="fd9fd7d063103d49e5a3a31aa6d536594f5daf9b" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+		<n0:createOracleProcedure objectName="FETCH_JSON_IN_CHUNKS" objectType="PROCEDURE" ownerName="F1_LOGIK"  replaceIfExists="false" >
+			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PROCEDURE "%USER_NAME%"."FETCH_JSON_IN_CHUNKS" 
+/*
+  Now working!
+*/
+is
+  l_json_doc        clob;
+  l_limit           pls_integer := 100;
+  l_offset          pls_integer;
+  l_total           pls_integer;
+  b_fetch_more      boolean := true;
+  l_base_url        varchar2(500) := 'http://ergast.com/api/f1/constructors.json?limit=';
+  l_url             clob;
+
+begin
+
+  --dbms_output.put_line('first fetch url: '||l_url);
+
+  --
+  -- First pass we need to get tags for total number of
+  -- rows to fetch. Converting to relation unsing json_table()
+  --
+  l_json_doc := apex_web_service.make_rest_request
+        (
+          p_url => l_base_url||to_char(l_limit),
+          p_http_method => 'GET'
+        );
+
+  select jt.limit
+         , jt.offset
+         , jt.total
+  into l_limit
+        , l_offset
+        , l_total    
+  from 
+    json_table(
+        l_json_doc, 
+        '$.MRData' 
+        columns (
+            limit  VARCHAR2(10) PATH '$.limit',
+            offset VARCHAR2(10) PATH '$.offset',
+            total  VARCHAR2(10) PATH '$.total'
+        )
+    ) jt;
+
+    --dbms_output.enable(1000000);
+    --dbms_output.put_line(l_limit||','||l_offset||','||l_total); -- 100,0,212
+    -- Insert the first batch of data
+
+    delete from f1_staging.f1_json_docs where doc_type = 1;
+    insert into f1_staging.f1_json_docs(
+        doc_id
+        ,doc_type
+        ,date_loaded
+        ,season
+        ,race
+        ,lapnumber
+        ,racetype
+        ,f1_document
+      ) values
+      (  
+       f1_staging.f1_staging_seq.nextval
+       ,1
+       ,systimestamp
+       ,null
+       ,null
+       ,null
+       ,null    
+       ,l_json_doc
+    );
+    commit;
+
+    -- calculating the offset for fetcthing more rows.
+    l_offset := (l_offset + l_limit);
+    --dbms_output.put_line(to_char(l_offset)||' after first fetch!');
+
+    -- If less or equal to 100 rows to fetch then we are finished.
+    if l_total <= 100 then
+      b_fetch_more := false;
+    end if;
+
+    -- loop and fetch chunks of document until finished.
+    while (b_fetch_more = true) loop  -- Bug here!
+
+      if ((l_offset < l_total) and ((l_total - l_offset) >= 100)) then
+        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+      else
+        l_limit := (l_total - l_offset);
+        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+        b_fetch_more := false;
+      end if;
+
+      --dbms_output.put_line(l_url);
+      --dbms_output.put_line(l_limit||','||l_offset||','||l_total);
+
+      l_json_doc := apex_web_service.make_rest_request
+        (
+          p_url => l_url,
+          p_http_method => 'GET'
+        );
+
+      insert into f1_staging.f1_json_docs(
+        doc_id
+        ,doc_type
+        ,date_loaded
+        ,season
+        ,race
+        ,lapnumber
+        ,racetype
+        ,f1_document
+      ) values
+      (  
+       f1_staging.f1_staging_seq.nextval
+       ,1
+       ,systimestamp
+       ,null
+       ,null
+       ,null
+       ,null    
+       ,l_json_doc
+      );
+      commit;
+
+      if l_total - l_offset < 100 then
+        l_limit := l_total - l_offset;
+      end if;
+
+      l_offset := (l_offset + l_limit);
+
+      --dbms_output.put_line('offset,limit and total in loop '||to_char(l_offset)||','||l_limit||','||l_total);
+
+    end loop; -- while true
+
+end fetch_json_in_chunks;
+/]]></n0:source>
+		</n0:createOracleProcedure>
+	</changeSet>
+</databaseChangeLog>
