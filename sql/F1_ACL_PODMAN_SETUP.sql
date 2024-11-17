@@ -97,7 +97,7 @@ begin
      COMMIT;
      --l_principal VARCHAR2(20) := 'APEX_190200';
      DBMS_NETWORK_ACL_ADMIN.append_host_ace (
-       host       => '*',
+       host       => 'localhost',
        lower_port => 80,
        upper_port => 80,
        ace        => xs$ace_type(privilege_list => xs$name_list('http'),
