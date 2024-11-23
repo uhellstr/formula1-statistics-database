@@ -8,11 +8,11 @@ Note: This data CANNOT be used in any kind of commercial application due to how 
 Requirements:
 
 - OracleDB and client on Linux operatingsystem like OEL8, client can be any sutable linux distro.
-- A working Oracle database >= 19c, could be EE,SE,XE,FREE edition , cloud or on premise.
+- A working Oracle database >= 21c, could be EE,SE,XE,FREE edition , cloud or on premise.
 - Oracle Application Express edition >= 22
 - Oracle instant client >= 21c
 - Oracle Java 11 JDK 
-- Oracle SQLcl >= 23.2 complete installation and future maintenance is done with SQLcl liquibase.
+- Oracle SQLcl >= 24.2 complete installation and future maintenance is done with SQLcl liquibase.
 
 A very easy way to get started is to install the Oracle Developers FREE 23c database that is free for use for us all!
 See: https://www.oracle.com/database/free/
