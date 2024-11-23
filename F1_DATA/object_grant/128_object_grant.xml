@@ -5,9 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="4f3ef4fa9e99687e4ada8db29f0cbcf3a0051999" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="f6c603f61ec53d0ca4fbcd3eb56d05ef4b85e6d3" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOracleGrant objectName="128" objectType="OBJECT_GRANT" ownerName="F1_DATA"  replaceIfExists="false" >
-			<n0:source><![CDATA[GRANT DEBUG ON "%USER_NAME%"."F1_DRIVERS" TO "F1_LOGIK";]]></n0:source>
+			<n0:source><![CDATA[GRANT QUERY REWRITE ON "%USER_NAME%"."F1_LAPTIMES" TO "F1_LOGIK";]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>

@@ -83,7 +83,7 @@ as
 
     l_json_doc        clob;
     l_limit           pls_integer := 100;
-    l_offset          pls_integer;
+    l_offset          pls_integer := 0;
     l_total           pls_integer;
     b_fetch_more      boolean := true;
     l_base_url        varchar2(500) := p_i_url||'?limit=';
@@ -1192,7 +1192,15 @@ as
     commit;
 
     insert into f1_data.f1_drivers
-    select * from f1_data.v_f1_drivers;
+    select  trim(driverid) driverid
+            ,permanentNumber
+            ,code
+            ,info
+            ,givenname
+            ,familyname
+            ,dateofbirth
+            ,nationality
+    from f1_data.v_f1_drivers;
     commit;
 
     insert into f1_data.f1_driverstandings
@@ -1202,7 +1210,7 @@ as
            positiontext,
            points,
            wins,
-           driverid,
+           trim(driverid) driverid,
            constructorid
     from f1_data.v_f1_driverstandings;
     commit;
@@ -1238,7 +1246,7 @@ as
            position,
            positiontext,
            points,
-           driverid,
+           trim(driverid) driverid,
            constructorid,
            grid,
            laps,
@@ -1258,7 +1266,7 @@ as
            racedate,
            racetime,
            position,
-           driverid,
+           trim(driverid) driverid,
            constructor as constructorid,
            q1,
            q2,
@@ -1273,7 +1281,7 @@ as
            race_date,
            race_time,
            lap_number,
-           driverid,
+           trim(driverid) driverid,
            position,
            laptime
     from f1_data.v_f1_laptimes;

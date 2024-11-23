@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="c1a2d5b2961c6ea8ba951ad94b9486f142a1fe15" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="0b5b151dbac9c7295614b2f62d989dd82368faf3" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createSxmlObject objectName="F1_DRIVERSTANDINGS" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
@@ -30,14 +30,14 @@
          <COL_LIST_ITEM>
             <NAME>POSITION</NAME>
             <DATATYPE>NUMBER</DATATYPE>
-            <PRECISION>2</PRECISION>
+            <PRECISION>3</PRECISION>
             <SCALE>0</SCALE>
             <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>
             <NAME>POSITIONTEXT</NAME>
             <DATATYPE>VARCHAR2</DATATYPE>
-            <LENGTH>2</LENGTH>
+            <LENGTH>3</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
             <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>

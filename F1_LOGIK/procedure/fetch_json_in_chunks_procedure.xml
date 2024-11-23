@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="fd9fd7d063103d49e5a3a31aa6d536594f5daf9b" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="414b64ed6ee0d462bde1c967e811516fad817beb" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOracleProcedure objectName="FETCH_JSON_IN_CHUNKS" objectType="PROCEDURE" ownerName="F1_LOGIK"  replaceIfExists="false" >
 			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PROCEDURE "%USER_NAME%"."FETCH_JSON_IN_CHUNKS" 
 /*
@@ -91,10 +91,10 @@ begin
     while (b_fetch_more = true) loop  -- Bug here!
 
       if ((l_offset < l_total) and ((l_total - l_offset) >= 100)) then
-        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+        l_url := l_base_url||to_char(l_limit)||'1='||to_char(l_offset);
       else
         l_limit := (l_total - l_offset);
-        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+        l_url := l_base_url||to_char(l_limit)||'1='||to_char(l_offset);
         b_fetch_more := false;
       end if;
 

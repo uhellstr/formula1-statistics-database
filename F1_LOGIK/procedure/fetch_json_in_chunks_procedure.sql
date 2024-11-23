@@ -82,10 +82,10 @@ begin
     while (b_fetch_more = true) loop  -- Bug here!
 
       if ((l_offset < l_total) and ((l_total - l_offset) >= 100)) then
-        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+        l_url := l_base_url||to_char(l_limit)||'1='||to_char(l_offset);
       else
         l_limit := (l_total - l_offset);
-        l_url := l_base_url||to_char(l_limit)||'&offset='||to_char(l_offset);
+        l_url := l_base_url||to_char(l_limit)||'1='||to_char(l_offset);
         b_fetch_more := false;
       end if;
 

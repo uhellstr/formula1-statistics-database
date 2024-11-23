@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="836b2beb969f67f2e56b512d967a97ff942a1c8f" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="346a4c08f88a06229d80e1b7a06a7a6dc02ecc6d" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOraclePackageBody objectName="F1_INIT_PKG" objectType="PACKAGE_BODY" ownerName="F1_LOGIK"  replaceIfExists="false" >
 			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE BODY "%USER_NAME%"."F1_INIT_PKG" 
 as
@@ -92,7 +92,7 @@ as
 
     l_json_doc        clob;
     l_limit           pls_integer := 100;
-    l_offset          pls_integer;
+    l_offset          pls_integer := 0;
     l_total           pls_integer;
     b_fetch_more      boolean := true;
     l_base_url        varchar2(500) := p_i_url||'?limit=';
@@ -1201,7 +1201,15 @@ as
     commit;
 
     insert into f1_data.f1_drivers
-    select * from f1_data.v_f1_drivers;
+    select  trim(driverid) driverid
+            ,permanentNumber
+            ,code
+            ,info
+            ,givenname
+            ,familyname
+            ,dateofbirth
+            ,nationality
+    from f1_data.v_f1_drivers;
     commit;
 
     insert into f1_data.f1_driverstandings
@@ -1211,7 +1219,7 @@ as
            positiontext,
            points,
            wins,
-           driverid,
+           trim(driverid) driverid,
            constructorid
     from f1_data.v_f1_driverstandings;
     commit;
@@ -1247,7 +1255,7 @@ as
            position,
            positiontext,
            points,
-           driverid,
+           trim(driverid) driverid,
            constructorid,
            grid,
            laps,
@@ -1267,7 +1275,7 @@ as
            racedate,
            racetime,
            position,
-           driverid,
+           trim(driverid) driverid,
            constructor as constructorid,
            q1,
            q2,
@@ -1282,7 +1290,7 @@ as
            race_date,
            race_time,
            lap_number,
-           driverid,
+           trim(driverid) driverid,
            position,
            laptime
     from f1_data.v_f1_laptimes;

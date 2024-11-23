@@ -41,7 +41,6 @@
   <include file="ref_constraint/f1_results_fk1_ref_constraint.xml"/> 
   <include file="ref_constraint/f1_results_fk2_ref_constraint.xml"/> 
   <include file="ref_constraint/f1_results_fk3_ref_constraint.xml"/> 
-  <include file="db_link/f1_db_link.xml"/> 
   <include file="index/f1_constructorstandings_idx1_index.xml"/> 
   <include file="index/f1_driverstandings_idx1_index.xml"/> 
   <include file="index/f1_laptimes_idx1_index.xml"/> 
