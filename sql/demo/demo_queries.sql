@@ -277,9 +277,63 @@ order by
 --
 
 --
+-- Percent of points the drivers within a team contributed to constructors title in current season
+--
+with constructor_points as
+(
+select
+   vfc.season
+  ,vfc.race
+  ,vfc.position
+  ,vfc.points
+  ,vfc.wins
+  ,vfc1.name as constructorname
+  ,vfc1.nationality
+from
+        f1_access.v_f1_constructorstandings vfc
+   inner join f1_access.v_f1_constructors vfc1
+   on vfc.constructorid = vfc1.constructorid
+where
+   vfc.season = f1_logik.get_cur_f1_season
+order by
+   vfc.points desc
+)
+, driver_points as
+(
+select
+   vfd.season
+  ,vfd.race
+  ,vfd.points
+  ,vfd.wins
+  ,vfd1.givenname
+  ,vfd1.familyname
+  ,vfc.name as constructorname
+from
+        f1_access.v_f1_driverstandings vfd
+   inner join f1_access.v_f1_drivers      vfd1
+   on vfd1.driverid = vfd.driverid
+   inner join f1_access.v_f1_constructors vfc
+   on vfd.constructorid = vfc.constructorid
+where
+   vfd.season = f1_logik.get_cur_f1_season
+order by
+   vfd.points desc
+)
+select a.season
+       ,a.constructorname
+       ,a.points as constructor_points
+       ,b.familyname
+       ,b.points as driver_points
+       ,round((b.points / a.points) * 100) as percent
+from constructor_points a
+inner join driver_points b
+on a.season = b.season
+and a.constructorname = b.constructorname
+order by a.constructorname,b.familyname;
+
+--
 -- Get number of times a driver scored points and current points in the current or last season.
 --
-
 select
    season
   ,givenname
