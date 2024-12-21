@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="346a4c08f88a06229d80e1b7a06a7a6dc02ecc6d" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="0c726cfd7c19f86903ae7b369bce4b8459e40633" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOraclePackageBody objectName="F1_INIT_PKG" objectType="PACKAGE_BODY" ownerName="F1_LOGIK"  replaceIfExists="false" >
 			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE PACKAGE BODY "%USER_NAME%"."F1_INIT_PKG" 
 as
@@ -27,7 +27,7 @@ as
    lv_retval date;
   begin
 
-    select to_date(race_date,'RRRR-MM-DD') as race_date into lv_retval
+    select race_date into lv_retval
     from f1_data.v_f1_seasons_race_dates
     where season = p_in_season
      and round = p_in_round;

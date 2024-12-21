@@ -18,7 +18,7 @@ as
    lv_retval date;
   begin
 
-    select to_date(race_date,'RRRR-MM-DD') as race_date into lv_retval
+    select race_date into lv_retval
     from f1_data.v_f1_seasons_race_dates
     where season = p_in_season
      and round = p_in_round;

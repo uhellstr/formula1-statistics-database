@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="342c019c3146a0a1157603b30a4abf37e778e740" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="1bd2dea5c982a9dfde77b8d196beff91b3515a6d" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOracleFunction objectName="GET_LAST_RACE" objectType="FUNCTION" ownerName="F1_LOGIK"  replaceIfExists="false" >
 			<n0:source><![CDATA[CREATE OR REPLACE EDITIONABLE FUNCTION "%USER_NAME%"."GET_LAST_RACE" 
 (
@@ -25,7 +25,7 @@ begin
     )
     select case when race = -1 then (select max(to_number(y.round))
                                    from  f1_data.v_f1_races y
-                                   where y.season = to_char(to_number(p_in_cur_year)-1))
+                                   where y.season = to_number(p_in_cur_year))
           else race
           end race
           into lv_retval

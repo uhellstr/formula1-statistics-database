@@ -7,6 +7,7 @@ as
 
  lv_season varchar2(4);
  lv_races  pls_integer;
+ lv_last_season_race_date date;
 
 begin
 
@@ -31,8 +32,20 @@ begin
   from numb_races x
        ,upc_races y;
 
+  select max(race_date) as race_date
+  into lv_last_season_race_date
+  from f1_data.V_F1_SEASONS_RACE_DATES
+  where season =  EXTRACT(YEAR FROM sysdate); 
+
+
   if lv_races = 0 then
-    lv_season := to_char(to_number(to_char(current_date,'RRRR') - 1));
+
+    if lv_races = 0 and extract(YEAR from lv_last_season_race_date) = extract(YEAR from sysdate) then
+      lv_season := to_char(extract(YEAR from sysdate));
+    else
+      lv_season := to_char((extract(YEAR from sysdate) - 1));
+    end if;
+
   else
 
     with future_races as -- We need to handle between seasons where there are no races

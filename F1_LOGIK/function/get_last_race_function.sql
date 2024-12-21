@@ -16,7 +16,7 @@ begin
     )
     select case when race = -1 then (select max(to_number(y.round))
                                    from  f1_data.v_f1_races y
-                                   where y.season = to_char(to_number(p_in_cur_year)-1))
+                                   where y.season = to_number(p_in_cur_year))
           else race
           end race
           into lv_retval

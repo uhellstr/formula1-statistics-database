@@ -5,9 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="4fb533d98940effd10ba9b3ccdffcc89d422beea" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="5ea2ec5e000099648c154fd32e6ec3fa2538ad2f" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOracleGrant objectName="15" objectType="OBJECT_GRANT" ownerName="F1_LOGIK"  replaceIfExists="false" >
-			<n0:source><![CDATA[GRANT EXECUTE ON "%USER_NAME%"."GET_CHECK_SEASON" TO "APEX_F1";]]></n0:source>
+			<n0:source><![CDATA[GRANT EXECUTE ON "%USER_NAME%"."MILLIS_TO_LAPTIME" TO "APEX_F1";]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>

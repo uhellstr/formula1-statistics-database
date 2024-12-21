@@ -5,11 +5,10 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="7c6c95f4e703487466d30c5b10c60baec1bd14df" author="(F1_STAGING)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="99df4ecd3c740ac5af18b79e7c1a35144077968e" author="(F1_STAGING)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createSxmlObject objectName="IND_SEARCH_RACE_F1_JSON_DOCTYPE" objectType="INDEX" ownerName="F1_STAGING"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <INDEX xmlns="http://xmlns.oracle.com/ku" version="1.0">
-   <UNIQUE></UNIQUE>
    <SCHEMA>%USER_NAME%</SCHEMA>
    <NAME>IND_SEARCH_RACE_F1_JSON_DOCTYPE</NAME>
    <TABLE_INDEX>
