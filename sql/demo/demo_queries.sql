@@ -320,33 +320,35 @@ select season
 -- Find all swedish formula 1 drivers and the years they where active
 -- 
 select *
-  from (
-   with get_drivers as (
-      select fd.driverid
-            ,fd.permanentnumber
-            ,fd.code
-            ,givenname
-            ,fd.familyname
-        from v_f1_drivers fd
-       where fd.nationality = 'Swedish'
-   )
-   select get_drivers.driverid
-         ,get_drivers.permanentnumber
-         ,get_drivers.code
-         ,get_drivers.givenname
-         ,get_drivers.familyname
-         ,min(fr.racedate) as starting_race
-         ,max(fr.racedate) as end_race
-     from v_f1_results fr
-    inner join get_drivers
-   on fr.driverid = get_drivers.driverid
-    group by get_drivers.driverid
-            ,get_drivers.permanentnumber
-            ,get_drivers.code
-            ,get_drivers.givenname
-            ,get_drivers.familyname
-)
- order by end_race;
+from
+(
+with get_drivers as (
+select fd.driverid
+      ,fd.permanentnumber
+      ,fd.code
+      ,givenname
+      ,fd.familyname
+  from v_f1_drivers fd
+ where fd.nationality = 'Swedish'
+ )
+ select get_drivers.driverid
+ ,get_drivers.permanentnumber
+ ,get_drivers.code
+ ,get_drivers.givenname
+ ,get_drivers.familyname
+ ,count(fr.racedate) as number_of_starts 
+ ,to_char(min(fr.racedate),'RRRR-MM-DD') as starting_race
+ ,to_char(max(fr.racedate),'RRRR-MM-DD') as end_race
+ ,listagg(distinct(extract(YEAR FROM fr.racedate)),',') within group(order by extract(YEAR FROM fr.racedate)) as years_active
+ from v_f1_results fr
+ inner join get_drivers
+ on fr.driverid = get_drivers.driverid
+ group by get_drivers.driverid 
+   ,get_drivers.permanentnumber
+   ,get_drivers.code
+   ,get_drivers.givenname
+   ,get_drivers.familyname
+) order by starting_race;
 
 REM
 REM Other interesting queries
