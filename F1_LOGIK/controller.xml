@@ -17,9 +17,6 @@
   <include file="function/to_millis_function.xml"/> 
   <include file="procedure/fetch_json_in_chunks_procedure.xml"/> 
   <include file="package_body/f1_init_pkg_package_body.xml"/> 
-  <include file="job/auto_ergast_load_job_job.xml"/> 
-  <include file="job/auto_load_json_schedule_job.xml"/> 
-  <include file="job/auto_load_new_f1_data_job.xml"/> 
   <include file="object_grant/1_object_grant.xml"/> 
   <include file="object_grant/10_object_grant.xml"/> 
   <include file="object_grant/11_object_grant.xml"/> 
