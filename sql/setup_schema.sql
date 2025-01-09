@@ -2,6 +2,38 @@ DECLARE
   lv_count number := 0;
 BEGIN
 
+  SELECT COUNT(*) 
+  INTO lv_count
+  FROM DBA_USERS
+  WHERE USERNAME = 'F1_REST_ACCESS';
+
+  IF lv_count > 0 THEN      
+    EXECUTE IMMEDIATE 'DROP USER F1_REST_ACCESS CASCADE';
+  END IF;
+
+END;
+/
+
+DECLARE
+  lv_count number := 0;
+BEGIN
+
+  SELECT COUNT(*) 
+  INTO lv_count
+  FROM DBA_USERS
+  WHERE USERNAME = 'F1_ACCESS';
+
+  IF lv_count > 0 THEN      
+    EXECUTE IMMEDIATE 'DROP USER F1_ACCESS CASCADE';
+  END IF;
+
+END;
+/
+
+DECLARE
+  lv_count number := 0;
+BEGIN
+
   SELECT COUNT(*)
   INTO lv_count
   FROM DBA_USERS
@@ -51,18 +83,17 @@ DECLARE
   lv_count number := 0;
 BEGIN
 
-  SELECT COUNT(*) 
+  SELECT COUNT(*)
   INTO lv_count
   FROM DBA_USERS
-  WHERE USERNAME = 'F1_REST_ACCESS';
+  WHERE USERNAME = 'APEX_F1';
 
-  IF lv_count > 0 THEN      
-    EXECUTE IMMEDIATE 'DROP USER F1_REST_ACCESS CASCADE';
+  IF lv_count > 0 THEN
+    EXECUTE IMMEDIATE 'DROP USER APEX_F1 CASCADE';
   END IF;
 
 END;
 /
-
 DECLARE
   lv_count number := 0;
 BEGIN
@@ -74,38 +105,6 @@ BEGIN
 
   IF lv_count > 0 THEN      
     EXECUTE IMMEDIATE 'DROP ROLE F1_DATA_FORVALT_ROLE CASCADE';
-  END IF;
-
-END;
-/
-
-DECLARE
-  lv_count number := 0;
-BEGIN
-
-  SELECT COUNT(*) 
-  INTO lv_count
-  FROM DBA_USERS
-  WHERE USERNAME = 'F1_ACCESS';
-
-  IF lv_count > 0 THEN      
-    EXECUTE IMMEDIATE 'DROP USER F1_ACCESS CASCADE';
-  END IF;
-
-END;
-/
-
-DECLARE
-  lv_count number := 0;
-BEGIN
-
-  SELECT COUNT(*)
-  INTO lv_count
-  FROM DBA_USERS
-  WHERE USERNAME = 'APEX_F1';
-
-  IF lv_count > 0 THEN
-    EXECUTE IMMEDIATE 'DROP USER APEX_F1 CASCADE';
   END IF;
 
 END;
