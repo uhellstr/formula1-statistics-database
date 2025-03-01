@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="b67065afb8b0739d76bd1fa67cccafd64e284d45" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="e6d69643a93d55910dcc7eddb7848dc323a7d9e7" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createSxmlObject objectName="F1_RACES" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
@@ -30,7 +30,6 @@
             <DATATYPE>VARCHAR2</DATATYPE>
             <LENGTH>100</LENGTH>
             <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>
-            <NOT_NULL></NOT_NULL>
             <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
          <COL_LIST_ITEM>

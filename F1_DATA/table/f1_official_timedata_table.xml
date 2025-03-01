@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="3fb430a479f094ab25efbbea2ff997c449f0bed2" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="f91c92215f7254e7d1d7db6a6eb0286cdc4670ff" author="(F1_DATA)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createSxmlObject objectName="F1_OFFICIAL_TIMEDATA" objectType="TABLE" ownerName="F1_DATA"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <TABLE xmlns="http://xmlns.oracle.com/ku" version="1.0">
@@ -219,7 +219,7 @@
          <COL_LIST_ITEM>
             <NAME>TRACKSTATUS</NAME>
             <DATATYPE>NUMBER</DATATYPE>
-            <PRECISION>4</PRECISION>
+            <PRECISION>5</PRECISION>
             <SCALE>0</SCALE>
             <ANNOTATION_LIST></ANNOTATION_LIST>
          </COL_LIST_ITEM>
