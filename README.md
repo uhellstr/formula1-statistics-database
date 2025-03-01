@@ -2,7 +2,7 @@
 
 Analyze public formula1 data published on ergast/fastf1 API with Oracle Express/Free edition-
 
-Note: This data CANNOT be used in any kind of commercial application due to how ergast licensing its data.
+Note: This data CANNOT be used in any kind of commercial application due to how jolpa licensing its data.
       You are however free to use this data for your own personal fun and personal development!
 
 Requirements:
@@ -38,7 +38,8 @@ This will take some time ~1-2 hours , check the status some times if fails due t
 It is safe to restart since it will continue to load from where it failed.
 
 Update: I have provided a compact sqlite database that includes all data from 1950-2024 that speeds
-up the processing of updateing the F1 data allot.
+up the processing of updating the F1 data allot especially since jolpa has limits on loads per second
+and no more then 500 calls per hour.
 
 Check out miniconda and add dboracle/cx_oracle with pip to get started.
 If any of the provided python scripts fails to start check them import statements
