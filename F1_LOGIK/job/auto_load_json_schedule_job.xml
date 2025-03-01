@@ -5,12 +5,12 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="11840a293d24b8927a68d2e72144bb299e55c17a" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="108fe1ccbca96aeaed031d4cf7fe1a3070598d91" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOracleJob objectName="AUTO_LOAD_JSON_SCHEDULE" objectType="JOB" ownerName="F1_LOGIK"  replaceIfExists="false" >
 			<n0:source><![CDATA[
 BEGIN 
 dbms_scheduler.disable1_calendar_check();
-dbms_scheduler.create_schedule('AUTO_LOAD_JSON_SCHEDULE',TO_TIMESTAMP_TZ('20-DEC-2024 12.18.42,000000000 PM EUROPE/STOCKHOLM','DD-MON-RRRR HH.MI.SSXFF AM TZR','NLS_DATE_LANGUAGE=english'),
+dbms_scheduler.create_schedule('AUTO_LOAD_JSON_SCHEDULE',TO_TIMESTAMP_TZ('21-DEC-2024 12.13.26,000000000 PM EUROPE/STOCKHOLM','DD-MON-RRRR HH.MI.SSXFF AM TZR','NLS_DATE_LANGUAGE=english'),
 'FREQ=DAILY;BYHOUR=20;BYMINUTE=0;BYSECOND=0;',
 NULL,
 'Autoload any new ergast data'

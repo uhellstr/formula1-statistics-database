@@ -5,9 +5,9 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="070b085cbf40c15479e4ae9eb859119d55d78de3" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="3676e72ee4117b0006568df00f8aa85d99eaea0d" author="(F1_LOGIK)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createOracleGrant objectName="1" objectType="OBJECT_GRANT" ownerName="F1_LOGIK"  replaceIfExists="false" >
-			<n0:source><![CDATA[GRANT EXECUTE ON "%USER_NAME%"."TO_MILLIS" TO "F1_ACCESS";]]></n0:source>
+			<n0:source><![CDATA[GRANT EXECUTE ON "%USER_NAME%"."CONVERT_TIME_TO_NUMERIC" TO "F1_ACCESS";]]></n0:source>
 		</n0:createOracleGrant>
 	</changeSet>
 </databaseChangeLog>

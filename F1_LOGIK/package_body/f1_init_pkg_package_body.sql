@@ -198,7 +198,9 @@ as
       end if;
 
       l_offset := (l_offset + l_limit);
-
+      
+      -- need to handling throttle - max 4 requests per second.
+      dbms_session.sleep(0.5);
       --dbms_output.put_line('offset,limit and total in loop '||to_char(l_offset)||','||l_limit||','||l_total);
 
     end loop; -- while true
@@ -216,47 +218,19 @@ as
   -- Author: Ulf Hellstrom, oraminute@gmail.com
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   begin
-
+    -- To try it out, simply replace ergast.com/api/f1/ with api.jolpi.ca/ergast/f1/
     -- Only one JSON document fetched so we reload it every time.
     delete from f1_staging.f1_json_docs where doc_type = 9;
 
     fetch_json_in_chunks
               (
-                p_i_url => 'http://ergast.com/api/f1/seasons.json'
+                p_i_url => 'http://api.jolpi.ca/ergast/f1/seasons.json'
                 ,p_i_doc_type => 9
                 ,p_i_season => null
                 ,p_i_race => null
                 ,p_i_lapnumber => null
                 ,p_i_racetype => null
               );
-
-    /*
-    insert into f1_staging.f1_json_docs(
-      doc_id
-      ,doc_type
-      ,date_loaded
-      ,season
-      ,race
-      ,lapnumber
-      ,racetype
-      ,f1_document
-    ) values
-    ( 
-      f1_staging.f1_staging_seq.nextval
-      ,9
-      ,systimestamp
-      ,null
-      ,null
-      ,null
-      ,null
-      ,apex_web_service.make_rest_request
-      (
-        p_url => 'http://ergast.com/api/f1/seasons.json?limit=1000',
-        p_http_method => 'GET'
-      )
-    );
-    commit;
-    */
 
   end load_f1_seasons;
 
@@ -276,41 +250,14 @@ as
 
     fetch_json_in_chunks
               (
-                p_i_url => 'http://ergast.com/api/f1/drivers.json'
+                p_i_url => 'http://api.jolpi.ca/ergast/f1/drivers.json'
                 ,p_i_doc_type => 3
                 ,p_i_season => null
                 ,p_i_race => null
                 ,p_i_lapnumber => null
                 ,p_i_racetype => null
               );    
-/*
-    insert into f1_staging.f1_json_docs(
-      doc_id
-      ,doc_type
-      ,date_loaded
-      ,season
-      ,race
-      ,lapnumber
-      ,racetype
-      ,f1_document
-    ) values
-    ( 
-      f1_staging.f1_staging_seq.nextval
-      ,3
-      ,systimestamp
-      ,null
-      ,null
-      ,null
-      ,null    
-      ,apex_web_service.make_rest_request
-        (
-          p_url => 'http://ergast.com/api/f1/drivers.json?limit=1000',
-          p_http_method => 'GET'
-        )
-    );
-    commit;
-*/ 
-
+ 
   end load_f1_drivers;
 
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -329,41 +276,13 @@ as
 
     fetch_json_in_chunks
               (
-                p_i_url => 'http://ergast.com/api/f1/circuits.json'
+                p_i_url => 'http://api.jolpi.ca/ergast/f1/circuits.json'
                 ,p_i_doc_type => 11
                 ,p_i_season => null
                 ,p_i_race => null
                 ,p_i_lapnumber => null
                 ,p_i_racetype => null
               );    
-
-/*
-    insert into f1_staging.f1_json_docs(
-      doc_id
-      ,doc_type
-      ,date_loaded
-      ,season
-      ,race
-      ,lapnumber
-      ,racetype
-      ,f1_document
-    ) values
-    ( 
-      f1_staging.f1_staging_seq.nextval
-      ,11
-      ,systimestamp
-      ,null
-      ,null
-      ,null
-      ,null    
-      ,apex_web_service.make_rest_request
-        (
-          p_url => 'http://ergast.com/api/f1/circuits.json?limit=1000',
-          p_http_method => 'GET'
-        )
-    );
-    commit;
-*/
 
   end load_f1_tracks;
 
@@ -378,7 +297,7 @@ as
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
 
-    url clob := 'http://ergast.com/api/f1/{YEAR}.json';
+    url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}.json';
     calling_url clob;
 
     cursor cur_get_season_year is
@@ -413,35 +332,7 @@ as
               ,p_i_lapnumber => null
               ,p_i_racetype => null
             );
-
-/*
-        insert into f1_staging.f1_json_docs(
-          doc_id
-         ,doc_type
-         ,date_loaded
-         ,season
-         ,race
-         ,lapnumber
-         ,racetype
-         ,f1_document
-        ) values
-        ( 
-          f1_staging.f1_staging_seq.nextval
-          ,7
-          ,systimestamp
-          ,p_in_year
-          ,null
-          ,null
-          ,null    
-          ,apex_web_service.make_rest_request
-           (
-              p_url => p_in_url,
-              p_http_method => 'GET'
-
-           )
-         );
-        commit;
-*/        
+        
       end if;
 
     end get_races;
@@ -466,7 +357,7 @@ as
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
 
-    url clob := 'http://ergast.com/api/f1/{YEAR}/{ROUND}/results.json';
+    url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}/{ROUND}/results.json';
     tmp clob;
     calling_url clob;
     lv_next_round_nr number;
@@ -509,36 +400,9 @@ as
               ,p_i_racetype => null
             );
 
-/*
-        insert into f1_staging.f1_json_docs(
-          doc_id
-         ,doc_type
-         ,date_loaded
-         ,season
-         ,race
-         ,lapnumber
-         ,racetype
-         ,f1_document
-        ) values
-          (   
-            f1_staging.f1_staging_seq.nextval
-            ,8
-            ,systimestamp
-            ,p_in_year
-            ,p_in_round
-            ,null
-            ,null          
-            ,apex_web_service.make_rest_request
-               (
-                  p_url => p_in_url,
-                  p_http_method => 'GET'
-               )
-          );
-        commit;
-*/
       end if;
 
-    end insert_results;
+  end insert_results;
 
   begin
 
@@ -573,41 +437,13 @@ as
 
     fetch_json_in_chunks
               (
-                p_i_url => 'http://ergast.com/api/f1/constructors.json'
+                p_i_url => 'http://api.jolpi.ca/ergast/f1/constructors.json'
                 ,p_i_doc_type => 1
                 ,p_i_season => null
                 ,p_i_race => null
                 ,p_i_lapnumber => null
                 ,p_i_racetype => null
               );      
-
-/*
-    insert into f1_staging.f1_json_docs(
-      doc_id
-      ,doc_type
-      ,date_loaded
-      ,season
-      ,race
-      ,lapnumber
-      ,racetype
-      ,f1_document
-    ) values
-    ( 
-      f1_staging.f1_staging_seq.nextval
-      ,1
-      ,systimestamp
-      ,null
-      ,null
-      ,null
-      ,null    
-      ,apex_web_service.make_rest_request
-        (
-          p_url => 'http://ergast.com/api/f1/constructors.json?limit=1000',
-          p_http_method => 'GET'
-        )
-    );
-    commit;
-*/
 
   end load_f1_constructors;
 
@@ -621,7 +457,7 @@ as
   -- Author: Ulf Hellstrom, oraminute@gmail.com
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
-    url clob := 'http://ergast.com/api/f1/{YEAR}/driverStandings.json';
+    url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}/driverStandings.json';
     calling_url clob;
 
     cursor cur_get_f1_seasons is
@@ -663,34 +499,7 @@ as
               ,p_i_lapnumber => null
               ,p_i_racetype => null
             );
-
-/*
-       insert into f1_staging.f1_json_docs(
-         doc_id
-         ,doc_type
-        ,date_loaded
-        ,season
-        ,race
-        ,lapnumber
-        ,racetype
-        ,f1_document
-        ) values( 
-          f1_staging.f1_staging_seq.nextval
-          ,4
-          ,systimestamp
-          ,p_in_year
-          ,null
-          ,null
-          ,null       
-          ,apex_web_service.make_rest_request
-           (
-              p_url => p_in_url,
-              p_http_method => 'GET'
-
-           )
-        );
-       commit;
-*/       
+       
      end if;
     end insert_results;
 
@@ -712,7 +521,7 @@ as
   -- Author: Ulf Hellstrom, oraminute@gmail.com
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
-    url clob := 'http://ergast.com/api/f1/{YEAR}/constructorStandings.json';
+    url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}/constructorStandings.json';
     calling_url clob;
 
     cursor cur_get_f1_seasons is
@@ -754,34 +563,7 @@ as
               ,p_i_lapnumber => null
               ,p_i_racetype => null
             );
-/*
-       insert into f1_staging.f1_json_docs
-       (
-         doc_id
-         ,doc_type
-         ,date_loaded
-         ,season
-         ,race
-         ,lapnumber
-         ,racetype
-         ,f1_document
-        ) values
-        ( 
-          f1_staging.f1_staging_seq.nextval
-          ,2
-          ,systimestamp
-          ,p_in_year
-          ,null
-          ,null
-          ,null        
-          ,apex_web_service.make_rest_request
-             (
-                p_url => p_in_url,
-                p_http_method => 'GET'
-             )
-       );
-       commit;
-*/
+
      end if;
     end insert_results;
 
@@ -803,7 +585,7 @@ as
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
 
-    url clob := 'http://ergast.com/api/f1/{YEAR}.json';
+    url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}.json';
     calling_url clob;
 
     cursor cur_get_f1_seasons is
@@ -838,34 +620,6 @@ as
               ,p_i_racetype => null
             );
 
-/*
-       insert into f1_staging.f1_json_docs(
-          doc_id
-         ,doc_type
-         ,date_loaded
-         ,season
-         ,race
-         ,lapnumber
-         ,racetype
-         ,f1_document         
-        ) values
-        ( 
-          f1_staging.f1_staging_seq.nextval
-          ,10
-          ,systimestamp
-          ,p_in_year
-          ,null
-          ,null
-          ,null                
-          ,apex_web_service.make_rest_request
-           (
-              p_url => p_in_url,
-              p_http_method => 'GET'
-
-           )
-       );
-       commit;
-*/
      end if;
     end insert_results;
 
@@ -889,7 +643,7 @@ as
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
 
-    url clob := 'http://ergast.com/api/f1/{YEAR}/{ROUND}/qualifying.json';
+    url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}/{ROUND}/qualifying.json';
     calling_url clob;
     tmp_url clob;
     lv_number_of_races number;
@@ -932,35 +686,6 @@ as
               ,p_i_racetype => null
             );
 
-/*
-      insert into f1_staging.f1_json_docs
-        (
-          doc_id
-         ,doc_type
-         ,date_loaded
-         ,season
-         ,race
-         ,lapnumber
-         ,racetype
-         ,f1_document
-        ) values
-        (
-          f1_staging.f1_staging_seq.nextval
-          ,6
-          ,systimestamp
-          ,p_in_year
-          ,p_in_round
-          ,null
-          ,null                        
-          ,apex_web_service.make_rest_request
-          (
-              p_url => p_in_url,
-              p_http_method => 'GET'
-
-          )
-        );
-      commit;
-*/
      end if;
 
     end get_qualitimes;
@@ -1008,7 +733,18 @@ as
   -- Author: Ulf Hellstrom, oraminute@gmail.com
   --%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   is
-    url clob := 'http://ergast.com/api/f1/{YEAR}/{ROUND}/laps/{LAP}.json';
+  
+  /*
+    Are you making calls similar to these?
+        /ergast/f1/2024/17/laps/35.json?offset=0&limit=100
+        /ergast/f1/2024/17/laps/36.json?offset=0&limit=100
+
+        If so I'd recommend removing the filter at the end and use paging instead.
+        e.g. instead of api.jolpi.ca/ergast/f1/2024/17/laps/9.json from 1-70 (or however many laps).
+        Do api.jolpi.ca/ergast/f1/2024/17/laps.json?limit=100?offset=0 for offset of 0,100,etc
+  */
+    url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}/{ROUND}/laps/{LAP}.json';
+    --url clob := 'http://api.jolpi.ca/ergast/f1/{YEAR}/{ROUND}/laps.json';
     calling_url clob;
     tmp_url clob;
     tmp1_url clob;
@@ -1053,34 +789,7 @@ as
               ,p_i_lapnumber => p_in_lap
               ,p_i_racetype => 3
             );
-/*            
-        insert into f1_staging.f1_json_docs
-        (
-          doc_id
-         ,doc_type
-         ,date_loaded
-         ,season
-         ,race
-         ,lapnumber
-         ,racetype
-         ,f1_document
-        ) values
-        ( 
-          f1_staging.f1_staging_seq.nextval
-          ,5
-          ,systimestamp
-          ,p_in_year
-          ,p_in_round
-          ,p_in_lap
-          ,3      
-          ,apex_web_service.make_rest_request
-            (
-              p_url => p_in_url,
-              p_http_method => 'GET'
-            )
-        );
-        commit;
-*/
+
       end if;
      end get_laps;
 
@@ -1219,8 +928,8 @@ as
     select circuitid,
            info,
            circuitname,
-           to_number(lat,'9999.999999','nls_numeric_characters=''.,''') as lat,
-           to_number(longitud,'9999.999999','nls_numeric_characters=''.,''') as longitud,
+           to_number(lat,'9999.9999999999999999','nls_numeric_characters=''.,''') as lat,
+           to_number(longitud,'9999.9999999999999999','nls_numeric_characters=''.,''') as longitud,
            locality,
            country
     from f1_data.v_f1_tracks;
