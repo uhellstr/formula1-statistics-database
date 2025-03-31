@@ -159,13 +159,13 @@ CREATE TABLE IF NOT EXISTS "F1_TRACKS" (
 	"locality"	,
 	"country"	
 );
-CREATE TABLE IF NOT EXISTS "f1_constructors" (
+CREATE TABLE IF NOT EXISTS "F1_CONSTRUCTORS" (
 	"constructorId"	,
 	"url"	,
 	"name"	,
 	"nationality"	
 );
-CREATE VIEW V_F1_CONSTRUCTORS AS
+CREATE VIEW IF NOT EXISTS V_F1_CONSTRUCTORS AS
 SELECT
     json_extract(value, '$.constructorId') AS constructorId,
     json_extract(value, '$.url') AS url,
@@ -176,7 +176,8 @@ FROM
     json_each(json_extract(F1_DOCUMENT, '$.MRData.ConstructorTable.Constructors'))
 WHERE DOC_TYPE = 1.0
 ORDER BY CONSTRUCTORID ASC;
-CREATE VIEW V_F1_CONSTRUCTORSTANDINGS AS
+
+CREATE VIEW IF NOT EXISTS V_F1_CONSTRUCTORSTANDINGS AS
 SELECT
     cast(json_extract(standings.value, '$.season') AS INT) AS season,
     cast(json_extract(standings.value, '$.round') AS INT) AS round,
@@ -193,7 +194,8 @@ FROM
     json_each(json_extract(F1_DOCUMENT, '$.MRData.StandingsTable.StandingsLists')) AS standings,
     json_each(json_extract(standings.value, '$.ConstructorStandings')) AS constructor
 WHERE DOC_TYPE = 2.0;
-CREATE VIEW V_F1_DRIVERS AS
+
+CREATE VIEW IF NOT EXISTS V_F1_DRIVERS AS
 SELECT
     json_extract(value, '$.driverId') AS driverid,
     json_extract(value, '$.url') AS url,
@@ -207,7 +209,8 @@ FROM
     F1_JSON_DOCS,
     json_each(json_extract(F1_DOCUMENT, '$.MRData.DriverTable.Drivers'))
 WHERE DOC_TYPE = 3.0;
-CREATE VIEW V_F1_DRIVERSTANDINGS AS
+
+CREATE VIEW IF NOT EXISTS V_F1_DRIVERSTANDINGS AS
 SELECT
     cast(json_extract(standings.value, '$.season') AS INT) AS season,
     cast(json_extract(standings.value, '$.round') AS INT) AS round,
@@ -233,7 +236,8 @@ FROM
     json_each(json_extract(standings.value, '$.DriverStandings')) AS driver_standing,
     json_each(json_extract(driver_standing.value, '$.Constructors')) AS constructor
 WHERE DOC_TYPE = 4.0;
-CREATE VIEW V_F1_JSON_DOCS AS
+
+CREATE VIEW IF NOT EXISTS V_F1_JSON_DOCS AS
 SELECT cast(fd.DOC_ID AS INT) AS DOC_ID
        ,fj.DOC_TYPE
 	   ,datetime(fd.DATE_LOADED) as DATE_LOADED
@@ -246,7 +250,8 @@ FROM F1_JSON_DOCS fd
 INNER JOIN F1_JSON_DOCTYPE fj
 ON fd.DOC_TYPE = fj.ID
 ORDER BY datetime(fd.date_loaded) DESC;
-CREATE VIEW V_F1_LAPTIMES AS
+
+CREATE VIEW IF NOT EXISTS V_F1_LAPTIMES AS
 SELECT
     cast(json_extract(race.value, '$.season') AS INT) AS season,
     cast(json_extract(race.value, '$.round') AS INT) AS round,
@@ -272,7 +277,8 @@ FROM
     LEFT JOIN json_each(json_extract(race.value, '$.Laps')) AS lap
     LEFT JOIN json_each(json_extract(lap.value, '$.Timings')) AS timing
 WHERE DOC_TYPE = 5.0;
-CREATE VIEW V_F1_QUALIFICATIONTIMES AS
+
+CREATE VIEW IF NOT EXISTS V_F1_QUALIFICATIONTIMES AS
 SELECT
     cast(json_extract(F1_DOCUMENT, '$.MRData.RaceTable.season') AS INT) AS season,
     cast(json_extract(F1_DOCUMENT, '$.MRData.RaceTable.round') AS INT) AS round,
@@ -309,7 +315,8 @@ FROM F1_JSON_DOCS,
     json_each(F1_DOCUMENT, '$.MRData.RaceTable.Races') r
 LEFT JOIN json_each(r.value, '$.QualifyingResults') q
 WHERE DOC_TYPE = 6.0;
-CREATE VIEW V_F1_RACERESULTS AS
+
+CREATE VIEW IF NOT EXISTS V_F1_RACERESULTS AS
 SELECT
     cast(json_extract(race.value, '$.season') AS INT) AS season,
     cast(json_extract(race.value, '$.round') AS INT) AS round,
@@ -338,7 +345,8 @@ FROM F1_JSON_DOCS,
     json_each(F1_DOCUMENT, '$.MRData.RaceTable.Races') race
 LEFT JOIN json_each(race.value, '$.Results') result
 WHERE DOC_TYPE = 8.0;
-CREATE VIEW V_F1_RACES AS
+
+CREATE VIEW IF NOT EXISTS V_F1_RACES AS
 SELECT
     cast(json_extract(race.value, '$.season') AS INT) AS season,
     cast(json_extract(race.value, '$.round') AS INT) AS round,
@@ -356,14 +364,16 @@ FROM
     F1_JSON_DOCS,
     json_each(json_extract(F1_DOCUMENT, '$.MRData.RaceTable.Races')) AS race
 WHERE DOC_TYPE = 7.0;
-CREATE VIEW V_F1_SEASONS AS
+
+CREATE VIEW IF NOT EXISTS V_F1_SEASONS AS
 SELECT
     cast(json_extract(season.value, '$.season') AS INT) AS season,
     json_extract(season.value, '$.url') AS season_url
 FROM F1_JSON_DOCS,
     json_each(F1_DOCUMENT, '$.MRData.SeasonTable.Seasons') season
 WHERE DOC_TYPE = 9.0;
-CREATE VIEW V_F1_TRACKS AS
+
+CREATE VIEW IF NOT EXISTS V_F1_TRACKS AS
 SELECT
     json_extract(value, '$.circuitId') AS circuitid,
     json_extract(value, '$.url') AS url,
@@ -376,6 +386,7 @@ FROM
     F1_JSON_DOCS,
     json_each(json_extract(F1_DOCUMENT, '$.MRData.CircuitTable.Circuits'))
 WHERE DOC_TYPE = 11.0;
+
 CREATE INDEX IF NOT EXISTS "F1_CONSTRUCTORSTANDINGS_IDX1" ON "F1_CONSTRUCTORSTANDINGS" (
 	"SEASON",
 	"ROUND"
@@ -406,4 +417,35 @@ CREATE INDEX IF NOT EXISTS "IDX_F1_JSON_DOCS" ON "F1_JSON_DOCS" (
 	"RACE",
 	"LAPNUMBER"
 );
+
+DELETE FROM F1_CONSTRUCTORS;
+INSERT INTO F1_CONSTRUCTORS SELECT * FROM V_F1_CONSTRUCTORS;
+
+DELETE FROM F1_CONSTRUCTORSTANDINGS;
+INSERT INTO F1_CONSTRUCTORSTANDINGS SELECT * FROM V_F1_CONSTRUCTORSTANDINGS;
+
+DELETE FROM F1_DRIVERS;
+INSERT INTO F1_DRIVERS SELECT * FROM V_F1_DRIVERS;
+
+DELETE FROM F1_DRIVERSTANDINGS;
+INSERT INTO F1_DRIVERSTANDINGS SELECT * FROM V_F1_DRIVERSTANDINGS;
+
+DELETE FROM F1_LAPTIMES;
+INSERT INTO F1_LAPTIMES SELECT * FROM V_F1_LAPTIMES;
+
+DELETE FROM F1_QUALIFICATIONTIMES;
+INSERT INTO F1_QUALIFICATIONTIMES SELECT * FROM V_F1_QUALIFICATIONTIMES;
+
+DELETE FROM F1_RACERESULTS;
+INSERT INTO F1_RACERESULTS SELECT * FROM V_F1_RACERESULTS;
+
+DELETE FROM F1_RACES;
+INSERT INTO F1_RACES SELECT * FROM V_F1_RACES;
+
+DELETE FROM F1_SEASONS;
+INSERT INTO F1_SEASONS SELECT * FROM V_F1_SEASONS;
+
+DELETE FROM F1_TRACKS;
+INSERT INTO F1_TRACKS SELECT * FROM V_F1_TRACKS;
+
 COMMIT;
