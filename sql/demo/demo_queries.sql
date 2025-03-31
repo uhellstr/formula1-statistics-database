@@ -273,7 +273,7 @@ select a.season
       ,a.points as constructor_points
       ,b.familyname
       ,b.points as driver_points
-      ,round((b.points / a.points) * 100) as percent
+      ,round((b.points / NULLIF(a.points,0) * 100)) as percent
   from constructor_points a
  inner join driver_points b
 on a.season = b.season
