@@ -200,7 +200,7 @@ SELECT
     json_extract(value, '$.driverId') AS driverid,
     json_extract(value, '$.url') AS url,
     json_extract(value, '$.givenName') AS givenmame,
-    json_extract(value, '$.familyName') AS familymame,
+    json_extract(value, '$.familyName') AS familyname,
     json_extract(value, '$.dateOfBirth') AS dateofbirth,
     json_extract(value, '$.nationality') AS nationality,
     json_extract(value, '$.code') AS code,
