@@ -57,7 +57,8 @@ import getpass
 import base64
 import os
 import time
-import fastf1 fastf1.ergast.interface.BASE_URL = "https://api.jolpi.ca/ergast/f1" as ff1
+import fastf1 as ff1
+ff1.ergast.interface.BASE_URL = "https://api.jolpi.ca/ergast/f1"
 
 # Import oraclepackage module
 workingdir = os.getcwd()
