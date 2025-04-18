@@ -5,7 +5,7 @@
 	xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-	<changeSet id="be0fae1a88fdbf64c9f03c2e148872dde63df14c" author="(F1_ACCESS)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
+	<changeSet id="336ccd6761a0f7c60b8caddbaac811f490cbc429" author="(F1_ACCESS)-Generated" failOnError="true"   runOnChange="false" runAlways="false"  >
 		<n0:createSxmlObject objectName="V_F1_DRIVERSTANDINGS" objectType="VIEW" ownerName="F1_ACCESS"  replaceIfExists="false" >
 			<n0:source><![CDATA[
   <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
@@ -47,7 +47,23 @@
       </COL_LIST_ITEM>
    </COL_LIST>
    <ANNOTATION_LIST></ANNOTATION_LIST>
-   <SUBQUERY>select "SEASON","RACE","POSITION","POSITIONTEXT","POINTS","WINS","DRIVERID","CONSTRUCTORID" from F1_DATA.F1_DRIVERSTANDINGS</SUBQUERY>
+   <SUBQUERY>select fds.season,
+       fds.race,
+       fds.position,
+       fds.positiontext,
+       fds.points,
+       fds.wins,
+       fds.driverid,
+       (case 
+           when fds.constructorid is null then 
+               (select vfr.constructorid 
+                from v_f1_results vfr
+                where vfr.season = fds.season
+                  and vfr.driverid = fds.driverid
+                  and vfr.race = fds.race)
+           else fds.constructorid
+        end) as constructorid
+from f1_data.f1_driverstandings fds</SUBQUERY>
 </VIEW>]]></n0:source>
 		</n0:createSxmlObject>
 	</changeSet>
