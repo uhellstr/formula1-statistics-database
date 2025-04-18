@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS "F1_DRIVERS" (
 	"driverid"	,
 	"url"	,
 	"givenmame"	,
-	"familymame"	,
+	"familyname"	,
 	"dateofbirth"	,
 	"nationality"	,
 	"code"	,
