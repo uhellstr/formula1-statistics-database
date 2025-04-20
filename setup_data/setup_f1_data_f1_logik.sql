@@ -129,6 +129,7 @@ using the provided python script f1_json_oracle.py
     from f1_data.v_f1_laptimes;
     commit;
 
+-- Count up the sequence counter in Oracle so that we end up in trouble later
 DECLARE
   l_seq_currval number;
   l_seq_updateval number;
