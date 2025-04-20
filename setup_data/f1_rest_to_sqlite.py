@@ -50,7 +50,12 @@ CREATE TABLE IF NOT EXISTS F1_JSON_DOCS (
 )
 """)
 
-# Step 6: Fetch data from REST API and insert into F1_JSON_DOCS
+# Step 6: Delete any data in F1_JSON_DOCS with DOC_TYPE = 12
+cursor.execute("DELETE FROM F1_JSON_DOCS WHERE DOC_TYPE = 12")
+conn.commit()
+print("Old data in F1_JSON_DOCS with DOC_TYPE = 12 has been deleted.")
+
+# Step 7: Fetch data from REST API and insert into F1_JSON_DOCS
 base_url = "https://fedora-oracle-linux--amd-lon1-01:8443/ords/f1_rest_access/f1_laptime_data/"
 limit = 1000
 offset = 0
