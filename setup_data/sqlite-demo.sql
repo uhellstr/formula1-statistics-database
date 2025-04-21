@@ -98,3 +98,92 @@ LEFT JOIN (
 ON 1 = 1 -- Join to calculate the difference with the fastest lap overall
 ORDER BY f.LAPTIME_MS ASC;
 
+--
+-- Rewrite the query above to a view instead 
+--
+
+--DROP VIEW V_F1_OFFICIAL_QUALIFICATION_TIMEDATA ;
+
+CREATE VIEW V_F1_OFFICIAL_QUALIFICATION_TIMEDATA AS
+WITH laptime_ms_calculated AS (
+    SELECT 
+        SEASON,
+        RACE,
+        RACETYPE,
+        DATAPOINT,
+        TIME,
+        DRIVER,
+        DRIVERNUMBER,
+        LAPTIME,
+        (
+            CAST(SUBSTR(LAPTIME, 1, 2) AS INTEGER) * 3600000 +
+            CAST(SUBSTR(LAPTIME, 4, 2) AS INTEGER) * 60000 +
+            CAST(SUBSTR(LAPTIME, 7, 2) AS INTEGER) * 1000 +
+            CAST(SUBSTR(LAPTIME, 10, 3) AS INTEGER)
+        ) AS LAPTIME_MS,
+        LAPNUMBER
+    FROM F1_OFFICIAL_TIMEDATA
+    WHERE LAPTIME IS NOT NULL
+      AND RACETYPE = 'Q'
+),
+fastest_lap_per_driver AS (
+    SELECT 
+        l1.SEASON,
+        l1.RACE,
+        l1.RACETYPE,
+        l1.DRIVER,
+        l1.LAPTIME,
+        l1.LAPTIME_MS,
+        l1.LAPNUMBER
+    FROM laptime_ms_calculated l1
+    WHERE LAPTIME_MS = (
+        SELECT MIN(l2.LAPTIME_MS)
+        FROM laptime_ms_calculated l2
+        WHERE l2.DRIVER = l1.DRIVER
+          AND l2.SEASON = l1.SEASON
+          AND l2.RACE = l1.RACE
+          AND l2.RACETYPE = l1.RACETYPE
+    )
+),
+overall_fastest AS (
+    SELECT 
+        SEASON,
+        RACE,
+        RACETYPE,
+        MIN(LAPTIME_MS) AS FASTEST_LAPTIME_MS
+    FROM fastest_lap_per_driver
+    GROUP BY SEASON, RACE, RACETYPE
+)
+SELECT 
+    f.SEASON,
+    f.RACE,
+    f.RACETYPE,
+    f.DRIVER,
+    printf('%02d:%02d:%02d.%03d',
+        f.LAPTIME_MS / 3600000,
+        (f.LAPTIME_MS % 3600000) / 60000,
+        (f.LAPTIME_MS % 60000) / 1000,
+        f.LAPTIME_MS % 1000
+    ) AS FORMATTED_LAPTIME,
+    printf('%02d:%02d:%02d.%03d',
+        (f.LAPTIME_MS - o.FASTEST_LAPTIME_MS) / 3600000,
+        ((f.LAPTIME_MS - o.FASTEST_LAPTIME_MS) % 3600000) / 60000,
+        ((f.LAPTIME_MS - o.FASTEST_LAPTIME_MS) % 60000) / 1000,
+        (f.LAPTIME_MS - o.FASTEST_LAPTIME_MS) % 1000
+    ) AS TIME_DIFF
+FROM fastest_lap_per_driver f
+JOIN overall_fastest o
+  ON f.SEASON = o.SEASON
+ AND f.RACE = o.RACE
+ AND f.RACETYPE = o.RACETYPE
+ORDER BY f.LAPTIME_MS ASC;
+
+
+--
+-- Now we can ask for  different seasons and races.
+--
+
+SELECT *
+FROM V_F1_OFFICIAL_QUALIFICATION_TIMEDATA
+WHERE season = '2025'
+  AND race = 5;
