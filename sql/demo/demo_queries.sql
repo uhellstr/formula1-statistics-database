@@ -40,6 +40,8 @@ on vt.circuitid = vr.circuitid
 
 select vfd.season
       ,vfd.race
+      ,vfr.racename
+      ,vfr.circuitid
       ,vfd.points
       ,vfd.wins
       ,vfd1.givenname
@@ -50,6 +52,8 @@ select vfd.season
 on vfd1.driverid = vfd.driverid
  inner join f1_access.v_f1_constructors vfc
 on vfd.constructorid = vfc.constructorid
+  inner join f1_access.v_f1_races vfr
+on vfr.round = vfd.race and vfr.season = vfd.season
  where vfd.season = f1_logik.get_cur_f1_season
       -- result cache function used here to calculate current season to speed up things.
  order by vfd.points desc;
