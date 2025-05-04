@@ -5,7 +5,7 @@ to speed up the build of the F1 statistical
 database in oracle.
 
 After setting up the Oracle database, install APEX,
-createing the dabase schemas and then load the
+creating the dabase schemas and then load the
 database objects using liquibase you can fast load
 the oracle database with data without having to
 run the job to load the data wich will take long time and has restriction on how many calls you can
@@ -15,9 +15,9 @@ To fast load the Formula one database
 
 1. unzip f1.zip this will end up with f1.sqlite database.
 
-2. Make sure you have python 3 installed and look
+2. Make sure you have python3 (and sqlite3) installed and look
 at the import section of the f1_json_oracle.py
-and use pip or conda to install the packages if they
+and use pip or conda (if you use conda) to install the packages if they
 are not already installed on your system.
 
 3. Then run python ./f1_json_oracle.py to load
