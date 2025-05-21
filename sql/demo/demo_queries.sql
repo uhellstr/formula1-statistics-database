@@ -106,15 +106,15 @@ select vfq.season
    when vfq.q3 is not null
       and vfq.q2 is not null
       and vfq.q1 is not null then
-      q3
+      vfq.q3
    when vfq.q3 is null
       and vfq.q2 is not null
       and vfq.q1 is not null then
-      q2
+      vfq.q2
    when vfq.q3 is null
       and vfq.q2 is null
       and vfq.q1 is not null then
-      q1
+      vfq.q1
    else
       null
         end as qualification_time
