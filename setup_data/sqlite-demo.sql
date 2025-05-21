@@ -1,3 +1,8 @@
+CREATE INDEX IF NOT EXISTS F1_OFFICIAL_TIMEDATA_IDX ON F1_OFFICIAL_TIMEDATA (
+"SEASON",
+"RACE",
+"RACETYPE"
+);
 -- The last qualifying times for the 2025 season, round 4
 SELECT   season
          , round as race
