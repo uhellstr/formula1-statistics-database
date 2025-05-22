@@ -219,9 +219,9 @@ select season
     where vfr.season = f1_logik.get_cur_f1_season
       and vfr.position < 4
       and vfs.race = (
-      select max(race)
-        from f1_access.v_f1_driverstandings
-       where season = f1_logik.get_cur_f1_season
+      select max(vds.race)
+        from f1_access.v_f1_driverstandings vds
+       where vds.season = f1_logik.get_cur_f1_season
    )
     group by vfs.season
             ,vfd.givenname
