@@ -65,6 +65,11 @@ def migrate_data(sqlite_conn, oracle_conn, oracle_columns):
     oracle_cursor = oracle_conn.cursor()
     
     try:
+        
+        delete_sql = f"DELETE FROM F1_JSON_DOCS"
+        oracle_cursor.execute(delete_sql)
+        oracle_conn.commit()
+        
         sqlite_cursor.execute("SELECT * FROM F1_JSON_DOCS")
         rows = sqlite_cursor.fetchall()
         
