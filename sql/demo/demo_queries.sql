@@ -1,7 +1,7 @@
 -- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -- This is a testsuite of different queries against the F1 database
 --                   Run these queries as F1_ACCESS
--- Author: Ulf Hellstrom Epico Tech 2020 -2023
+-- Author: Ulf Hellstrom Epico Tech 2020-2025
 -- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 -- If you need more data for dbms_xplan
@@ -35,6 +35,7 @@ on vt.circuitid = vr.circuitid
  where vr.season = f1_logik.get_cur_f1_season
  order by vr.season desc
          ,to_number(vr.round) asc;
+
 
 -- Give us the current driver standings in the current season or if between seasons the last season
 
