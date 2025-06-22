@@ -107,29 +107,29 @@ ORDER BY f.LAPTIME_MS ASC;
 -- Rewrite the query above to a view instead 
 --
 
---DROP VIEW V_F1_OFFICIAL_QUALIFICATION_TIMEDATA ;
+DROP VIEW V_F1_OFFICIAL_QUALIFICATION_TIMEDATA ;
 
 CREATE VIEW V_F1_OFFICIAL_QUALIFICATION_TIMEDATA AS
 WITH laptime_ms_calculated AS (
     SELECT 
-        SEASON,
-        RACE,
-        RACETYPE,
-        DATAPOINT,
-        TIME,
-        DRIVER,
-        DRIVERNUMBER,
-        LAPTIME,
+        fot.SEASON,
+        fot.RACE,
+        fot.RACETYPE,
+        fot.DATAPOINT,
+        fot.TIME,
+        fot.DRIVER,
+        fot.DRIVERNUMBER,
+        fot.LAPTIME,
         (
-            CAST(SUBSTR(LAPTIME, 1, 2) AS INTEGER) * 3600000 +
-            CAST(SUBSTR(LAPTIME, 4, 2) AS INTEGER) * 60000 +
-            CAST(SUBSTR(LAPTIME, 7, 2) AS INTEGER) * 1000 +
-            CAST(SUBSTR(LAPTIME, 10, 3) AS INTEGER)
+            CAST(SUBSTR(fot.LAPTIME, 1, 2) AS INTEGER) * 3600000 +
+            CAST(SUBSTR(fot.LAPTIME, 4, 2) AS INTEGER) * 60000 +
+            CAST(SUBSTR(fot.LAPTIME, 7, 2) AS INTEGER) * 1000 +
+            CAST(SUBSTR(fot.LAPTIME, 10, 3) AS INTEGER)
         ) AS LAPTIME_MS,
-        LAPNUMBER
-    FROM F1_OFFICIAL_TIMEDATA
-    WHERE LAPTIME IS NOT NULL
-      AND RACETYPE = 'Q'
+        fot.LAPNUMBER
+    FROM F1_OFFICIAL_TIMEDATA fot
+    WHERE fot.LAPTIME IS NOT NULL
+      AND fot.RACETYPE = 'Q'
 ),
 fastest_lap_per_driver AS (
     SELECT 
@@ -162,6 +162,7 @@ overall_fastest AS (
 SELECT 
     f.SEASON,
     f.RACE,
+	r.RACENAME,
     f.RACETYPE,
     f.DRIVER,
     printf('%02d:%02d:%02d.%03d',
@@ -181,6 +182,9 @@ JOIN overall_fastest o
   ON f.SEASON = o.SEASON
  AND f.RACE = o.RACE
  AND f.RACETYPE = o.RACETYPE
+ JOIN V_F1_RACES r
+ ON f.season = r.season
+ AND f.race = r.round
 ORDER BY f.LAPTIME_MS ASC;
 
 
