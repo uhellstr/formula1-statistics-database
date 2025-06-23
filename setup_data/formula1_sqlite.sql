@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS "F1_CONSTRUCTORSTANDINGS" (
 CREATE TABLE IF NOT EXISTS "F1_DRIVERS" (
 	"driverid"	,
 	"url"	,
-	"givenmame"	,
+	"givenname"	,
 	"familyname"	,
 	"dateofbirth"	,
 	"nationality"	,
