@@ -21,7 +21,7 @@ select vfd.season
       ,vfr.circuitid
       ,vfd.points
       ,vfd.wins
-      ,vfd1.givenmame
+      ,vfd1.givenname
       ,vfd1.familyname
       ,vfc.name as constructorname
  from v_f1_driverstandings vfd
