@@ -2,7 +2,24 @@
 
 The purpose of providing an sqlite database is
 to speed up the build of the F1 statistical
-database in oracle.
+database in oracle. But you can also build
+a sqlite database if you prefer.
+
+# Using sqlite to analyze f1 data.
+
+If you want to use sqlite insted of Oracle
+unzip the f1.zip database and then in sqlite
+run the script formula1_sqlite.sql to create
+necessary tables and views up to the latest
+race that f1.zip include. 
+
+Note: 
+
+There is no python script for loading the sqlite databas
+with future races that is up to the user
+to build themselves.
+
+## The Oracle part!
 
 After setting up the Oracle database, install APEX,
 creating the dabase schemas and then load the
