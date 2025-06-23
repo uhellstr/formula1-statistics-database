@@ -33,3 +33,17 @@ on vfd.constructorid = vfc.constructorid
 on vfr.round = vfd.round and vfr.season = vfd.season
  where vfd.season = 2025
  order by vfd.points desc;
+ 
+ -- get constructor standings in current season.
+ select vfc.season
+      ,vfc.round
+      ,vfc.position
+      ,vfc.points
+      ,vfc.wins
+      ,vfc1.name as constructorname
+      ,vfc1.nationality
+from v_f1_constructorstandings vfc
+inner join v_f1_constructors vfc1
+on vfc.constructorid = vfc1.constructorid
+where vfc.season = 2025
+order by vfc.points desc;
