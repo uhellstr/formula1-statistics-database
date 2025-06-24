@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="98a9300ca3d91b930e1d48328201898e9585ccae" author="(F1_DATA)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createSxmlObject objectName="V_F1_DRIVERSTANDINGS" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="false" >
+    <n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>%USER_NAME%</SCHEMA>
+   <NAME>V_F1_DRIVERSTANDINGS</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>SEASON</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POSITION</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POSITIONTEXT</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POINTS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>WINS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>DRIVERID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>PERMANENTNUMBER</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CODE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>INFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>GIVENNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>FAMILYNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>DATEOFBIRTH</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>NATIONALITY</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORINFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORNATIONALITY</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
+   <SUBQUERY>select to_number(f1.season) as season,
+       to_number(f1.race) as race,
+       to_number(f1.position) as position,
+       f1.positionText,
+       to_number(f1.points,'999.99','nls_numeric_characters=''.,''') as points,
+       to_number(f1.wins) as wins,
+       f1.driverId,
+       f1.permanentNumber,
+       f1.code,
+       f1.info,
+       f1.givenname,
+       f1.familyName,
+       f1.dateOfBirth,
+       f1.nationality,
+       f1.constructorId,
+       f1.constructorinfo,
+       f1.constructorname,
+       f1.constructornationality
+from f1_staging.v_f1_json_docs ftab,
+     json_table(ftab.f1_document,'$.MRData.StandingsTable.StandingsLists[*]'
+                COLUMNS ( season PATH '$.season',
+                          race PATH '$.round',
+                          nested path '$.DriverStandings[*]'
+                          COLUMNS
+                           (
+                             position PATH '$.position',
+                             positionText PATH '$.positionText',
+                             points PATH '$.points',
+                             wins PATH '$.wins',
+                             driverId PATH '$.Driver.driverId',
+                             permanentNumber PATH '$.Driver.permanentNumber',
+                             code PATH '$.Driver.code',
+                             info PATH '$.Driver.url',
+                             givenname PATH '$.Driver.givenName',
+                             familyName PATH '$.Driver.familyName',
+                             dateOfBirth PATH '$.Driver.dateOfBirth',
+                             nationality PATH '$.Driver.nationality',
+                             constructorId PATH '$.Constructors.constructorId',
+                             constructorinfo PATH '$.Constructors.url',
+                             constructorname PATH '$.Constructors.name',
+                             constructornationality PATH '$.Constructors.nationality'
+                           )
+                       )   
+               ) f1 
+where ftab.doc_type = 'DRIVERSSTANDINGS'               
+order by to_number(f1.season),to_number(f1.race),to_number(f1.position)</SUBQUERY>
+</VIEW>]]></n0:source>
+      </n0:createSxmlObject>
+ </changeSet>
+</databaseChangeLog>

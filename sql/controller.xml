@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+-->
+<databaseChangeLog 
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <include file="table/f1_constructors_table.xml"/> 
+  <include file="table/f1_constructorstandings_table.xml"/> 
+  <include file="table/f1_drivers_table.xml"/> 
+  <include file="table/f1_driverstandings_table.xml"/> 
+  <include file="table/f1_laptimes_table.xml"/> 
+  <include file="table/f1_official_timedata_table.xml"/> 
+  <include file="table/f1_official_weather_table.xml"/> 
+  <include file="table/f1_qualificationtimes_table.xml"/> 
+  <include file="table/f1_races_table.xml"/> 
+  <include file="table/f1_results_table.xml"/> 
+  <include file="table/f1_season_table.xml"/> 
+  <include file="table/f1_tracks_table.xml"/> 
+  <include file="view/v_f1_constructors_view.xml"/> 
+  <include file="view/v_f1_constructorstandings_view.xml"/> 
+  <include file="view/v_f1_drivers_view.xml"/> 
+  <include file="view/v_f1_driverstandings_view.xml"/> 
+  <include file="view/v_f1_laptimes_view.xml"/> 
+  <include file="view/v_f1_last_race_results_view.xml"/> 
+  <include file="view/v_f1_qualificationtimes_view.xml"/> 
+  <include file="view/v_f1_races_view.xml"/> 
+  <include file="view/v_f1_results_view.xml"/> 
+  <include file="view/v_f1_season_view.xml"/> 
+  <include file="view/v_f1_seasons_race_dates_view.xml"/> 
+  <include file="view/v_f1_tracks_view.xml"/> 
+  <include file="view/v_f1_upcoming_races_view.xml"/> 
+  <include file="ref_constraint/f1_constructorstandings_fk1_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_driverstandings_fk1_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_laptimes_fk2_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_qualificationtimes_fk1_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_races_fk1_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_results_fk1_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_results_fk2_ref_constraint.xml"/> 
+  <include file="ref_constraint/f1_results_fk3_ref_constraint.xml"/> 
+  <include file="index/f1_constructorstandings_idx1_index.xml"/> 
+  <include file="index/f1_driverstandings_idx1_index.xml"/> 
+  <include file="index/f1_laptimes_idx1_index.xml"/> 
+  <include file="index/f1_qualificationtimes_idx1_index.xml"/> 
+  <include file="index/f1_races_idx1_index.xml"/> 
+  <include file="index/f1_results_idx1_index.xml"/> 
+  <include file="index/ind1_official_timedata_index.xml"/> 
+  <include file="index/in_f1_official_weather_index.xml"/> 
+  <include file="comment/f1_constructors_comment.xml"/> 
+  <include file="comment/f1_constructorstandings_comment.xml"/> 
+</databaseChangeLog> 

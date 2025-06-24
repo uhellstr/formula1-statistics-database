@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 
+ xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:n0="http://www.oracle.com/xml/ns/dbchangelog-ext" 
+ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+ <changeSet id="cf2f07e3717f27517d9be1480ea3ad320019faf2" author="(F1_DATA)-Generated" failOnError="true"    runOnChange="false"  runAlways="false"  runInTransaction="false"  >
+  <n0:createSxmlObject objectName="V_F1_CONSTRUCTORSTANDINGS" objectType="VIEW" ownerName="F1_DATA"  replaceIfExists="false" >
+    <n0:source><![CDATA[
+  <VIEW xmlns="http://xmlns.oracle.com/ku" version="1.0">
+   <SCHEMA>%USER_NAME%</SCHEMA>
+   <NAME>V_F1_CONSTRUCTORSTANDINGS</NAME>
+   <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>
+   <COL_LIST>
+      <COL_LIST_ITEM>
+         <NAME>SEASON</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>RACE</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POSITION</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POSITIONTEXT</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>POINTS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>WINS</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORID</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORINFO</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORNAME</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+      <COL_LIST_ITEM>
+         <NAME>CONSTRUCTORNATIONALITY</NAME>
+         <ANNOTATION_LIST></ANNOTATION_LIST>
+      </COL_LIST_ITEM>
+   </COL_LIST>
+   <ANNOTATION_LIST></ANNOTATION_LIST>
+   <SUBQUERY>select  to_number(f1.season) as season,
+        to_number(f1.race) as race,
+        to_number(f1.position) as position,
+        f1.positionText,
+        --f1.points as points_text,
+        to_number(f1.points,'999.99') as points,
+        to_number(f1.wins) as wins,                             
+        f1.constructorId,
+        f1.constructorinfo,
+        f1.constructorname,
+        f1.constructornationality
+from f1_staging.v_f1_json_docs ftab,
+     json_table(ftab.f1_document,'$.MRData.StandingsTable.StandingsLists[*]'
+                COLUMNS ( season PATH '$.season',
+                          race PATH '$.round',
+                          nested path '$.ConstructorStandings[*]'
+                          COLUMNS
+                           (
+                             position PATH '$.position',
+                             positionText PATH '$.positionText',
+                             points PATH '$.points',
+                             wins PATH '$.wins',                             
+                             constructorId PATH '$.Constructor.constructorId',
+                             constructorinfo PATH '$.Constructor.url',
+                             constructorname PATH '$.Constructor.name',
+                             constructornationality PATH '$.Constructor.nationality'
+                           )
+                       )   
+               ) f1 
+where ftab.doc_type = 'CONSTRUCTORSTANDINGS'               
+order by to_number(f1.season),to_number(f1.race)</SUBQUERY>
+</VIEW>]]></n0:source>
+      </n0:createSxmlObject>
+ </changeSet>
+</databaseChangeLog>
