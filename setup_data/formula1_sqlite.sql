@@ -86,36 +86,6 @@ CREATE TABLE IF NOT EXISTS "F1_LAPTIMES" (
 	"lap_time_ms"	
 );
 
-CREATE TABLE IF NOT EXISTS "F1_QUALIFICATIONRESULTS" (
-	"season"	INT,
-	"round"	INT,
-	"race_season"	INT,
-	"race_round"	INT,
-	"race_url"	,
-	"race_name"	,
-	"race_date"	,
-	"circuit_id"	,
-	"circuit_url"	,
-	"circuit_name"	,
-	"latitude"	REAL,
-	"longitude"	REAL,
-	"locality"	,
-	"country"	,
-	"driver_number"	,
-	"qualifying_position"	INT,
-	"qualifying_time"	,
-	"driver_id"	,
-	"driver_url"	,
-	"driver_given_name"	,
-	"driver_family_name"	,
-	"driver_dob"	,
-	"driver_nationality"	,
-	"constructor_id"	,
-	"constructor_url"	,
-	"constructor_name"	,
-	"constructor_nationality"	
-);
-
 CREATE TABLE  IF NOT EXISTS F1_QUALIFICATION_LAPS(
   season,
   round,
@@ -309,44 +279,6 @@ FROM
     LEFT JOIN json_each(json_extract(lap.value, '$.Timings')) AS timing
 WHERE DOC_TYPE = 5.0;
 
-CREATE VIEW IF NOT EXISTS V_F1_QUALIFICATIONRESULTS AS
-SELECT
-    cast(json_extract(F1_DOCUMENT, '$.MRData.RaceTable.season') AS INT) AS season,
-    cast(json_extract(F1_DOCUMENT, '$.MRData.RaceTable.round') AS INT) AS round,
-    cast(json_extract(r.value, '$.season') AS INT) AS race_season,
-    cast(json_extract(r.value, '$.round') AS INT) AS race_round,
-    json_extract(r.value, '$.url') AS race_url,
-    json_extract(r.value, '$.raceName') AS race_name,
-    json_extract(r.value, '$.date') AS race_date,
-    -- Circuit Information
-    json_extract(r.value, '$.Circuit.circuitId') AS circuit_id,
-    json_extract(r.value, '$.Circuit.url') AS circuit_url,
-    json_extract(r.value, '$.Circuit.circuitName') AS circuit_name,
-    cast(json_extract(r.value, '$.Circuit.Location.lat') AS REAL) AS latitude,
-    cast(json_extract(r.value, '$.Circuit.Location.long') AS REAL) AS longitude,
-    json_extract(r.value, '$.Circuit.Location.locality') AS locality,
-    json_extract(r.value, '$.Circuit.Location.country') AS country,
-    -- Qualifying Results
-    json_extract(q.value, '$.number') AS driver_number,
-    cast(json_extract(q.value, '$.position') AS INT) AS qualifying_position,
-    json_extract(q.value, '$.Q1') AS qualifying_time,
-    -- Driver Information
-    json_extract(q.value, '$.Driver.driverId') AS driver_id,
-    json_extract(q.value, '$.Driver.url') AS driver_url,
-    json_extract(q.value, '$.Driver.givenName') AS driver_given_name,
-    json_extract(q.value, '$.Driver.familyName') AS driver_family_name,
-    json_extract(q.value, '$.Driver.dateOfBirth') AS driver_dob,
-    json_extract(q.value, '$.Driver.nationality') AS driver_nationality,
-    -- Constructor Information
-    json_extract(q.value, '$.Constructor.constructorId') AS constructor_id,
-    json_extract(q.value, '$.Constructor.url') AS constructor_url,
-    json_extract(q.value, '$.Constructor.name') AS constructor_name,
-    json_extract(q.value, '$.Constructor.nationality') AS constructor_nationality
-FROM F1_JSON_DOCS,
-    json_each(F1_DOCUMENT, '$.MRData.RaceTable.Races') r
-LEFT JOIN json_each(r.value, '$.QualifyingResults') q
-WHERE DOC_TYPE = 6.0;
-
 CREATE VIEW IF NOT EXISTS V_F1_QUALIFICATIONTIMES AS
 SELECT
     json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.season') AS season,
@@ -453,11 +385,6 @@ CREATE INDEX IF NOT EXISTS "F1_LAPTIMES_IDX1" ON "F1_LAPTIMES" (
 	"ROUND"
 );
 
-CREATE INDEX IF NOT EXISTS "F1_QUALIFICATIONRESULTS_IDX1" ON "F1_QUALIFICATIONRESULTS" (
-	"SEASON",
-	"ROUND"
-);
-
 CREATE INDEX IF NOT EXISTS "F1_QUALIFICATION_LAPS_IDX1" ON "F1_QUALIFICATION_LAPS" (
 	"SEASON",
 	"ROUND"
@@ -494,9 +421,6 @@ INSERT INTO F1_DRIVERSTANDINGS SELECT * FROM V_F1_DRIVERSTANDINGS;
 
 DELETE FROM F1_LAPTIMES;
 INSERT INTO F1_LAPTIMES SELECT * FROM V_F1_LAPTIMES;
-
-DELETE FROM F1_QUALIFICATIONRESULTS;
-INSERT INTO F1_QUALIFICATIONRESULTS SELECT * FROM V_F1_QUALIFICATIONRESULTS;
 
 DELETE FROM F1_QUALIFICATION_LAPS;
 INSERT INTO F1_QUALIFICATION_LAPS SELECT * FROM V_F1_QUALIFICATIONTIMES;
