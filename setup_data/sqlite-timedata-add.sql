@@ -4,33 +4,6 @@ CREATE INDEX IF NOT EXISTS F1_OFFICIAL_TIMEDATA_IDX ON F1_OFFICIAL_TIMEDATA (
 "RACETYPE"
 );
 
--- The last qualifying times for the 2025 season, round 4
-SELECT   season
-         , round as race
-         , race_name
-         , race_date
-         , circuit_id
-         , circuit_name
-         , latitude
-         , longitude
-         , locality
-         , country
-         , driver_number
-         , qualifying_position
-         , qualifying_time
-         , driver_id
-         , driver_given_name
-         , driver_family_name
-         , driver_dob
-         , driver_nationality
-         , constructor_id
-         , constructor_name
-         , constructor_nationality
-FROM F1_QUALIFICATIONRESULTS
-where season = 2025
-  and round = 4
-order by qualifying_position asc;
-
 -- This SQL script calculates the fastest lap time for each driver in 2025 season, race 5, qualifying session.
 -- It also formats the lap time and calculates the difference from the overall fastest lap time.
 -- The script assumes the existence of a table named F1_OFFICIAL_TIMEDATA with relevant columns.
