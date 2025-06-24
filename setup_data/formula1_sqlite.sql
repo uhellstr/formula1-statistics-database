@@ -116,6 +116,23 @@ CREATE TABLE IF NOT EXISTS "F1_QUALIFICATIONRESULTS" (
 	"constructor_nationality"	
 );
 
+CREATE TABLE  IF NOT EXISTS F1_QUALIFICATION_LAPS(
+  season,
+  round,
+  position,
+  car_number,
+  driver_id,
+  given_name,
+  family_name,
+  driver_nationality,
+  constructor_id,
+  constructor_name,
+  constructor_nationality,
+  Q1,
+  Q2,
+  Q3
+);
+
 CREATE TABLE IF NOT EXISTS "F1_RACERESULTS" (
 	"season"	INT,
 	"round"	INT,
@@ -330,6 +347,26 @@ FROM F1_JSON_DOCS,
 LEFT JOIN json_each(r.value, '$.QualifyingResults') q
 WHERE DOC_TYPE = 6.0;
 
+CREATE VIEW IF NOT EXISTS V_F1_QUALIFICATIONTIMES AS
+SELECT
+    json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.season') AS season,
+    json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.round') AS round,
+    json_extract(result.value, '$.position') AS position,
+    json_extract(result.value, '$.number') AS car_number,
+    json_extract(result.value, '$.Driver.driverId') AS driver_id,
+    json_extract(result.value, '$.Driver.givenName') AS given_name,
+    json_extract(result.value, '$.Driver.familyName') AS family_name,
+    json_extract(result.value, '$.Driver.nationality') AS driver_nationality,
+    json_extract(result.value, '$.Constructor.constructorId') AS constructor_id,
+    json_extract(result.value, '$.Constructor.name') AS constructor_name,
+    json_extract(result.value, '$.Constructor.nationality') AS constructor_nationality,
+    json_extract(result.value, '$.Q1') AS Q1,
+    json_extract(result.value, '$.Q2') AS Q2,
+    json_extract(result.value, '$.Q3') AS Q3
+FROM F1_JSON_DOCS AS doc,
+     json_each(json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.Races[0].QualifyingResults')) AS result
+WHERE doc.DOC_TYPE = 6;
+
 CREATE VIEW IF NOT EXISTS V_F1_RACERESULTS AS
 SELECT
     cast(json_extract(race.value, '$.season') AS INT) AS season,
@@ -405,26 +442,37 @@ CREATE INDEX IF NOT EXISTS "F1_CONSTRUCTORSTANDINGS_IDX1" ON "F1_CONSTRUCTORSTAN
 	"SEASON",
 	"ROUND"
 );
+
 CREATE INDEX IF NOT EXISTS "F1_DRIVERSTANDINGS_IDX1" ON "F1_DRIVERSTANDINGS" (
 	"SEASON",
 	"ROUND"
 );
+
 CREATE INDEX IF NOT EXISTS "F1_LAPTIMES_IDX1" ON "F1_LAPTIMES" (
 	"SEASON",
 	"ROUND"
 );
-CREATE INDEX IF NOT EXISTS "F1_QUALIFICATIONTIMES_IDX1" ON "F1_QUALIFICATIONRESULTS" (
+
+CREATE INDEX IF NOT EXISTS "F1_QUALIFICATIONRESULTS_IDX1" ON "F1_QUALIFICATIONRESULTS" (
 	"SEASON",
 	"ROUND"
 );
+
+CREATE INDEX IF NOT EXISTS "F1_QUALIFICATION_LAPS_IDX1" ON "F1_QUALIFICATION_LAPS" (
+	"SEASON",
+	"ROUND"
+);
+
 CREATE INDEX IF NOT EXISTS "F1_RACES_IDX1" ON "F1_RACES" (
 	"SEASON",
 	"ROUND"
 );
+
 CREATE INDEX IF NOT EXISTS "F1_RESULTS_IDX1" ON "F1_RACERESULTS" (
 	"SEASON",
 	"ROUND"
 );
+
 CREATE INDEX IF NOT EXISTS "IDX_F1_JSON_DOCS" ON "F1_JSON_DOCS" (
 	"DOC_TYPE",
 	"SEASON",
@@ -449,6 +497,9 @@ INSERT INTO F1_LAPTIMES SELECT * FROM V_F1_LAPTIMES;
 
 DELETE FROM F1_QUALIFICATIONRESULTS;
 INSERT INTO F1_QUALIFICATIONRESULTS SELECT * FROM V_F1_QUALIFICATIONRESULTS;
+
+DELETE FROM F1_QUALIFICATION_LAPS;
+INSERT INTO F1_QUALIFICATION_LAPS SELECT * FROM V_F1_QUALIFICATIONTIMES;
 
 DELETE FROM F1_RACERESULTS;
 INSERT INTO F1_RACERESULTS SELECT * FROM V_F1_RACERESULTS;
