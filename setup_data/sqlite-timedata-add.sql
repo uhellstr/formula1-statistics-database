@@ -3,6 +3,7 @@ CREATE INDEX IF NOT EXISTS F1_OFFICIAL_TIMEDATA_IDX ON F1_OFFICIAL_TIMEDATA (
 "RACE",
 "RACETYPE"
 );
+
 -- The last qualifying times for the 2025 season, round 4
 SELECT   season
          , round as race
@@ -25,7 +26,7 @@ SELECT   season
          , constructor_id
          , constructor_name
          , constructor_nationality
-FROM F1_QUALIFICATIONTIMES
+FROM F1_QUALIFICATIONRESULTS
 where season = 2025
   and round = 4
 order by qualifying_position asc;

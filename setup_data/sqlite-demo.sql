@@ -7,8 +7,8 @@ select vr.season
       ,vt.circuitname
       ,vt.locality
       ,vt.country
-  from v_f1_tracks vt
- inner join v_f1_races vr
+  from f1_tracks vt
+ inner join f1_races vr
 on vt.circuitid = vr.circuitid
  where vr.season = 2025
  order by vr.season desc
@@ -24,12 +24,12 @@ select vfd.season
       ,vfd1.givenname
       ,vfd1.familyname
       ,vfc.name as constructorname
- from v_f1_driverstandings vfd
- inner join v_f1_drivers vfd1
+ from f1_driverstandings vfd
+ inner join f1_drivers vfd1
 on vfd1.driverid = vfd.driverid
- inner join v_f1_constructors vfc
+ inner join f1_constructors vfc
 on vfd.constructorid = vfc.constructorid
-  inner join v_f1_races vfr
+  inner join f1_races vfr
 on vfr.round = vfd.round and vfr.season = vfd.season
  where vfd.season = 2025
  order by vfd.points desc;
@@ -42,8 +42,9 @@ on vfr.round = vfd.round and vfr.season = vfd.season
       ,vfc.wins
       ,vfc1.name as constructorname
       ,vfc1.nationality
-from v_f1_constructorstandings vfc
-inner join v_f1_constructors vfc1
+from f1_constructorstandings vfc
+inner join f1_constructors vfc1
 on vfc.constructorid = vfc1.constructorid
 where vfc.season = 2025
 order by vfc.points desc;
+
