@@ -87,9 +87,9 @@ CREATE TABLE IF NOT EXISTS "F1_LAPTIMES" (
 );
 
 CREATE TABLE  IF NOT EXISTS F1_QUALIFICATION_LAPS(
-  season,
-  round,
-  position,
+  season INT,
+  round INT,
+  position INT,
   car_number,
   driver_id,
   given_name,
@@ -281,9 +281,9 @@ WHERE DOC_TYPE = 5.0;
 
 CREATE VIEW IF NOT EXISTS V_F1_QUALIFICATIONTIMES AS
 SELECT
-    json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.season') AS season,
-    json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.round') AS round,
-    json_extract(result.value, '$.position') AS position,
+    cast(json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.season') AS INT) AS season,
+    cast(json_extract(doc.F1_DOCUMENT, '$.MRData.RaceTable.round') AS INT) AS round,
+    cast(json_extract(result.value, '$.position') AS INT) AS position,
     json_extract(result.value, '$.number') AS car_number,
     json_extract(result.value, '$.Driver.driverId') AS driver_id,
     json_extract(result.value, '$.Driver.givenName') AS given_name,
@@ -353,7 +353,7 @@ SELECT
     cast(json_extract(season.value, '$.season') AS INT) AS season,
     json_extract(season.value, '$.url') AS season_url
 FROM F1_JSON_DOCS,
-    json_each(F1_DOCUMENT, '$.MRData.SeasonTable.Seasons') season
+    json_each(json_extract(F1_DOCUMENT, '$.MRData.SeasonTable.Seasons')) AS season
 WHERE DOC_TYPE = 9.0;
 
 CREATE VIEW IF NOT EXISTS V_F1_TRACKS AS
@@ -370,13 +370,67 @@ FROM
     json_each(json_extract(F1_DOCUMENT, '$.MRData.CircuitTable.Circuits'))
 WHERE DOC_TYPE = 11.0;
 
-CREATE VIEW IF NOT EXISTS V_CURRENT_YEAR AS
-SELECT CAST(strftime('%Y', 'now') AS INTEGER) AS current_year;
-
-CREATE VIEW IF NOT EXISTS V_LAST_RACE AS
-SELECT MAX(ROUND) AS LAST_RACE
-FROM F1_RACERESULTS
-WHERE SEASON = (SELECT CURRENT_YEAR FROM V_CURRENT_YEAR);
+CREATE VIEW IF NOT EXISTS V_QUALIFICATION_TIME_DIFF AS
+WITH base_times AS (
+  SELECT
+    season,
+    round,
+    driver_id,
+    family_name,
+    constructor_name,
+    CASE
+		WHEN LENGTH(Q3) > 0 THEN Q3
+		WHEN LENGTH(Q2) > 0 THEN Q2
+		WHEN LENGTH(Q1) > 0 THEN Q1
+		ELSE NULL
+  END AS best_qual_time
+  FROM F1_QUALIFICATION_LAPS
+),
+parsed_times AS (
+  SELECT
+    *,
+    CAST(substr(best_qual_time, 1, instr(best_qual_time, ':') - 1) AS INTEGER) * 60000 +
+    CAST(substr(best_qual_time, instr(best_qual_time, ':') + 1, 2) AS INTEGER) * 1000 +
+    CAST(substr(best_qual_time, instr(best_qual_time, '.') + 1) AS INTEGER) AS time_ms
+  FROM base_times
+  WHERE best_qual_time IS NOT NULL
+),
+fastest_per_race AS (
+  SELECT
+    season,
+    round,
+    MIN(time_ms) AS fastest_ms
+  FROM parsed_times
+  GROUP BY season, round
+)
+SELECT
+  bt.season,
+  bt.round,
+  bt.driver_id,
+  bt.family_name,
+  bt.constructor_name,
+  bt.best_qual_time,
+  pt.time_ms - fpr.fastest_ms AS diff_ms,
+  CASE
+    WHEN pt.time_ms IS NOT NULL THEN
+      printf('%02d:%02d:%06.3f',
+        (pt.time_ms - fpr.fastest_ms) / 3600000,
+        ((pt.time_ms - fpr.fastest_ms) % 3600000) / 60000,
+        ((pt.time_ms - fpr.fastest_ms) % 60000) / 1000.0
+      )
+    ELSE NULL
+  END AS formatted_diff
+FROM base_times bt
+LEFT JOIN parsed_times pt
+  ON bt.season = pt.season AND bt.round = pt.round AND bt.driver_id = pt.driver_id
+LEFT JOIN fastest_per_race fpr
+  ON bt.season = fpr.season AND bt.round = fpr.round
+ORDER BY
+  bt.season,
+  bt.round,
+  diff_ms IS NULL,
+  diff_ms;
+  
 
 CREATE INDEX IF NOT EXISTS "F1_CONSTRUCTORSTANDINGS_IDX1" ON "F1_CONSTRUCTORSTANDINGS" (
 	"SEASON",
