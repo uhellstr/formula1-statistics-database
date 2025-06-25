@@ -19,11 +19,15 @@ can initialize the libsql database with:
 sqld -d /<path/formula1 --http-listen-addr=127.0.0.1:8008
 ```
 The application requires that libSQL listen on port 8008. Either
-change the code or start libSQL with
+change the code or start libSQL using port 8008 (Default is 8000).
 
 Stop libSQL (Normally Ctrl+C) and
 then copy your f1.sqlite to
 <Your path>/formula1formula1/dbs/default/data
+
+Note: See instruction in the subdirectory setup_data
+to expand the sqlite database with necessary tables
+and views.
 
 Then you can start libSQL with
 the formula1 database as:
