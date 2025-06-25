@@ -103,7 +103,7 @@ To install fastf1 use pip like
 - pip install fastf1
 
 Note: First initial load of data from Official Formula 1 can take allot of time (we talk hours). It will load all datapoints for fp1,fp2,fp3,Qualification and race
-starting with season 2018. However if you break or loose network connection it will use cache functionality so you it will continue or skipping
+starting with season 2018. However if you break or loose network connection it will use cache functionality so the code will continue or skipping
 to download alredy downloaded data. It also take some diskspace. Downloading all data can take 30-50GB of diskspace to keep the cache intact.
 As long as you have already installed datapoints into the oracle database you can clear the cache directory. Anytime you run the code it will
 check if the datapoint already is loaded in the database. If then it will not try to download any data at all.
