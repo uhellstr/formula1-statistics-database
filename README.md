@@ -31,38 +31,47 @@ Oracle ORDS >= 22.4 installed (Further instructions on this is planned , but mai
 Follow the instructions in the README_FIRST.md in the sql subdirectory.
 Don't forget to change password for F1_STAGING,F1_DATA,F1_LOGIK,F1_ACCESS and F1_REST_ACCESS.
 
-Loading future or historical Ergast data into the database is done thru DBMS_SCHEDULER. 
+Loading future or historical Jolpa data into the database is done thru DBMS_SCHEDULER. 
 The F1_LOGIK.AUTO_ERGAST_LOAD_JOB runs workdays at 20:00, you can change this to suite your need.
 After installation it is recommended to start the job manually to start load data into the database.
 This will take some time ~1-2 hours , check the status some times if fails due to networking issues
 It is safe to restart since it will continue to load from where it failed.
 
-Update: I have provided a compact sqlite database that includes all data from 1950-2024 that speeds
+Update: I have provided a compact sqlite database that includes all data from 1950- and at least last years season that speeds
 up the processing of updating the F1 data allot especially since jolpa has limits on loads per second
 and no more then 500 calls per hour.
+
+Additional formula 1 data can be loaded if using an Oracle database. 
+For this you need python3 installed and dboracle/cx_oracle plugins.
 
 Check out miniconda and add dboracle/cx_oracle with pip to get started.
 If any of the provided python scripts fails to start check them import statements
 and instll the missing API's with pip or conda.
 
-After seting up the oracle database and using sqlCmdline and provided liquibase scripts to
+After setting up the oracle database and using sqlCmdline and provided liquibase scripts to
 create all objects in the database you can insert all necessary data by:
 
-1. Unzip the f1.zip file in the setup_data catalog.
+1. Unzip the f1.zip file in the setup_data catalog (A compact sqlite database with all data in JSON format).
 2. Then run the python script f1_json_oracle.py
    Connect to the sqlite database by given the path and f1.sqlite as parameter to the python script.
 3. Then connect to the oracle database F1_STAGING schema by enter hostname,username,password,service_name.
 4. The script will insert all necessary JSON documents into F1_JSON_DOCS in the F1_STAGING schema.
-   Note: You might need to change the NLS settings in the python script. Or temporary set your NLS settings to swedish.
+
+   Note: You might need to change the NLS settings on the client side in the python script.
+   Or temporary set your NLS settings to swedish.
+
    This because we will need to set some formatting for TIMESTAMP column in the F1_JSON_DOCS table on the oracle side.
-5. After you get all the data inserted into F1_JSON_DOCS in the oracle instance you can setup all the data using the
+
+6. After you get all the data inserted into F1_JSON_DOCS in the oracle instance you can setup all the data using the
    provided SQL script f1_data_f1_logik.sql. Run this script as F1_LOGIK schema in the oracle database and you can
    now check in F1_ACCESS schema that you have all the data in place.
 
 I will update the provided f1 sqlite database after each season.
 And ofcause you could actually use the sqlite database as a standalone database if you prefer that from using an
-Oracle database. libSQL provides a way of writing node , python applications reading the data directly from the
-sqlite database (even remote applications) if you want to do your analysis that way. If you check the sqlite database you will find i provide json-relational views that tranforms json to relational data that you can use for all kinds of analysis.
+Oracle database. libSQL provides a way of writing node , python or javascript applications reading the data 
+directly from the sqlite database (even remote applications) if you want to do your analysis that way. 
+If you check the sqlite database you will find i provide json-relational views that tranforms json to relational data 
+that you can use for all kinds of analysis.
 
 I recommend you to check at libSQL and provided API's for javascript,python etc if you prefer that way of analyzing
 Formula 1 historical data.
@@ -70,8 +79,9 @@ Formula 1 historical data.
 # Getting started with analysing formula 1 data.
 
 See the demo_queries.sql file in the sql/demo subdirectory.
+See the demo_sqlite in the setup_data subdirectory if you prefer sqlite.
 
-# Extra data from Official Formula 1 using python and fastf1.
+# Extra data from Official Formula 1 using python and fastf1 for an Oracle database.
 
 In the directory python you can use the f1_timingdata to load official timing and weather data from Formula 1.
 Before attempting to use this python program you need to install python 3, have an instant client 21c installed that work
@@ -86,6 +96,7 @@ You can install Miniconda for your own local user and using provided shell addit
 python environment. cx_Oracle requires an working Oracle Instant Client environment and with miniconda you can install it with
 
 - conda install cx_Oracle
+- conda or pip install dboracle
 
 To install fastf1 use pip like
 
