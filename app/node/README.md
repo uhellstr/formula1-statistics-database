@@ -37,13 +37,13 @@ sqld -d <path to libsql formula1 catalog> --http-listen-addr=127.0.0.1:8008
 ```
 For the node part you need to install node and npm. Check your distribution for instructions.
 
-Then copy the content of the subdirectory app/node/f1-qualification-viewer to your prefered directory.
+Then copy the content of the subdirectory app/node/f1-viewer to your prefered directory.
 
-Navigate to f1-qualifying-viewer catalog and initialize node and
+Navigate to f1-viewer catalog and initialize node and
 required packages with
 
 ```
-cd f1-qualification-viewer
+cd f1-viewer
 npm init -y
 npm install express axios
 ```
@@ -52,7 +52,7 @@ Now you should be able to run the
 demo application using.
 
 ```
-cd f1-qualification-viewer
+cd f1-viewer
 node server.js
 ```
 Use locahost:3000 to run the application in your browser.
