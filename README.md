@@ -14,7 +14,8 @@ Requirements:
 - Oracle Java >= 11 JDK 
 - Oracle SQLcl >= 24.2 complete installation and future maintenance is done with SQLcl liquibase.
 - Or if you prefer you can use the provided compact sqlite database directly for all historical
-  data until right now until the end of the 2024 season. 
+  data. It will be updated regular but do not include any code for scheduled update. If you
+  want that you need to write your own code or use the Oracle version. 
 
 A very easy way to get started is to install the Oracle Developers FREE 23c database that is free for use for us all!
 See: https://www.oracle.com/database/free/
