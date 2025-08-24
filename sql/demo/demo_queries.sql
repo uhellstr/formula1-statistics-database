@@ -72,7 +72,7 @@ select vfc.season
  inner join f1_access.v_f1_constructors vfc1
 on vfc.constructorid = vfc1.constructorid
  where vfc.season = f1_logik.get_cur_f1_season
-      -- result cache function used here to calculate current season to speed up things.
+-- result cache function used here to calculate current season to speed up things.
  order by vfc.points desc;
 
 -- Get the starting grid for the latest race in current season or
@@ -342,7 +342,7 @@ group by d.driverid,
          d.code,
          d.givenname,
          d.familyname
-order by starting_race;
+order by number_of_starts desc;
 
 REM
 REM Other interesting queries
