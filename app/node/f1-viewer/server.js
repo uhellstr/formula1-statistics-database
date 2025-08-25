@@ -6,11 +6,7 @@ const app = express();
 
 const PORT = 3000;
 
-
-
 app.use(express.static('public'));
-
-
 
 app.get('/qualifying', async (req, res) => {
 
