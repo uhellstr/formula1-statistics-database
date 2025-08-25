@@ -14,8 +14,6 @@ app.get('/qualifying', async (req, res) => {
 
   const race = req.query.race || '1';
 
-
-
   try {
 
     const response = await axios.post('http://127.0.0.1:8008', {
@@ -39,8 +37,6 @@ app.get('/qualifying', async (req, res) => {
     const rows = response.data[0].results.rows;
 
     const columns = response.data[0].results.columns;
-
-
 
     res.json({ columns, rows });
 
