@@ -59,6 +59,7 @@ on vfr.round = vfd.race and vfr.season = vfd.season
       -- result cache function used here to calculate current season to speed up things.
  order by vfd.points desc;
 
+
 -- Give us the current constructor standings in the current season or if between seasons the last season
 
 select vfc.season
