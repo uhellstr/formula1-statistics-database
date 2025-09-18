@@ -73,7 +73,8 @@ conn.commit()
 print("Old data in F1_JSON_DOCS with DOC_TYPE = 12 has been deleted.")
 
 # Step 7: Fetch data from REST API and insert into F1_JSON_DOCS
-base_url = "https://fedora-oracle-linux--amd-lon1-01:8443/ords/f1_rest_access/f1_laptime_data/"
+base_url =  "http://161.35.33.87:8080/ords/f1/f1_rest_access/f1_laptime_data"
+#base_url = "https://fedora-oracle-linux--amd-lon1-01:8443/ords/f1_rest_access/f1_laptime_data/"
 limit = 1000
 offset = 0
 doc_type = 12
@@ -187,7 +188,8 @@ cursor.execute("DELETE FROM F1_JSON_DOCS WHERE DOC_TYPE = 13")
 conn.commit()
 print("Old data in F1_JSON_DOCS with DOC_TYPE = 13 has been deleted.")
 
-base_url = "https://fedora-oracle-linux--amd-lon1-01:8443/ords/f1_rest_access/f1_weather_data/"
+base_url = "http://161.35.33.87:8080/ords/f1/f1_rest_access/f1_weather_data"
+#base_url = "https://fedora-oracle-linux--amd-lon1-01:8443/ords/f1_rest_access/f1_weather_data/"
 limit = 1000
 offset = 0
 doc_type = 13
