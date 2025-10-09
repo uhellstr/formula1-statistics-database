@@ -215,7 +215,7 @@ WHERE (DRIVERID = 'max_verstappen' OR DRIVERID = 'verstappen')
     '70th Anniversary Grand Prix','Las Vegas Grand Prix'
   )
   AND SEASON >= 2015
-ORDER BY RACENAME, RACEDATE;
+ORDER BY  RACEDATE DESC;
 
 
 
