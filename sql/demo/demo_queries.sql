@@ -167,7 +167,7 @@ on vfr.circuitid = vft.circuitid
    and position is not null
    and vfr.race = f1_logik.get_last_race(f1_logik.get_cur_f1_season)
  order by to_number(vfr.position) asc
- fetch first 10 rows only;
+ fetch first 10 rows only
 
 -- Check number of laps a driver hold a certain position on track in the current season or last season if in between seasons.
 select season
@@ -197,6 +197,26 @@ select season
 )
  order by position asc
          ,laps_hold_position desc;
+
+-- Shw me the tracks where Verstappen never has won
+
+SELECT DISTINCT RACENAME, RACEDATE
+FROM V_F1_RESULTS
+WHERE (DRIVERID = 'max_verstappen' OR DRIVERID = 'verstappen')
+  AND (POSITION <> 1 OR UPPER(POSITIONTEXT) = 'DNF' OR UPPER(STATUS) = 'DNF')
+  AND RACENAME NOT IN (
+    'Spanish Grand Prix','Italian Grand Prix','Azerbaijan Grand Prix','São Paulo Grand Prix',
+    'Qatar Grand Prix','Japanese Grand Prix','Emilia Romagna Grand Prix','French Grand Prix',
+    'Saudi Arabian Grand Prix','Hungarian Grand Prix','Belgian Grand Prix','Chinese Grand Prix',
+    'Abu Dhabi Grand Prix','Dutch Grand Prix','Canadian Grand Prix','Monaco Grand Prix',
+    'United States Grand Prix','Mexico City Grand Prix','Austrian Grand Prix','Bahrain Grand Prix',
+    'Malaysian Grand Prix','German Grand Prix','Styrian Grand Prix','Australian Grand Prix',
+    'Mexican Grand Prix','Miami Grand Prix','British Grand Prix','Brazilian Grand Prix',
+    '70th Anniversary Grand Prix','Las Vegas Grand Prix'
+  )
+ORDER BY RACENAME;
+
+
 
 --
 -- Number of times drivers been on podium and there current points in the current or last season.
