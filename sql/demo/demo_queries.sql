@@ -167,7 +167,7 @@ on vfr.circuitid = vft.circuitid
    and position is not null
    and vfr.race = f1_logik.get_last_race(f1_logik.get_cur_f1_season)
  order by to_number(vfr.position) asc
- fetch first 10 rows only
+ fetch first 10 rows only;
 
 -- Check number of laps a driver hold a certain position on track in the current season or last season if in between seasons.
 select season
@@ -200,7 +200,7 @@ select season
 
 -- Shw me the tracks where Verstappen never has won
 
-SELECT DISTINCT RACENAME, RACEDATE
+SELECT DISTINCT RACENAME, RACEDATE, POSITION,  STATUS, POINTS
 FROM V_F1_RESULTS
 WHERE (DRIVERID = 'max_verstappen' OR DRIVERID = 'verstappen')
   AND (POSITION <> 1 OR UPPER(POSITIONTEXT) = 'DNF' OR UPPER(STATUS) = 'DNF')
@@ -214,7 +214,8 @@ WHERE (DRIVERID = 'max_verstappen' OR DRIVERID = 'verstappen')
     'Mexican Grand Prix','Miami Grand Prix','British Grand Prix','Brazilian Grand Prix',
     '70th Anniversary Grand Prix','Las Vegas Grand Prix'
   )
-ORDER BY RACENAME;
+  AND SEASON >= 2015
+ORDER BY RACENAME, RACEDATE;
 
 
 
