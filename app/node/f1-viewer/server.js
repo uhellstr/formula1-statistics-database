@@ -13,7 +13,7 @@ app.get('/qualifying', async (req, res) => {
   const season = req.query.season || '2025';
 
   const race = req.query.race || '1';
-
+    
   try {
 
     const response = await axios.post('http://127.0.0.1:8008', {

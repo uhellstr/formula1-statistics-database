@@ -406,8 +406,7 @@ REM
 REM With data in f1_data.f1_official_timedata we can do some additional analysis
 REM
 REM This requires that you load data using provided f1_timingdata python program
-REM
-
+REM           
 -- Try to calculate possible race speed using FP2 and stint 4 for Hamilton
 -- for race 11 in season 2023
 -- We use function for converting a laptime string hh:mm:ss:ms to numeric millisends
@@ -423,6 +422,7 @@ select count(*) as number_of_laps_in_stint_4
    and race = 11
    and stint = 4
    and laptime is not null
+   and median_laptime is not null
  order by lapnumber;
      --> 00:01:24.232
 
